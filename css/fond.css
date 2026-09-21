@@ -1,0 +1,69 @@
+/* Fond : gravure rouge sang révélée sous la souris (ou le pouce). */
+
+:root {
+  --mx: 50vw;
+  --my: 40vh;
+  --halo: 330px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --halo: 170px;
+  }
+}
+
+.fond {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1200ms ease;
+  -webkit-mask-image: radial-gradient(circle var(--halo) at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.35) 65%, transparent 100%);
+  mask-image: radial-gradient(circle var(--halo) at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.35) 65%, transparent 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+.fond.is-active {
+  opacity: 1;
+  transition-duration: 350ms;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.fond-encre {
+  position: absolute;
+  inset: 0;
+  background: var(--sang);
+  -webkit-mask-image: url("../assets/img/fond-portrait.webp");
+  mask-image: url("../assets/img/fond-portrait.webp");
+  -webkit-mask-size: cover;
+  mask-size: cover;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-mode: luminance;
+}
+
+@media (orientation: landscape) {
+  .fond-encre {
+    -webkit-mask-image: url("../assets/img/fond-paysage.webp");
+    mask-image: url("../assets/img/fond-paysage.webp");
+  }
+}
+
+/* Anciens WebKit : le masque lit l'alpha, pas la luminance. */
+@supports not (mask-mode: luminance) {
+  .fond-encre {
+    -webkit-mask-image: url("../assets/img/fond-portrait-alpha.png");
+    mask-image: url("../assets/img/fond-portrait-alpha.png");
+  }
+
+  @media (orientation: landscape) {
+    .fond-encre {
+      -webkit-mask-image: url("../assets/img/fond-paysage-alpha.png");
+      mask-image: url("../assets/img/fond-paysage-alpha.png");
+    }
+  }
+}

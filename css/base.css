@@ -1,0 +1,177 @@
+@font-face {
+  font-family: "LM Roman";
+  src: url("../assets/fonts/lmroman10-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LM Mono";
+  src: url("../assets/fonts/lmmono10-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --background: #000;
+  --text: #fff;
+  --text-dim: rgba(255, 255, 255, 0.45);
+  --sang: #a8161b;
+  --border-width: 1px;
+  --lh: 1.25em;
+  --pad: 1rem;
+  --font-serif: "LM Roman", "Latin Modern Roman", "Computer Modern", "Times New Roman", serif;
+  --font-mono: "LM Mono", "Latin Modern Mono", "Courier New", Courier, monospace;
+  color-scheme: dark;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --pad: 1.25rem;
+  }
+}
+
+html {
+  background: var(--background);
+  color: var(--text);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Le noir est peint par html : le calque de fond fixe passe entre les deux. */
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 1.188rem;
+  line-height: 1.25;
+  letter-spacing: 0.015em;
+  font-variant-numeric: oldstyle-nums;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  body {
+    font-size: 1.475rem;
+    letter-spacing: 0.01em;
+  }
+}
+
+::selection {
+  background: var(--text);
+  color: var(--background);
+}
+
+a:focus-visible {
+  outline: 1px solid var(--text);
+  outline-offset: 3px;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.938rem;
+  line-height: 1.25;
+  letter-spacing: 0.015em;
+}
+
+.small {
+  font-size: 0.938rem;
+  line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+  .mono,
+  .small {
+    font-size: 1.063rem;
+  }
+}
+
+.with-indent > :not(:first-child) {
+  text-indent: 1.65em;
+}
+
+.links a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+.links a:hover {
+  text-decoration: none;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: var(--lh);
+}
+
+@media (min-width: 640px) {
+  .grid-3 {
+    column-gap: 2.5rem;
+  }
+}
+
+.col-full {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+  .lg-col-1 {
+    grid-column: span 1;
+  }
+
+  .lg-col-2 {
+    grid-column: span 2;
+  }
+
+  .lg-pr {
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .lg-pr {
+    padding-right: 8rem;
+  }
+}
+
+/* Textes courts sur téléphone, longs à partir de l'ordinateur. */
+.t-long {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .t-court {
+    display: none;
+  }
+
+  .t-long {
+    display: revert;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

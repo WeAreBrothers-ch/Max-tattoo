@@ -1,0 +1,90 @@
+.site-header {
+  display: flex;
+  flex-direction: column;
+  padding: var(--pad);
+  padding-bottom: calc(var(--pad) + 0.25rem);
+  position: relative;
+}
+
+/* Sur l'accueil, l'en-tête occupe l'écran comme la référence. */
+.site-header--index {
+  min-height: min(75svh, 46rem);
+}
+
+@media (orientation: landscape) {
+  .site-header--index {
+    min-height: min(100svh, 58rem);
+  }
+}
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+.site-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+@media (min-width: 1024px) {
+  .site-nav {
+    position: absolute;
+    top: var(--pad);
+    right: var(--pad);
+    z-index: 10;
+    text-align: right;
+  }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}
+
+.intro {
+  position: relative;
+}
+
+@media (min-width: 1280px) {
+  .site-header--index .intro {
+    min-height: 24vh;
+  }
+}
+
+.intro .note {
+  margin-top: var(--lh);
+}
+
+.page-title {
+  margin-top: var(--lh);
+}
+
+@media (min-width: 1024px) {
+  .page-title {
+    margin-top: 0;
+  }
+}
+
+.collection-wrap {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .collection-wrap {
+    padding-top: 3.5rem;
+  }
+}

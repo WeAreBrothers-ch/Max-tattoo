@@ -1,0 +1,206 @@
+main {
+  display: grid;
+  row-gap: var(--lh);
+  padding: 1.25rem var(--pad) 0;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding-top: 2rem;
+  }
+}
+
+.series {
+  display: grid;
+  row-gap: var(--lh);
+  scroll-margin-top: 1.5rem;
+}
+
+.series .grid-3 {
+  column-gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .series .grid-3 {
+    column-gap: 1.25rem;
+  }
+}
+
+/* Grille de vignettes : 2 / 4 / 5 colonnes, comme la référence. */
+.publications {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: 2.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  .publications {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .publications {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.pub {
+  display: block;
+}
+
+.pub .frame {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  background: #0a0a0a;
+}
+
+.pub .frame img,
+.pub .frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 150ms ease;
+}
+
+/* Un seul format pour photos et vidéos : les rangées restent alignées. */
+.frame.r-134,
+.frame.r-141 {
+  aspect-ratio: 3 / 4;
+}
+
+.frame.r-150 {
+  aspect-ratio: 2 / 3;
+}
+
+.enhance {
+  filter: brightness(1.15) saturate(80%) contrast(110%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.pub:hover .frame img,
+  a.pub:hover .frame video {
+    opacity: 0.85;
+  }
+}
+
+.pub figcaption {
+  padding-top: 0.5625rem;
+  text-align: center;
+  font-size: 0.938rem;
+  line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+  .pub figcaption {
+    font-size: 1.063rem;
+  }
+}
+
+.pub figcaption .titre {
+  position: relative;
+  display: inline-block;
+}
+
+.pub figcaption .titre::before {
+  content: "→";
+  position: absolute;
+  left: -1.4em;
+  top: 0;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.pub:hover figcaption .titre::before {
+    opacity: 1;
+  }
+}
+
+a.pub:focus-visible figcaption .titre::before {
+  opacity: 1;
+}
+
+.pub figcaption .meta {
+  display: block;
+  margin-top: 0.2em;
+  color: var(--text-dim);
+}
+
+.pub figcaption .etat {
+  display: block;
+  margin-top: 0.2em;
+  font-family: var(--font-mono);
+}
+
+.pub.is-tatoue .frame {
+  opacity: 0.4;
+}
+
+.pub.is-tatoue .titre {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+/* Pensée : court texte à la première personne sous une vignette. */
+.pensee {
+  margin-top: 0.75em;
+  text-align: left;
+  font-size: 0.938rem;
+  line-height: 1.3;
+  color: var(--text-dim);
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+@media (min-width: 640px) {
+  .pensee {
+    font-size: 1rem;
+  }
+}
+
+/* Vidéo : lecture muette en boucle, démarrée par le script quand visible. */
+.pub video {
+  background: #0a0a0a;
+}
+
+/* Cartes de saison : couvertures typographiques. */
+.cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: var(--border-width) solid currentColor;
+  padding: 1rem;
+  font-size: 1em;
+  background: transparent;
+}
+
+.cover.is-past {
+  opacity: 0.45;
+}
+
+/* Bloc texte long (Infos). */
+.infos-body {
+  display: grid;
+  row-gap: var(--lh);
+}
+
+.infos-body .contact {
+  margin-top: var(--lh);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+}
+
+/* Lien "voir tout" en fin de section, en mono comme les notes. */
+.voir-tout {
+  padding-bottom: 4.5rem;
+  margin-top: -3rem;
+}

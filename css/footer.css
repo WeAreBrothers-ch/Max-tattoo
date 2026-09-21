@@ -1,0 +1,36 @@
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 6rem var(--pad) var(--pad);
+}
+
+@media (min-width: 768px) {
+  .site-footer {
+    padding-top: 12rem;
+  }
+}
+
+.site-footer > * {
+  width: 50%;
+}
+
+.site-footer .quote {
+  display: none;
+  text-align: center;
+}
+
+.site-footer .right {
+  text-align: right;
+}
+
+@media (min-width: 1024px) {
+  .site-footer > * {
+    width: 25%;
+  }
+
+  .site-footer .quote {
+    display: block;
+    width: 50%;
+  }
+}
