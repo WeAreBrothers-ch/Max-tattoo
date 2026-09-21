@@ -1,4 +1,4 @@
-/* Fond : gravure rouge sang révélée sous la souris (ou le pouce). */
+/* Fond : gravure rouge sang révélée sous la souris (ou visible en permanence au doigt). */
 
 :root {
   --mx: 50vw;
@@ -31,39 +31,27 @@
   transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+/*
+ * La gravure est un WebP dont la transparence porte le dessin (masque alpha,
+ * le mode par défaut) : pas de `mask-mode: luminance`, que Safari iOS ignore.
+ */
 .fond-encre {
   position: absolute;
   inset: 0;
   background: var(--sang);
-  -webkit-mask-image: url("../assets/img/fond-portrait.webp");
-  mask-image: url("../assets/img/fond-portrait.webp");
+  -webkit-mask-image: url("../assets/img/fond-portrait-masque.webp");
+  mask-image: url("../assets/img/fond-portrait-masque.webp");
   -webkit-mask-size: cover;
   mask-size: cover;
   -webkit-mask-position: center;
   mask-position: center;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  mask-mode: luminance;
 }
 
 @media (orientation: landscape) {
   .fond-encre {
-    -webkit-mask-image: url("../assets/img/fond-paysage.webp");
-    mask-image: url("../assets/img/fond-paysage.webp");
-  }
-}
-
-/* Anciens WebKit : le masque lit l'alpha, pas la luminance. */
-@supports not (mask-mode: luminance) {
-  .fond-encre {
-    -webkit-mask-image: url("../assets/img/fond-portrait-alpha.png");
-    mask-image: url("../assets/img/fond-portrait-alpha.png");
-  }
-
-  @media (orientation: landscape) {
-    .fond-encre {
-      -webkit-mask-image: url("../assets/img/fond-paysage-alpha.png");
-      mask-image: url("../assets/img/fond-paysage-alpha.png");
-    }
+    -webkit-mask-image: url("../assets/img/fond-paysage-masque.webp");
+    mask-image: url("../assets/img/fond-paysage-masque.webp");
   }
 }
