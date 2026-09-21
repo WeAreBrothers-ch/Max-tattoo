@@ -1,12 +1,15 @@
 /**
- * Halo rouge sang qui suit la souris (ou le pouce sur écran tactile).
+ * Halo rouge sang qui révèle la gravure de fond.
+ * À la souris : le halo suit le curseur et s'efface quand il quitte la page.
+ * Au doigt : le halo est toujours visible, il glisse vers le dernier point touché.
  * Le calque `.fond` est masqué par un dégradé radial positionné via --mx / --my.
  */
 
 const LERP_FACTOR = 0.16;
 const SETTLE_THRESHOLD = 0.3;
 const HIDE_DELAY_MOUSE_MS = 400;
-const HIDE_DELAY_TOUCH_MS = 900;
+const TOUCH_OFFSET_Y = 110;
+const TOUCH_REVEAL_DELAY_MS = 300;
 
 export function initFond() {
   const fond = document.querySelector(".fond");
@@ -16,6 +19,7 @@ export function initFond() {
 
   const root = document.documentElement;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const touchOnly = window.matchMedia("(hover: none)").matches;
   const target = { x: window.innerWidth / 2, y: window.innerHeight * 0.4 };
   const current = { x: target.x, y: target.y };
   let frame = null;
@@ -37,14 +41,9 @@ export function initFond() {
     frame = settled ? null : requestAnimationFrame(tick);
   }
 
-  function moveTo(x, y, snap) {
+  function moveTo(x, y) {
     target.x = x;
     target.y = y;
-    if (snap) {
-      current.x = x;
-      current.y = y;
-      paint();
-    }
     if (frame === null) {
       frame = requestAnimationFrame(tick);
     }
@@ -60,37 +59,39 @@ export function initFond() {
     hideTimer = setTimeout(() => fond.classList.remove("is-active"), delay);
   }
 
-  window.addEventListener(
-    "pointermove",
-    (event) => {
-      if (event.pointerType === "touch") {
-        return;
-      }
-      moveTo(event.clientX, event.clientY, false);
-      show();
-    },
-    { passive: true }
-  );
-  document.addEventListener("mouseleave", () => hide(HIDE_DELAY_MOUSE_MS));
+  function bindMouse() {
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        if (event.pointerType === "touch") {
+          return;
+        }
+        moveTo(event.clientX, event.clientY);
+        show();
+      },
+      { passive: true }
+    );
+    document.addEventListener("mouseleave", () => hide(HIDE_DELAY_MOUSE_MS));
+  }
 
-  window.addEventListener(
-    "touchstart",
-    (event) => {
-      const touch = event.touches[0];
-      moveTo(touch.clientX, touch.clientY, true);
-      show();
-    },
-    { passive: true }
-  );
-  window.addEventListener(
-    "touchmove",
-    (event) => {
-      const touch = event.touches[0];
-      moveTo(touch.clientX, touch.clientY, false);
-      show();
-    },
-    { passive: true }
-  );
-  window.addEventListener("touchend", () => hide(HIDE_DELAY_TOUCH_MS), { passive: true });
-  window.addEventListener("touchcancel", () => hide(HIDE_DELAY_TOUCH_MS), { passive: true });
+  function followTouch(event) {
+    const touch = event.touches[0];
+    if (!touch) {
+      return;
+    }
+    moveTo(touch.clientX, Math.max(0, touch.clientY - TOUCH_OFFSET_Y));
+  }
+
+  function bindTouch() {
+    paint();
+    setTimeout(show, TOUCH_REVEAL_DELAY_MS);
+    window.addEventListener("touchstart", followTouch, { passive: true });
+    window.addEventListener("touchmove", followTouch, { passive: true });
+  }
+
+  if (touchOnly) {
+    bindTouch();
+  } else {
+    bindMouse();
+  }
 }
