@@ -136,7 +136,7 @@ a.pub:focus-visible figcaption .titre::before {
 .pub figcaption .etat {
   display: block;
   margin-top: 0.2em;
-  font-family: var(--font-mono);
+  font-family: var(--font-capitales);
 }
 
 .pub.is-tatoue .frame {

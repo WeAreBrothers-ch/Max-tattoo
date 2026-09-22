@@ -101,7 +101,7 @@ void main() {
   float encre = texture2D(u_gravure, gUv).a * u_gravureReady;
   float revele = smoothstep(0.08, 0.75, lumiere) + smoothstep(0.35, 0.9, b) * 0.45;
 
-  vec3 couleur = BRUME * (b * 0.2 + r * 0.09 + lanterne * 0.06);
+  vec3 couleur = BRUME * (b * 0.1 + r * 0.04 + lanterne * 0.03);
   couleur += SANG * encre * clamp(revele, 0.0, 1.0) * 0.9;
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));

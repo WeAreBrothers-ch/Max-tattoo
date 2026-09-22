@@ -1,14 +1,23 @@
+/* IM Fell English : caractères d'imprimerie du XVIIᵉ siècle (licence OFL). */
 @font-face {
-  font-family: "LM Roman";
-  src: url("../assets/fonts/lmroman10-regular.otf") format("opentype");
+  font-family: "IM Fell English";
+  src: url("../assets/fonts/im-fell-normal-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "LM Mono";
-  src: url("../assets/fonts/lmmono10-regular.otf") format("opentype");
+  font-family: "IM Fell English";
+  src: url("../assets/fonts/im-fell-italic-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "IM Fell English SC";
+  src: url("../assets/fonts/im-fell-sc-normal-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -22,8 +31,9 @@
   --border-width: 1px;
   --lh: 1.25em;
   --pad: 1rem;
-  --font-serif: "LM Roman", "Latin Modern Roman", "Computer Modern", "Times New Roman", serif;
-  --font-mono: "LM Mono", "Latin Modern Mono", "Courier New", Courier, monospace;
+  --font-serif: "IM Fell English", Georgia, "Times New Roman", serif;
+  /* Petites capitales : navigation, notes, états des flashs. */
+  --font-capitales: "IM Fell English SC", Georgia, "Times New Roman", serif;
   color-scheme: dark;
 }
 
@@ -46,9 +56,9 @@ body {
   background: transparent;
   color: var(--text);
   font-family: var(--font-serif);
-  font-size: calc(1.188rem * var(--typo-echelle, 1));
+  font-size: 1.283rem;
   line-height: 1.25;
-  letter-spacing: var(--typo-approche, 0.015em);
+  letter-spacing: 0.01em;
   font-variant-numeric: oldstyle-nums;
   -webkit-hyphens: auto;
   hyphens: auto;
@@ -57,14 +67,14 @@ body {
 
 @media (min-width: 768px) {
   body {
-    font-size: calc(1.25rem * var(--typo-echelle, 1));
+    font-size: 1.35rem;
   }
 }
 
 @media (min-width: 1280px) {
   body {
-    font-size: calc(1.475rem * var(--typo-echelle, 1));
-    letter-spacing: var(--typo-approche, 0.01em);
+    font-size: 1.593rem;
+    letter-spacing: 0.01em;
   }
 }
 
@@ -79,10 +89,10 @@ a:focus-visible {
 }
 
 .mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-capitales);
   font-size: 0.938rem;
   line-height: 1.25;
-  letter-spacing: var(--mono-approche, 0.015em);
+  letter-spacing: 0.07em;
 }
 
 .small {

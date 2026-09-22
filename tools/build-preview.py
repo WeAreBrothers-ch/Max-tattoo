@@ -65,8 +65,6 @@ def build_page(name: str, css: str, js: str, out_dir: Path) -> None:
     html = (SITE / name).read_text(encoding="utf-8")
     html = html.replace('<link rel="stylesheet" href="css/styles.css" />', f"<style>\n{css}\n</style>")
     html = html.replace('<script type="module" src="js/main.js"></script>', f"<script>\n{js}\n</script>")
-    essais = (SITE / "js" / "typo-essais.js").read_text(encoding="utf-8")
-    html = html.replace('<script src="js/typo-essais.js"></script>', f"<script>\n{essais}\n</script>")
     (out_dir / name).write_text(html, encoding="utf-8")
 
 
