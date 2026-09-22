@@ -20,14 +20,20 @@ site/
 │   ├── styles.css      point d'entrée, importe les autres
 │   ├── reset.css
 │   ├── base.css        polices, variables, typographie, grille, textes court/long
-│   ├── fond.css        gravure rouge sang révélée sous la souris
+│   ├── typo-essais.css TEMPORAIRE : les trois typos proposées à Maxime
+│   ├── fond.css        canevas du fond animé + repli fixe sans WebGL
 │   ├── header.css
 │   ├── tiles.css       les six tuiles de l'accueil
 │   ├── sections.css    sections numérotées et grilles de vignettes
 │   └── footer.css
 ├── js/
 │   ├── main.js         point d'entrée (module)
-│   ├── fond.js         suivi de la souris / du pouce pour le halo
+│   ├── fond.js         fond animé (brume, rayons, gravure) : boucle, pause, repli
+│   ├── fond-gl.js      outils WebGL : programme, triangle plein écran, texture
+│   ├── fond-shader.js  le dessin de la brume et des rayons (GLSL)
+│   ├── fond-pointeur.js lanterne qui suit la souris / le doigt, ou erre seule
+│   ├── melange.js      ordre aléatoire des flashs disponibles
+│   ├── typo-essais.js  TEMPORAIRE : sélecteur des essais typo (?typo=…)
 │   └── video.js        lecture des vidéos seulement quand elles sont visibles
 ├── assets/
 │   ├── img/            photos, dessins, emblèmes, gravure de fond
@@ -42,7 +48,12 @@ site/
 - Direction visuelle calquée sur l'index d'archives Whole Earth : noir, blanc, une seule famille de caractères, sections numérotées, grille de vignettes 2 / 4 / 5 colonnes.
 - Chaque bloc de texte existe en deux versions : `.t-court` affichée sur téléphone, `.t-long` affichée à partir de 1024 px.
 - Les vidéos sont muettes, en boucle, et ne tournent que lorsqu'elles sont à l'écran.
-- Le fond interactif utilise des masques CSS : il faut servir le site en HTTP (les masques ne chargent pas en `file://`).
+- Le fond est dessiné en WebGL (30 images/s, résolution plafonnée, pause quand l'onglet est caché, image fixe si « réduire les animations »). Sans WebGL, la gravure fixe s'affiche en CSS. Il faut servir le site en HTTP (la texture ne charge pas en `file://`).
+- Les flashs disponibles marqués `data-melange` changent d'ordre à chaque visite.
+
+## Essais typo (temporaire)
+
+Ouvrir le site avec `?typo=ancien`, `?typo=gravure` ou `?typo=moderne` : un sélecteur flottant apparaît et suit la navigation. Une fois la typo choisie, reporter ses variables dans `base.css`, puis supprimer `typo-essais.css`, `typo-essais.js`, la balise `<script>` du `<head>` des quatre pages et les polices inutilisées.
 
 ## Lancer en local
 

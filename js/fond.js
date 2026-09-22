@@ -1,97 +1,125 @@
 /**
- * Halo rouge sang qui révèle la gravure de fond.
- * À la souris : le halo suit le curseur et s'efface quand il quitte la page.
- * Au doigt : le halo est toujours visible, il glisse vers le dernier point touché.
- * Le calque `.fond` est masqué par un dégradé radial positionné via --mx / --my.
+ * Fond animé : brume, rayons de lumière et gravure rouge sang, dessinés en
+ * WebGL dans un canevas fixe derrière la page.
+ * Mouvement réduit demandé : une seule image fixe.
+ * WebGL indisponible ou perdu : la gravure fixe en CSS prend le relais.
  */
 
-const LERP_FACTOR = 0.16;
-const SETTLE_THRESHOLD = 0.3;
-const HIDE_DELAY_MOUSE_MS = 400;
-const TOUCH_OFFSET_Y = 110;
-const TOUCH_REVEAL_DELAY_MS = 300;
+import { createScene, loadGravure } from "./fond-gl.js";
+import { createPointeur } from "./fond-pointeur.js";
+
+const MAX_PIXELS = 1_100_000;
+const MAX_DPR = 1.5;
+const FRAME_MS = 1000 / 30;
+const SCROLL_DRIFT = 0.00035;
+const GRAVURES = {
+  paysage: "assets/img/fond-paysage-masque.webp",
+  portrait: "assets/img/fond-portrait-masque.webp",
+};
 
 export function initFond() {
-  const fond = document.querySelector(".fond");
-  if (!(fond instanceof HTMLElement)) {
+  const canvas = document.querySelector("canvas.fond");
+  if (!(canvas instanceof HTMLCanvasElement)) {
     return;
   }
+  try {
+    start(canvas);
+  } catch (error) {
+    fallBack(canvas, error);
+  }
+}
 
-  const root = document.documentElement;
+/** @param {HTMLCanvasElement} canvas */
+function start(canvas) {
+  const { gl, uniforms } = createScene(canvas);
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const touchOnly = window.matchMedia("(hover: none)").matches;
-  const target = { x: window.innerWidth / 2, y: window.innerHeight * 0.4 };
-  const current = { x: target.x, y: target.y };
-  let frame = null;
-  let hideTimer = null;
+  const pointeur = createPointeur();
+  let orientation = "";
+  let frame = 0;
+  let lastDraw = 0;
+  const startTime = performance.now();
 
-  function paint() {
-    root.style.setProperty("--mx", `${current.x.toFixed(1)}px`);
-    root.style.setProperty("--my", `${current.y.toFixed(1)}px`);
+  function resize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const scale = Math.min(window.devicePixelRatio || 1, MAX_DPR, Math.sqrt(MAX_PIXELS / (width * height)));
+    canvas.width = Math.round(width * scale);
+    canvas.height = Math.round(height * scale);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform2f(uniforms.u_res, canvas.width, canvas.height);
+    swapGravure(width >= height ? "paysage" : "portrait");
   }
 
-  function tick() {
-    const k = reduceMotion ? 1 : LERP_FACTOR;
-    current.x += (target.x - current.x) * k;
-    current.y += (target.y - current.y) * k;
-    paint();
-    const settled =
-      Math.abs(target.x - current.x) <= SETTLE_THRESHOLD &&
-      Math.abs(target.y - current.y) <= SETTLE_THRESHOLD;
-    frame = settled ? null : requestAnimationFrame(tick);
-  }
-
-  function moveTo(x, y) {
-    target.x = x;
-    target.y = y;
-    if (frame === null) {
-      frame = requestAnimationFrame(tick);
-    }
-  }
-
-  function show() {
-    clearTimeout(hideTimer);
-    fond.classList.add("is-active");
-  }
-
-  function hide(delay) {
-    clearTimeout(hideTimer);
-    hideTimer = setTimeout(() => fond.classList.remove("is-active"), delay);
-  }
-
-  function bindMouse() {
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        if (event.pointerType === "touch") {
-          return;
-        }
-        moveTo(event.clientX, event.clientY);
-        show();
-      },
-      { passive: true }
-    );
-    document.addEventListener("mouseleave", () => hide(HIDE_DELAY_MOUSE_MS));
-  }
-
-  function followTouch(event) {
-    const touch = event.touches[0];
-    if (!touch) {
+  /** @param {"paysage" | "portrait"} next */
+  function swapGravure(next) {
+    if (next === orientation) {
       return;
     }
-    moveTo(touch.clientX, Math.max(0, touch.clientY - TOUCH_OFFSET_Y));
+    orientation = next;
+    loadGravure(gl, GRAVURES[next])
+      .then((ratio) => {
+        gl.uniform1f(uniforms.u_gravureAspect, ratio);
+        gl.uniform1f(uniforms.u_gravureReady, 1);
+        draw(performance.now());
+      })
+      // Sans gravure, la brume et les rayons restent : rien ne casse.
+      .catch(() => gl.uniform1f(uniforms.u_gravureReady, 0));
   }
 
-  function bindTouch() {
-    paint();
-    setTimeout(show, TOUCH_REVEAL_DELAY_MS);
-    window.addEventListener("touchstart", followTouch, { passive: true });
-    window.addEventListener("touchmove", followTouch, { passive: true });
+  /** @param {number} now */
+  function draw(now) {
+    const time = reduceMotion ? 40 : (now - startTime) / 1000;
+    const lantern = pointeur.update(time);
+    gl.uniform1f(uniforms.u_time, time);
+    gl.uniform1f(uniforms.u_scroll, window.scrollY * SCROLL_DRIFT);
+    gl.uniform2f(uniforms.u_pointer, lantern.x, lantern.y);
+    gl.uniform1f(uniforms.u_pointerForce, lantern.force);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    canvas.classList.add("is-ready");
   }
 
-  if (touchOnly) {
-    bindTouch();
-  } else {
-    bindMouse();
+  /** @param {number} now */
+  function loop(now) {
+    frame = requestAnimationFrame(loop);
+    if (now - lastDraw >= FRAME_MS) {
+      lastDraw = now;
+      draw(now);
+    }
   }
+
+  function play() {
+    if (!reduceMotion && frame === 0 && !document.hidden) {
+      frame = requestAnimationFrame(loop);
+    }
+  }
+
+  function pause() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+  }
+
+  window.addEventListener("resize", () => {
+    resize();
+    draw(performance.now());
+  });
+  document.addEventListener("visibilitychange", () => (document.hidden ? pause() : play()));
+  canvas.addEventListener("webglcontextlost", (event) => {
+    event.preventDefault();
+    pause();
+    fallBack(canvas, new Error("Contexte WebGL perdu"));
+  });
+
+  resize();
+  draw(performance.now());
+  play();
+}
+
+/**
+ * @param {HTMLCanvasElement} canvas
+ * @param {unknown} error
+ */
+function fallBack(canvas, error) {
+  canvas.hidden = true;
+  document.documentElement.classList.add("fond-fixe");
+  document.documentElement.dataset.fondErreur = error instanceof Error ? error.message : "inconnue";
 }

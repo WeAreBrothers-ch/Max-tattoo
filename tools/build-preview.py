@@ -48,10 +48,11 @@ def rebase_asset_paths(css: str) -> str:
 
 def bundle_js() -> str:
     """Concatène les modules JS en un seul script sans import/export."""
-    modules = ["fond.js", "video.js"]
+    modules = ["fond-shader.js", "fond-gl.js", "fond-pointeur.js", "fond.js", "melange.js", "video.js"]
     parts = []
     for name in modules:
         source = (SITE / "js" / name).read_text(encoding="utf-8")
+        source = re.sub(r"^import .*$", "", source, flags=re.MULTILINE)
         source = re.sub(r"^export\s+", "", source, flags=re.MULTILINE)
         parts.append(source)
     main = (SITE / "js" / "main.js").read_text(encoding="utf-8")
@@ -64,6 +65,8 @@ def build_page(name: str, css: str, js: str, out_dir: Path) -> None:
     html = (SITE / name).read_text(encoding="utf-8")
     html = html.replace('<link rel="stylesheet" href="css/styles.css" />', f"<style>\n{css}\n</style>")
     html = html.replace('<script type="module" src="js/main.js"></script>', f"<script>\n{js}\n</script>")
+    essais = (SITE / "js" / "typo-essais.js").read_text(encoding="utf-8")
+    html = html.replace('<script src="js/typo-essais.js"></script>', f"<script>\n{essais}\n</script>")
     (out_dir / name).write_text(html, encoding="utf-8")
 
 
