@@ -1,6 +1,6 @@
 /**
  * Shaders du fond : brume qui dérive, rayons de lumière qui la traversent,
- * gravure rouge sang qui apparaît là où la lumière et la brume se rencontrent.
+ * gravure rouge sang révélée seulement dans le halo qui suit la souris ou le doigt.
  */
 
 export const VERTEX_SHADER = `
@@ -18,6 +18,7 @@ uniform float u_time;
 uniform float u_scroll;
 uniform vec2 u_pointer;
 uniform float u_pointerForce;
+uniform float u_halo;
 uniform sampler2D u_gravure;
 uniform float u_gravureAspect;
 uniform float u_gravureReady;
@@ -89,23 +90,20 @@ void main() {
   float b = brume(p, t);
   float r = rayons(uv, aspect, t);
 
-  vec2 dp = vec2((uv.x - u_pointer.x) * aspect, uv.y - u_pointer.y);
-  float lanterne = exp(-dot(dp, dp) * 7.0) * u_pointerForce;
-
-  // La lumière n'existe que dans la brume : c'est elle qui la rend visible.
-  float lumiere = r * (0.35 + b * 0.9) + lanterne * (0.25 + b * 0.5);
+  // Halo en pixels : plein au centre, fondu jusqu'au bord (comme l'ancien dégradé CSS).
+  float distance = length(gl_FragCoord.xy - u_pointer * u_res) / u_halo;
+  float halo = (1.0 - smoothstep(0.15, 1.0, distance)) * u_pointerForce;
 
   vec2 ondulation = vec2(noise(p * 3.0 + t * 0.2), noise(p * 3.0 - t * 0.2)) - 0.5;
   vec2 gUv = coverUv(uv, u_gravureAspect) + ondulation * 0.004;
   gUv.y = 1.0 - gUv.y;
   float encre = texture2D(u_gravure, gUv).a * u_gravureReady;
-  float revele = smoothstep(0.08, 0.75, lumiere) + smoothstep(0.35, 0.9, b) * 0.45;
-
-  vec3 couleur = BRUME * (b * 0.1 + r * 0.04 + lanterne * 0.03);
-  couleur += SANG * encre * clamp(revele, 0.0, 1.0) * 0.9;
+  // La brume passe devant la gravure : le dessin respire dans la fumée.
+  float revele = halo * (0.8 + b * 0.35);
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));
-  couleur *= mix(0.55, 1.0, vignette);
+  vec3 couleur = BRUME * (b * 0.1 + r * 0.04 + halo * 0.02) * mix(0.55, 1.0, vignette);
+  couleur += SANG * encre * clamp(revele, 0.0, 1.0);
   couleur += (hash(gl_FragCoord.xy + t) - 0.5) / 255.0;
 
   gl_FragColor = vec4(couleur, 1.0);

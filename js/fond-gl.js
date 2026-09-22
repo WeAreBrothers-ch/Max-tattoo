@@ -12,6 +12,7 @@ const UNIFORMS = [
   "u_scroll",
   "u_pointer",
   "u_pointerForce",
+  "u_halo",
   "u_gravure",
   "u_gravureAspect",
   "u_gravureReady",

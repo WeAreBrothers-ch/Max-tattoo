@@ -27,10 +27,10 @@ site/
 │   └── footer.css
 ├── js/
 │   ├── main.js         point d'entrée (module)
-│   ├── fond.js         fond animé (brume, rayons, gravure) : boucle, pause, repli
+│   ├── fond.js         fond animé (brume, rayons, halo de gravure) : boucle, pause, repli
 │   ├── fond-gl.js      outils WebGL : programme, triangle plein écran, texture
 │   ├── fond-shader.js  le dessin de la brume et des rayons (GLSL)
-│   ├── fond-pointeur.js lanterne qui suit la souris / le doigt, ou erre seule
+│   ├── fond-pointeur.js halo qui suit la souris, ou le doigt sur écran tactile
 │   ├── melange.js      ordre aléatoire des flashs disponibles
 │   └── video.js        lecture des vidéos seulement quand elles sont visibles
 ├── assets/

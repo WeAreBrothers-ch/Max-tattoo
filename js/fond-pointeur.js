@@ -1,23 +1,28 @@
 /**
- * Position de la « lanterne » qui éclaire la brume, en coordonnées 0–1
+ * Position du halo qui révèle la gravure, en coordonnées 0–1
  * (origine en bas à gauche, comme dans le shader).
- * Souris ou doigt : la lanterne suit, avec un léger retard.
- * Sans geste depuis quelques secondes : elle erre doucement toute seule.
+ * À la souris : le halo suit le curseur avec un léger retard et s'efface
+ * quand il quitte la page.
+ * Au doigt : le halo reste visible et glisse vers le dernier point touché,
+ * un peu au-dessus du doigt pour ne pas être caché.
  */
 
-const LERP = 0.08;
-const IDLE_AFTER_MS = 3500;
-const TOUCH_OFFSET_Y = 90;
-const ACTIVE_FORCE = 1;
-const IDLE_FORCE = 0.45;
+const LERP = 0.28;
+const FORCE_LERP = 0.12;
+const TOUCH_OFFSET_Y = 110;
+const HIDE_DELAY_MOUSE_MS = 400;
 
 /**
- * @returns {{ update: (time: number) => { x: number, y: number, force: number } }}
+ * @param {{ immediate: boolean, onChange: () => void }} options
+ *   immediate : pas de retard (mouvement réduit) ;
+ *   onChange : appelé à chaque geste, pour redessiner hors de la boucle.
+ * @returns {{ update: () => { x: number, y: number, force: number } }}
  */
-export function createPointeur() {
-  const current = { x: 0.5, y: 0.6, force: 0 };
-  const target = { x: 0.5, y: 0.6 };
-  let lastInput = -Infinity;
+export function createPointeur({ immediate, onChange }) {
+  const touchOnly = window.matchMedia("(hover: none)").matches;
+  const target = { x: 0.5, y: 0.6, force: touchOnly ? 1 : 0 };
+  const current = { x: target.x, y: target.y, force: immediate ? target.force : 0 };
+  let hideTimer = 0;
 
   /**
    * @param {number} clientX
@@ -26,56 +31,47 @@ export function createPointeur() {
   function aim(clientX, clientY) {
     target.x = clientX / window.innerWidth;
     target.y = 1 - clientY / window.innerHeight;
-    lastInput = performance.now();
+    target.force = 1;
+    window.clearTimeout(hideTimer);
+    onChange();
   }
 
-  window.addEventListener(
-    "pointermove",
-    (event) => {
-      if (event.pointerType !== "touch") {
-        aim(event.clientX, event.clientY);
+  if (touchOnly) {
+    /** @param {TouchEvent} event */
+    const onTouch = (event) => {
+      const touch = event.touches[0];
+      if (touch) {
+        aim(touch.clientX, Math.max(0, touch.clientY - TOUCH_OFFSET_Y));
       }
-    },
-    { passive: true }
-  );
-
-  /** @param {TouchEvent} event */
-  function onTouch(event) {
-    const touch = event.touches[0];
-    if (touch) {
-      aim(touch.clientX, Math.max(0, touch.clientY - TOUCH_OFFSET_Y));
-    }
+    };
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    window.addEventListener("touchmove", onTouch, { passive: true });
+  } else {
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        if (event.pointerType !== "touch") {
+          aim(event.clientX, event.clientY);
+        }
+      },
+      { passive: true }
+    );
+    document.addEventListener("mouseleave", () => {
+      window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => {
+        target.force = 0;
+        onChange();
+      }, HIDE_DELAY_MOUSE_MS);
+    });
   }
-  window.addEventListener("touchstart", onTouch, { passive: true });
-  window.addEventListener("touchmove", onTouch, { passive: true });
 
-  document.addEventListener("mouseleave", () => {
-    lastInput = -Infinity;
-  });
-
-  /**
-   * @param {number} time secondes écoulées depuis le début de l'animation
-   */
-  function update(time) {
-    const idle = performance.now() - lastInput > IDLE_AFTER_MS;
-    const goal = idle ? wander(time) : target;
-    const force = idle ? IDLE_FORCE : ACTIVE_FORCE;
-    current.x += (goal.x - current.x) * LERP;
-    current.y += (goal.y - current.y) * LERP;
-    current.force += (force - current.force) * LERP * 0.5;
+  function update() {
+    const k = immediate ? 1 : LERP;
+    current.x += (target.x - current.x) * k;
+    current.y += (target.y - current.y) * k;
+    current.force += (target.force - current.force) * (immediate ? 1 : FORCE_LERP);
     return current;
   }
 
   return { update };
-}
-
-/**
- * Trajectoire lente et jamais identique (courbe de Lissajous).
- * @param {number} time
- */
-function wander(time) {
-  return {
-    x: 0.5 + 0.32 * Math.sin(time * 0.11) * Math.cos(time * 0.037),
-    y: 0.55 + 0.25 * Math.sin(time * 0.083 + 1.3),
-  };
 }

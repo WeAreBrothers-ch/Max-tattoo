@@ -1,6 +1,7 @@
 /**
- * Fond animé : brume, rayons de lumière et gravure rouge sang, dessinés en
- * WebGL dans un canevas fixe derrière la page.
+ * Fond animé : brume et rayons de lumière en mouvement permanent, gravure
+ * rouge sang révélée dans un halo qui suit la souris (ou le doigt), dessinés
+ * en WebGL dans un canevas fixe derrière la page.
  * Mouvement réduit demandé : une seule image fixe.
  * WebGL indisponible ou perdu : la gravure fixe en CSS prend le relais.
  */
@@ -12,6 +13,9 @@ const MAX_PIXELS = 1_100_000;
 const MAX_DPR = 1.5;
 const FRAME_MS = 1000 / 30;
 const SCROLL_DRIFT = 0.00035;
+const HALO_DESKTOP_PX = 330;
+const HALO_MOBILE_PX = 210;
+const MOBILE_MAX_WIDTH = 767;
 const GRAVURES = {
   paysage: "assets/img/fond-paysage-masque.webp",
   portrait: "assets/img/fond-portrait-masque.webp",
@@ -33,7 +37,15 @@ export function initFond() {
 function start(canvas) {
   const { gl, uniforms } = createScene(canvas);
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const pointeur = createPointeur();
+  const pointeur = createPointeur({
+    immediate: reduceMotion,
+    // Sans boucle d'animation (mouvement réduit), chaque geste redessine.
+    onChange: () => {
+      if (reduceMotion) {
+        draw(performance.now());
+      }
+    },
+  });
   let orientation = "";
   let frame = 0;
   let lastDraw = 0;
@@ -47,6 +59,8 @@ function start(canvas) {
     canvas.height = Math.round(height * scale);
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.uniform2f(uniforms.u_res, canvas.width, canvas.height);
+    const halo = width <= MOBILE_MAX_WIDTH ? HALO_MOBILE_PX : HALO_DESKTOP_PX;
+    gl.uniform1f(uniforms.u_halo, halo * scale);
     swapGravure(width >= height ? "paysage" : "portrait");
   }
 
@@ -69,7 +83,7 @@ function start(canvas) {
   /** @param {number} now */
   function draw(now) {
     const time = reduceMotion ? 40 : (now - startTime) / 1000;
-    const lantern = pointeur.update(time);
+    const lantern = pointeur.update();
     gl.uniform1f(uniforms.u_time, time);
     gl.uniform1f(uniforms.u_scroll, window.scrollY * SCROLL_DRIFT);
     gl.uniform2f(uniforms.u_pointer, lantern.x, lantern.y);
