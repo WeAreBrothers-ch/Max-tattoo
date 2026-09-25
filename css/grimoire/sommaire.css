@@ -1,0 +1,125 @@
+/* Sommaire : table des matières à points de conduite, avec l'emblème au survol. */
+
+.sommaire {
+  padding: 3rem var(--marge) 0;
+}
+
+@media (min-width: 1024px) {
+  .sommaire {
+    padding-top: 8rem;
+  }
+}
+
+.sommaire-titre {
+  margin-bottom: 1.5rem;
+  color: var(--text-dim);
+}
+
+.sommaire-liste {
+  list-style: none;
+  border-top: var(--border-width) solid var(--regle);
+}
+
+.entree {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+  padding: 0.5rem 0;
+  border-bottom: var(--border-width) solid var(--regle);
+  font-size: clamp(1.45rem, 4.4vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.entree:active {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Sur téléphone, l'emblème est une vignette dans la ligne : pas de survol au doigt. */
+.entree-embleme {
+  flex: none;
+  order: -1;
+  width: 2.75rem;
+  height: 2.75rem;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+
+.entree-num {
+  flex: 0 0 2.2em;
+  font-size: 0.45em;
+  color: var(--text-dim);
+  font-variant-numeric: normal;
+}
+
+.entree-titre {
+  transition: transform 300ms var(--ease-out);
+}
+
+.entree-points {
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 2px dotted var(--regle);
+  transform: translateY(-0.2em);
+}
+
+.entree-folio {
+  flex: none;
+  color: var(--text-dim);
+}
+
+@media (max-width: 639px) {
+  .entree-num,
+  .entree-folio {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .entree {
+    align-items: baseline;
+    padding: 0.9rem 0;
+  }
+
+  .entree-embleme {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .entree:hover .entree-titre {
+    transform: translateX(0.35em);
+  }
+}
+
+/* L'emblème suit la souris, uniquement quand un pointeur fin existe. */
+.sommaire-embleme {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 15rem;
+  pointer-events: none;
+  opacity: 0;
+  /* Le fond noir de l'emblème disparaît : seuls les traits blancs restent. */
+  mix-blend-mode: screen;
+  /* La position est lissée par le script ; seule l'apparition est animée ici. */
+  transform: translate3d(var(--ex, 0), var(--ey, 0), 0);
+  scale: 0.94;
+  transition: opacity 250ms ease, scale 250ms var(--ease-out);
+}
+
+.sommaire-embleme.is-visible {
+  opacity: 1;
+  scale: 1;
+}
+
+.sommaire-embleme img {
+  width: 100%;
+}
+
+@media (hover: none) {
+  .sommaire-embleme {
+    display: none;
+  }
+}

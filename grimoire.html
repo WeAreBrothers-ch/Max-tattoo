@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Maxime — Tatoueur, Lausanne</title>
+  <meta name="description" content="Maxime, tatoueur à Lausanne et en voyage : flashs de la saison, pièces portées, du carnet à la peau, guest spots, boutique et rendez-vous." />
+  <link rel="stylesheet" href="css/grimoire.css" />
+</head>
+<body>
+  <canvas class="fond" aria-hidden="true"></canvas>
+
+  <header class="barre" data-barre>
+    <button class="barre-sommaire" type="button" data-ouvrir-sommaire aria-haspopup="dialog">
+      <span class="barre-icone" aria-hidden="true"></span>
+      <span class="barre-libelle" data-chapitre-courant>Sommaire</span>
+    </button>
+    <a class="barre-nom" href="#haut">Maxime</a>
+    <a class="barre-rdv capitales" href="#rendez-vous">Rendez-vous</a>
+  </header>
+
+  <dialog class="feuille" data-feuille aria-label="Sommaire" tabindex="-1">
+    <div class="feuille-tete">
+      <span class="capitales">Sommaire</span>
+      <button class="feuille-fermer capitales" type="button" data-fermer>Fermer</button>
+    </div>
+  </dialog>
+
+  <dialog class="visionneuse" data-visionneuse aria-label="Pièces portées en grand" tabindex="-1">
+    <div class="visionneuse-tete">
+      <span class="capitales" data-compteur aria-live="polite"></span>
+      <button class="visionneuse-fermer capitales" type="button" data-fermer>Fermer</button>
+    </div>
+    <div class="visionneuse-bande" data-visionneuse-bande></div>
+  </dialog>
+
+  <main>
+    <section class="frontispice" id="haut" data-frontispice>
+      <div class="frontispice-haut capitales">
+        <span>Tatoueur</span>
+        <span>Lausanne, et en voyage</span>
+      </div>
+      <p class="frontispice-devise">Des dessins à l'encre noire, tatoués une seule fois.</p>
+      <h1 class="frontispice-nom">Maxime</h1>
+    </section>
+
+    <nav class="sommaire" aria-labelledby="sommaire-titre" data-chapitre="Sommaire">
+      <h2 class="sommaire-titre capitales" id="sommaire-titre">Sommaire</h2>
+      <ol class="sommaire-liste">
+        <li><a class="entree" href="#flashs" data-embleme="assets/img/em-oeil.jpg"><img class="entree-embleme" src="assets/img/em-oeil.jpg" alt="" loading="lazy"><span class="entree-num">I</span><span class="entree-titre">Flashs de l'automne</span><span class="entree-points" aria-hidden="true"></span><span class="entree-folio capitales">4 dessins</span></a></li>
+        <li><a class="entree" href="#pieces" data-embleme="assets/img/em-serpent.jpg"><img class="entree-embleme" src="assets/img/em-serpent.jpg" alt="" loading="lazy"><span class="entree-num">II</span><span class="entree-titre">Pièces portées</span><span class="entree-points" aria-hidden="true"></span><span class="entree-folio capitales">12 pièces</span></a></li>
+        <li><a class="entree" href="#carnet" data-embleme="assets/img/em-bete.jpg"><img class="entree-embleme" src="assets/img/em-bete.jpg" alt="" loading="lazy"><span class="entree-num">III</span><span class="entree-titre">Du carnet à la peau</span><span class="entree-points" aria-hidden="true"></span><span class="entree-folio capitales">4 étapes</span></a></li>
+        <li><a class="entree" href="#voyages" data-embleme="assets/img/em-nuages.jpg"><img class="entree-embleme" src="assets/img/em-nuages.jpg" alt="" loading="lazy"><span class="entree-num">IV</span><span class="entree-titre">Où me trouver</span><span class="entree-points" aria-hidden="true"></span><span class="entree-folio capitales">3 villes</span></a></li>
+        <li><a class="entree" href="#boutique" data-embleme="assets/img/em-dague.jpg"><img class="entree-embleme" src="assets/img/em-dague.jpg" alt="" loading="lazy"><span class="entree-num">V</span><span class="entree-titre">Boutique</span><span class="entree-points" aria-hidden="true"></span><span class="entree-folio capitales">1 tirage</span></a></li>
+        <li><a class="entree" href="#rendez-vous" data-embleme="assets/img/em-masse.jpg"><img class="entree-embleme" src="assets/img/em-masse.jpg" alt="" loading="lazy"><span class="entree-num">VI</span><span class="entree-titre">Rendez-vous</span><span class="entree-points" aria-hidden="true"></span><span class="entree-folio capitales">Écrire</span></a></li>
+      </ol>
+      <figure class="sommaire-embleme" data-embleme-flottant aria-hidden="true"><img src="assets/img/em-oeil.jpg" alt=""></figure>
+    </nav>
+
+    <section class="chapitre" id="flashs" data-num="I" data-chapitre="Flashs de l'automne">
+      <header class="chapitre-tete">
+        <h2>Flashs de l'automne</h2>
+        <p>Chaque dessin n'est tatoué qu'une fois, puis rayé.</p>
+      </header>
+      <div class="bande" data-melange>
+        <figure class="pub planche"><div class="cadre"><img class="enhance" src="assets/img/fl-dague-roses.jpg" alt="Dessin de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy"></div><figcaption><span class="titre">Dague et roses</span><span class="etat capitales">Disponible</span></figcaption></figure>
+        <figure class="pub planche"><div class="cadre"><img class="enhance" src="assets/img/fl-masse.jpg" alt="Dessin d'une masse d'armes à tête de crâne, chaîne et cierge" loading="lazy"></div><figcaption><span class="titre">Masse d'armes</span><span class="etat capitales">Disponible</span></figcaption></figure>
+        <figure class="pub planche is-tatoue"><div class="cadre"><img class="enhance" src="assets/img/fl-serpent.jpg" alt="Dessin d'une main baguée enlacée par un serpent" loading="lazy"></div><figcaption><span class="titre">Serpent et main</span><span class="etat capitales">Tatoué</span></figcaption></figure>
+        <figure class="pub planche is-tatoue"><div class="cadre"><img class="enhance" src="assets/img/fl-oeil.jpg" alt="Dessin d'un œil rayonnant" loading="lazy"></div><figcaption><span class="titre">Œil rayonnant</span><span class="etat capitales">Tatoué</span></figcaption></figure>
+      </div>
+      <p class="bande-aide capitales" aria-hidden="true">Glisser pour tourner les planches</p>
+    </section>
+
+    <section class="chapitre" id="pieces" data-num="II" data-chapitre="Pièces portées">
+      <header class="chapitre-tete">
+        <h2>Pièces portées</h2>
+        <p>Mains, lames, bêtes et cathédrales dans la brume.</p>
+      </header>
+      <div class="mosaique">
+        <figure class="piece piece--grande"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-eglise.jpg"><source src="assets/video/v-eglise.mp4" type="video/mp4"></video><figcaption class="capitales">Avant-bras</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : vidéo : Avant-bras"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-roses.jpg" alt="Main tenant des roses tatouée sur une cuisse" loading="lazy"><figcaption class="capitales">Cuisse</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Main tenant des roses tatouée sur une cuisse"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-mollet.jpg" alt="Bête cornue tatouée sur un mollet" loading="lazy"><figcaption class="capitales">Mollet</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Bête cornue tatouée sur un mollet"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-crane-cierge.jpg" alt="Crâne surmonté d'un cierge tatoué sur un avant-bras" loading="lazy"><figcaption class="capitales">Avant-bras</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Crâne surmonté d'un cierge tatoué sur un avant-bras"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-hirondelle.jpg" alt="Hirondelle tatouée sur le flanc" loading="lazy"><figcaption class="capitales">Flanc</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Hirondelle tatouée sur le flanc"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-sternum.jpg" alt="Soleil et boussole tatoués sur le sternum" loading="lazy"><figcaption class="capitales">Sternum</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Soleil et boussole tatoués sur le sternum"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-dague.jpg" alt="Main tenant une dague tatouée sur une cuisse" loading="lazy"><figcaption class="capitales">Cuisse</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Main tenant une dague tatouée sur une cuisse"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-soleil.jpg" alt="Soleil à visage tatoué sur la poitrine" loading="lazy"><figcaption class="capitales">Poitrine</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Soleil à visage tatoué sur la poitrine"></button></figure>
+        <figure class="piece piece--haute"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-cranes.jpg"><source src="assets/video/v-cranes.mp4" type="video/mp4"></video><figcaption class="capitales">Avant-bras</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : vidéo : Avant-bras"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-coeur.jpg" alt="Cœur ailé fleuri tatoué sur une cuisse" loading="lazy"><figcaption class="capitales">Cuisse</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Cœur ailé fleuri tatoué sur une cuisse"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-masse.jpg" alt="Masse d'armes et croix ansée tatouées sur le torse" loading="lazy"><figcaption class="capitales">Torse</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Masse d'armes et croix ansée tatouées sur le torse"></button></figure>
+        <figure class="piece"><img class="enhance" src="assets/img/tt-cuisse-bete.jpg" alt="Bête tatouée sur une cuisse" loading="lazy"><figcaption class="capitales">Cuisse</figcaption><button class="piece-ouvrir" type="button" aria-label="Agrandir : Bête tatouée sur une cuisse"></button></figure>
+      </div>
+    </section>
+
+    <section class="chapitre" id="carnet" data-num="III" data-chapitre="Du carnet à la peau">
+      <header class="chapitre-tete">
+        <h2>Du carnet à la peau</h2>
+        <p>Le chemin d'un seul dessin, le serpent et la main.</p>
+      </header>
+      <ol class="etapes">
+        <li class="etape"><div class="cadre"><img class="enhance" src="assets/img/cn-4.jpg" alt="Page de carnet, croquis rouge d'une main et d'un serpent" loading="lazy"></div><h3>Carnet</h3><p>Au crayon rouge, sans gomme.</p></li>
+        <li class="etape"><div class="cadre"><img class="enhance" src="assets/img/fl-serpent.jpg" alt="Dessin à l'encre du serpent et de la main baguée" loading="lazy"></div><h3>Encre</h3><p>Le trait est décidé.</p></li>
+        <li class="etape"><div class="cadre"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-seance-2.jpg"><source src="assets/video/v-seance-2.mp4" type="video/mp4"></video></div><h3>Séance</h3><p>Une personne, le temps qu'il faut.</p></li>
+        <li class="etape"><div class="cadre"><img class="enhance" src="assets/img/tt-serpent.jpg" alt="Serpent et main baguée tatoués sur une cuisse" loading="lazy"></div><h3>Peau</h3><p>Photographié une fois cicatrisé.</p></li>
+      </ol>
+    </section>
+
+    <section class="chapitre" id="voyages" data-num="IV" data-chapitre="Où me trouver">
+      <header class="chapitre-tete">
+        <h2>Où me trouver</h2>
+        <p>Atelier à Lausanne, guest spots le reste du temps.</p>
+      </header>
+      <ul class="itineraire">
+        <li class="halte is-residence"><span class="halte-ville">Lausanne</span><span class="halte-type capitales">Atelier</span><span class="halte-date">Toute l'année</span></li>
+        <li class="halte"><span class="halte-ville">Genève</span><span class="halte-type capitales">Guest spot</span><span class="halte-date">Octobre 2026</span></li>
+        <li class="halte"><span class="halte-ville">Berlin</span><span class="halte-type capitales">Guest spot</span><span class="halte-date">Novembre 2026</span></li>
+      </ul>
+    </section>
+
+    <section class="chapitre" id="boutique" data-num="V" data-chapitre="Boutique">
+      <header class="chapitre-tete">
+        <h2>Boutique</h2>
+        <p>Un dessin à accrocher plutôt qu'à porter.</p>
+      </header>
+      <article class="produit">
+        <div class="cadre"><img class="enhance" src="assets/img/fl-dague-roses.jpg" alt="Tirage du dessin Dague et roses" loading="lazy"></div>
+        <div class="produit-texte">
+          <h3>Dague et roses</h3>
+          <p class="capitales">Tirage A4, papier coton, signé</p>
+          <p class="produit-prix">CHF 45</p>
+          <a class="bouton capitales" href="#">Acheter</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="chapitre" id="rendez-vous" data-num="VI" data-chapitre="Rendez-vous">
+      <header class="chapitre-tete">
+        <h2>Rendez-vous</h2>
+        <p>Le dessin choisi, l'emplacement, la taille. Réponse sous 48 heures.</p>
+      </header>
+      <ul class="canaux">
+        <li><a class="canal" href="#"><span>Instagram</span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
+        <li><a class="canal" href="#"><span>WhatsApp</span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
+        <li><a class="canal" href="#"><span>E-mail</span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
+      </ul>
+      <p class="soins capitales"><a href="#">Fiche de soins, en PDF</a></p>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <span>Maxime</span>
+    <span class="colophon-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+    <span class="capitales">Lausanne, 2026</span>
+  </footer>
+
+  <script type="module" src="js/grimoire.js"></script>
+</body>
+</html>

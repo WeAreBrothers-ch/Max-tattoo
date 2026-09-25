@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
-PAGES = ["index.html", "flashs.html", "tatouages.html", "processus.html"]
+PAGES = ["index.html", "flashs.html", "tatouages.html", "processus.html", "grimoire.html"]
 FONT_MIME = {".otf": "font/otf", ".woff2": "font/woff2", ".woff": "font/woff"}
 
 
@@ -46,25 +46,39 @@ def rebase_asset_paths(css: str) -> str:
     return css.replace('url("../assets/', 'url("assets/')
 
 
-def bundle_js() -> str:
-    """Concatène les modules JS en un seul script sans import/export."""
-    modules = ["fond-shader.js", "fond-gl.js", "fond-pointeur.js", "fond.js", "melange.js", "video.js"]
+def bundle_js(entry: Path) -> str:
+    """Concatène un module d'entrée et ses imports (dépendances d'abord), sans import/export."""
+    ordered: list[Path] = []
+
+    def visit(path: Path) -> None:
+        if path in ordered:
+            return
+        source = path.read_text(encoding="utf-8")
+        for dependency in re.findall(r'^import .* from "(\./[^"]+)";$', source, flags=re.MULTILINE):
+            visit((path.parent / dependency).resolve())
+        ordered.append(path)
+
+    visit(entry.resolve())
     parts = []
-    for name in modules:
-        source = (SITE / "js" / name).read_text(encoding="utf-8")
+    for path in ordered:
+        source = path.read_text(encoding="utf-8")
         source = re.sub(r"^import .*$", "", source, flags=re.MULTILINE)
         source = re.sub(r"^export\s+", "", source, flags=re.MULTILINE)
         parts.append(source)
-    main = (SITE / "js" / "main.js").read_text(encoding="utf-8")
-    main = re.sub(r"^import .*$", "", main, flags=re.MULTILINE)
-    parts.append(main)
     return "(function () {\n" + "\n".join(parts) + "\n})();"
 
 
-def build_page(name: str, css: str, js: str, out_dir: Path) -> None:
+def build_page(name: str, out_dir: Path) -> None:
+    """Intègre la feuille de style et le script d'entrée déclarés par la page."""
     html = (SITE / name).read_text(encoding="utf-8")
-    html = html.replace('<link rel="stylesheet" href="css/styles.css" />', f"<style>\n{css}\n</style>")
-    html = html.replace('<script type="module" src="js/main.js"></script>', f"<script>\n{js}\n</script>")
+    css_href = re.search(r'<link rel="stylesheet" href="(css/[^"]+)" />', html)
+    js_src = re.search(r'<script type="module" src="(js/[^"]+)"></script>', html)
+    if not css_href or not js_src:
+        raise SystemExit(f"{name} : feuille de style ou script d'entrée introuvable")
+    css = rebase_asset_paths(inline_fonts(read_css(SITE / css_href.group(1))))
+    js = bundle_js(SITE / js_src.group(1))
+    html = html.replace(css_href.group(0), f"<style>\n{css}\n</style>")
+    html = html.replace(js_src.group(0), f"<script>\n{js}\n</script>")
     (out_dir / name).write_text(html, encoding="utf-8")
 
 
@@ -74,10 +88,8 @@ def main() -> None:
     out_dir = Path(sys.argv[1]).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    css = rebase_asset_paths(inline_fonts(read_css(SITE / "css" / "styles.css")))
-    js = bundle_js()
     for page in PAGES:
-        build_page(page, css, js, out_dir)
+        build_page(page, out_dir)
     print(f"Aperçu construit dans {out_dir} : {', '.join(PAGES)}")
 
 

@@ -10,6 +10,7 @@ Site vitrine de Maxime, tatoueur en Suisse romande. Quatre pages statiques, sans
 | `flashs.html` | Catalogue de la saison : disponibles, déjà tatoués, saisons passées, réserver |
 | `tatouages.html` | Pièces réalisées par thème, photos et vidéos |
 | `processus.html` | Du carnet à la peau : carnet, encre, séance, après, avec les notes de Maxime |
+| `grimoire.html` | Variante d'architecture en une page, lue comme un livre, pensée d'abord pour le téléphone : page de titre, sommaire, six chapitres, barre de lecture en bas (sommaire plein écran), visionneuse des pièces. Styles dans `css/grimoire.css` + `css/grimoire/`, scripts dans `js/grimoire.js` + `js/grimoire/` |
 
 ## Structure
 
@@ -31,6 +32,7 @@ site/
 │   ├── fond-gl.js      outils WebGL : programme, triangle plein écran, texture
 │   ├── fond-shader.js  le dessin de la brume et des rayons (GLSL)
 │   ├── fond-pointeur.js halo qui suit la souris, ou le doigt sur écran tactile
+│   ├── fond-balade.js  trajet lent du halo sur téléphone quand on ne touche pas l'écran
 │   ├── melange.js      ordre aléatoire des flashs disponibles
 │   └── video.js        lecture des vidéos seulement quand elles sont visibles
 ├── assets/

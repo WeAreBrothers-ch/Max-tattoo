@@ -1,0 +1,88 @@
+/* Règles partagées par tous les chapitres du grimoire. */
+
+:root {
+  --regle: rgba(255, 255, 255, 0.22);
+  --marge: var(--pad);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --marge: 2.5rem;
+  }
+}
+
+.capitales {
+  font-family: var(--font-capitales);
+  font-size: 0.938rem;
+  line-height: 1.25;
+  letter-spacing: 0.07em;
+}
+
+@media (min-width: 640px) {
+  .capitales {
+    font-size: 1.063rem;
+  }
+}
+
+.enhance {
+  filter: brightness(1.15) saturate(80%) contrast(110%);
+}
+
+.cadre {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: #0a0a0a;
+}
+
+.cadre img,
+.cadre video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.chapitre {
+  padding: 3.5rem var(--marge) 0;
+  scroll-margin-top: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .chapitre {
+    padding-top: 9rem;
+    scroll-margin-top: 1rem;
+  }
+}
+
+/* Tête de chapitre : filet, titre à gauche, une phrase à droite. */
+.chapitre-tete {
+  display: grid;
+  gap: 0.4rem;
+  padding-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-top: var(--border-width) solid var(--regle);
+}
+
+.chapitre-tete h2 {
+  font-size: clamp(2.25rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.chapitre-tete p {
+  max-width: 26em;
+  color: var(--text-dim);
+}
+
+@media (min-width: 1024px) {
+  .chapitre-tete {
+    grid-template-columns: 2fr 1fr;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+
+  .chapitre-tete p {
+    padding-bottom: 0.4em;
+  }
+}

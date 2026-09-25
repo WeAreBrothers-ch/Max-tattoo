@@ -3,11 +3,16 @@
  * (origine en bas à gauche, comme dans le shader).
  * À la souris : le halo suit le curseur avec un léger retard et s'efface
  * quand il quitte la page.
- * Au doigt : le halo reste visible et glisse vers le dernier point touché,
- * un peu au-dessus du doigt pour ne pas être caché.
+ * Au doigt : le halo reste visible et se promène lentement tout seul ;
+ * un toucher l'attire un peu au-dessus du doigt (pour ne pas être caché),
+ * puis il reprend sa promenade quelques secondes après.
  */
 
+import { positionBalade } from "./fond-balade.js";
+
 const LERP = 0.28;
+const LERP_BALADE = 0.04;
+const REPRISE_BALADE_MS = 2500;
 const FORCE_LERP = 0.12;
 const TOUCH_OFFSET_Y = 110;
 const HIDE_DELAY_MOUSE_MS = 400;
@@ -23,6 +28,7 @@ export function createPointeur({ immediate, onChange }) {
   const target = { x: 0.5, y: 0.6, force: touchOnly ? 1 : 0 };
   const current = { x: target.x, y: target.y, force: immediate ? target.force : 0 };
   let hideTimer = 0;
+  let dernierToucher = -Infinity;
 
   /**
    * @param {number} clientX
@@ -41,6 +47,7 @@ export function createPointeur({ immediate, onChange }) {
     const onTouch = (event) => {
       const touch = event.touches[0];
       if (touch) {
+        dernierToucher = performance.now();
         aim(touch.clientX, Math.max(0, touch.clientY - TOUCH_OFFSET_Y));
       }
     };
@@ -66,7 +73,15 @@ export function createPointeur({ immediate, onChange }) {
   }
 
   function update() {
-    const k = immediate ? 1 : LERP;
+    const maintenant = performance.now();
+    const enBalade = touchOnly && !immediate && maintenant - dernierToucher > REPRISE_BALADE_MS;
+    if (enBalade) {
+      const balade = positionBalade(maintenant / 1000);
+      target.x = balade.x;
+      target.y = balade.y;
+    }
+    // En promenade, le halo rejoint son trajet en douceur au lieu de sauter.
+    const k = immediate ? 1 : enBalade ? LERP_BALADE : LERP;
     current.x += (target.x - current.x) * k;
     current.y += (target.y - current.y) * k;
     current.force += (target.force - current.force) * (immediate ? 1 : FORCE_LERP);

@@ -1,0 +1,80 @@
+/* Flashs : une bande de planches qu'on fait glisser au doigt ; alignées sur ordinateur. */
+
+.bande {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 78%;
+  gap: 1rem;
+  margin: 0 calc(var(--marge) * -1);
+  padding: 0 var(--marge);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 var(--marge);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.bande::-webkit-scrollbar {
+  display: none;
+}
+
+.planche {
+  scroll-snap-align: start;
+}
+
+.planche figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-top: 0.6rem;
+}
+
+.planche .etat {
+  color: var(--text-dim);
+}
+
+.planche.is-tatoue .cadre {
+  opacity: 0.4;
+}
+
+.planche.is-tatoue .titre {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+.bande-aide {
+  margin-top: 1rem;
+  color: var(--text-dim);
+}
+
+@media (min-width: 640px) {
+  .bande {
+    grid-auto-columns: 40%;
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bande {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .bande-aide {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .planche .cadre img {
+    transition: transform 600ms var(--ease-out);
+  }
+
+  .planche:hover .cadre img {
+    transform: scale(1.03);
+  }
+}

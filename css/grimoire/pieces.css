@@ -1,0 +1,97 @@
+/*
+ * Pièces portées. Téléphone : grille serrée de trois colonnes, comme un profil
+ * Instagram ; on touche une pièce pour l'ouvrir en grand. Ordinateur :
+ * mosaïque asymétrique, une grande vidéo en tête.
+ */
+
+.mosaique {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  margin: 0 calc(var(--marge) * -1);
+}
+
+.piece {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: #0a0a0a;
+}
+
+.piece img,
+.piece video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.piece figcaption {
+  display: none;
+}
+
+.piece-ouvrir {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.piece-ouvrir:active {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.piece-ouvrir:focus-visible {
+  outline: 1px solid var(--text);
+  outline-offset: -3px;
+}
+
+@media (min-width: 640px) {
+  .mosaique {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 0;
+  }
+
+  .piece {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mosaique {
+    grid-auto-flow: dense;
+    gap: 0.75rem;
+  }
+
+  /* Sur deux rangées, elles prennent la hauteur de leurs voisines. */
+  .piece--grande,
+  .piece--haute {
+    grid-row: span 2;
+    aspect-ratio: auto;
+  }
+
+  .piece--grande {
+    grid-column: span 2;
+  }
+
+  .piece--haute {
+    grid-column: 4;
+  }
+
+  .piece figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    padding: 1.5rem 0.6rem 0.5rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease;
+  }
+
+  .piece:hover figcaption {
+    opacity: 1;
+  }
+}

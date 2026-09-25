@@ -1,0 +1,57 @@
+/* Page de titre : le nom en très grand, posé en bas, qui déborde à droite. */
+
+.frontispice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* Plafonnée : un écran très haut ne doit pas créer une page vide. */
+  min-height: min(100svh, 46rem);
+  padding: calc(var(--pad) + env(safe-area-inset-top)) var(--marge) 0;
+  overflow: hidden;
+}
+
+.frontispice-haut {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.frontispice-devise {
+  margin-top: auto;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  max-width: 14em;
+  padding-bottom: 1rem;
+}
+
+.frontispice-nom {
+  margin-right: -0.06em;
+  margin-bottom: 0.1em;
+  font-size: 29vw;
+  line-height: 0.85;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+  .frontispice-devise {
+    position: absolute;
+    top: 38%;
+    right: var(--marge);
+    max-width: 11em;
+    padding: 0;
+    text-align: right;
+  }
+
+  .frontispice-nom {
+    margin-top: auto;
+    margin-bottom: -0.2em;
+    font-size: 30.5vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .frontispice {
+    min-height: min(100svh, 62rem);
+  }
+}

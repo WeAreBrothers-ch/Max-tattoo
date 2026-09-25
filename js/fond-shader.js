@@ -102,8 +102,9 @@ void main() {
   float revele = halo * (0.8 + b * 0.35);
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));
-  vec3 couleur = BRUME * (b * 0.1 + r * 0.04 + halo * 0.02) * mix(0.55, 1.0, vignette);
-  couleur += SANG * encre * clamp(revele, 0.0, 1.0);
+  vec3 couleur = BRUME * (b * 0.17 + r * 0.1 + halo * 0.03) * mix(0.6, 1.0, vignette);
+  // Rouge plus lumineux que la couleur de base : le dessin doit se lire sur téléphone.
+  couleur += SANG * 1.35 * encre * clamp(revele, 0.0, 1.0);
   couleur += (hash(gl_FragCoord.xy + t) - 0.5) / 255.0;
 
   gl_FragColor = vec4(couleur, 1.0);

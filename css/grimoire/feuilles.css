@@ -1,0 +1,121 @@
+/* Feuilles plein écran : le sommaire et la visionneuse des pièces. */
+
+.feuille,
+.visionneuse {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #000;
+  color: var(--text);
+  overscroll-behavior: contain;
+  outline: none;
+}
+
+.feuille[open],
+.visionneuse[open] {
+  display: flex;
+  flex-direction: column;
+  animation: feuille-entree 300ms var(--ease-out);
+}
+
+.feuille::backdrop,
+.visionneuse::backdrop {
+  background: #000;
+}
+
+@keyframes feuille-entree {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+/* Le fond de page ne défile pas derrière une feuille ouverte. */
+html.is-verrouille {
+  overflow: hidden;
+}
+
+.feuille-tete,
+.visionneuse-tete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 3.5rem;
+  padding: env(safe-area-inset-top) var(--marge) 0;
+  color: var(--text-dim);
+}
+
+/* Pas de cadre de focus au toucher ; il reste pour la navigation au clavier. */
+.feuille :focus:not(:focus-visible),
+.visionneuse :focus:not(:focus-visible) {
+  outline: none;
+}
+
+.feuille :focus-visible,
+.visionneuse :focus-visible {
+  outline: 1px solid var(--text);
+  outline-offset: 3px;
+}
+
+.feuille-fermer,
+.visionneuse-fermer {
+  height: 3.5rem;
+  padding-left: 1rem;
+  color: var(--text);
+}
+
+.feuille {
+  overflow-y: auto;
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+}
+
+.feuille .sommaire-liste {
+  margin: 1rem var(--marge) 0;
+}
+
+/* Visionneuse : on glisse d'une pièce à l'autre, comme dans un album. */
+.visionneuse-bande {
+  flex: 1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  min-height: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.visionneuse-bande::-webkit-scrollbar {
+  display: none;
+}
+
+.vue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 0;
+  padding: 0 var(--marge) calc(1.5rem + env(safe-area-inset-bottom));
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.vue img,
+.vue video {
+  flex: 0 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 78svh;
+  object-fit: contain;
+}
+
+.vue figcaption {
+  color: var(--text-dim);
+  text-align: center;
+}

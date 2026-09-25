@@ -1,0 +1,12 @@
+/* Variante « grimoire » : le site se lit comme un livre de gravures. */
+@import url("reset.css");
+@import url("base.css");
+@import url("fond.css");
+@import url("grimoire/commun.css");
+@import url("grimoire/barre.css");
+@import url("grimoire/feuilles.css");
+@import url("grimoire/frontispice.css");
+@import url("grimoire/sommaire.css");
+@import url("grimoire/planches.css");
+@import url("grimoire/pieces.css");
+@import url("grimoire/pratique.css");

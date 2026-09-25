@@ -13,8 +13,8 @@ const MAX_PIXELS = 1_100_000;
 const MAX_DPR = 1.5;
 const FRAME_MS = 1000 / 30;
 const SCROLL_DRIFT = 0.00035;
-const HALO_DESKTOP_PX = 330;
-const HALO_MOBILE_PX = 210;
+const HALO_DESKTOP_PX = 380;
+const HALO_MOBILE_PX = 240;
 const MOBILE_MAX_WIDTH = 767;
 const GRAVURES = {
   paysage: "assets/img/fond-paysage-masque.webp",
