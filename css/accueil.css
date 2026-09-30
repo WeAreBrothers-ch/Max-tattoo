@@ -1,14 +1,14 @@
 /* Accueil : ouverture, manifeste, pièces, flashs, chemin d'un dessin, studio. */
 
 /*
- * Ouverture : le fond animé en entier, le nom en très grand posé en bas,
- * juste au-dessus de la barre du pouce. En haut, ce qu'on est et où.
+ * Ouverture : le fond animé en entier, le nom en très grand posé en bas de
+ * l'écran. En haut, sous l'en-tête, ce qu'on est et où.
  */
 .ouverture {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  padding: calc(env(safe-area-inset-top) + 1.1rem) var(--gouttiere) calc(var(--bas) + 0.35rem);
+  padding: calc(var(--entete-h) + env(safe-area-inset-top) + 0.25rem) var(--gouttiere) calc(var(--bas) + 1rem);
   container-type: inline-size;
 }
 
@@ -102,7 +102,7 @@
   animation: monter 1500ms var(--ease) 120ms both;
 }
 
-/* Téléphone à l'horizontale : le nom tient au-dessus de la barre. */
+/* Téléphone à l'horizontale : le nom tient dans l'écran. */
 @media (orientation: landscape) and (max-height: 540px) {
   .ouverture-nom {
     font-size: min(calc(100cqi / 3.3), 38svh);

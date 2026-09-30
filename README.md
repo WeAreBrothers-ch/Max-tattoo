@@ -23,14 +23,14 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 
 Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est une version d'ordinateur rétrécie. Calibré de 320 à 430 px de large, debout et à l'horizontale.
 
-- **Barre du bas** (téléphone et tablette) : Menu à gauche, le chapitre en cours au milieu (il change en roulant), Réserver à droite. Dans le menu, « Fermer » prend la place exacte de « Menu ».
-- **Accueil** : la couverture tient dans l'écran, le nom posé juste au-dessus de la barre. Les pièces forment une pile de tirages : chaque photo s'arrête en haut de l'écran et la suivante vient la recouvrir.
+- **En-tête** : le nom à gauche, « Menu » à droite, fixe sur toutes les tailles ; il se retire quand on descend et revient quand on remonte. Dans le menu, « Fermer » prend la place exacte de « Menu ».
+- **Accueil** : la couverture tient dans l'écran, le nom posé en bas de l'écran. Les pièces forment une pile de tirages : chaque photo s'arrête en haut de l'écran et la suivante vient la recouvrir.
 - **Rangées à glisser** (tatouages par thème, flashs, pages du carnet, crayon → encre, pièces cicatrisées) : une œuvre par geste, la suivante dépasse pour inviter à glisser, un compteur « 2 / 5 » et un filet suivent le doigt. Dès 768 px, les mêmes œuvres redeviennent une grille éditoriale.
 - **Processus** : les vidéos verticales passent en « stories » d'un bord à l'autre, la phrase de Maxime posée dessus.
 - **Visionneuse** : l'œuvre grandit depuis sa vignette ; on glisse de l'une à l'autre, on la tire vers le bas pour la reposer, et elle retourne à sa place dans la rangée.
 - **Retour du téléphone** : le bouton ou le geste « retour » referme le menu ou la visionneuse au lieu de quitter la page.
-- **Animations** : courtes sur téléphone (on y fait défiler vite), aucune ne fait attendre le pouce ; les rangées se dévoilent d'un bloc. D'une page à l'autre, la barre du bas ne bouge pas. Zones tactiles de 44 px, marges de sécurité (encoche).
-- **Tablette et ordinateur** : grille de 12 colonnes dès 768 px, avec décalages verticaux et parallaxe douce ; dès 1024 px, en-tête fixe en haut et plus de barre du bas.
+- **Animations** : courtes sur téléphone (on y fait défiler vite), aucune ne fait attendre le pouce ; les rangées se dévoilent d'un bloc. Zones tactiles de 44 px, marges de sécurité (encoche).
+- **Tablette et ordinateur** : grille de 12 colonnes dès 768 px, avec décalages verticaux et parallaxe douce ; dès 1024 px, l'en-tête s'enrichit de « Tatoueur — Suisse romande » et de « Rendez-vous ».
 
 ## Structure
 
@@ -42,8 +42,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 │   ├── reset.css
 │   ├── base.css          polices, couleurs, liens, boutons, mouvement réduit
 │   ├── fond.css          canevas du fond animé + repli fixe sans WebGL
-│   ├── entete.css        en-tête (le nom seul sur téléphone, bandeau fixe sur ordinateur)
-│   ├── barre.css         barre du bas, sous le pouce (téléphone et tablette)
+│   ├── entete.css        en-tête fixe : le nom, le menu (et plus sur ordinateur)
 │   ├── menu.css          menu plein écran et ses animations
 │   ├── mise-en-page.css  grille, sections, têtes de page, sommaires, révélations
 │   ├── oeuvres.css       cadres, légendes, rangées à glisser, pile de tirages, planches, tampon, pensées
@@ -56,8 +55,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 │   ├── fond.js · fond-gl.js · fond-shader.js · fond-pointeur.js   le fond animé
 │   ├── menu.js           ouverture et fermeture du menu, emblèmes
 │   ├── couche.js         le « retour » du téléphone referme le menu ou la visionneuse
-│   ├── entete.js         en-tête qui se retire (ordinateur), petit nom de l'accueil
-│   ├── barre.js          barre du bas : chapitre en cours, filet de lecture
+│   ├── entete.js         en-tête qui se retire en descendant, petit nom de l'accueil
 │   ├── defileur.js       rangées à glisser : compteur et filet
 │   ├── pile.js           pile de tirages de l'accueil (téléphone)
 │   ├── revele.js         apparition des images et des textes au défilement
@@ -95,7 +93,7 @@ Chaque œuvre d'une galerie choisit sa place avec des variables en ligne :
 - Les vidéos sont muettes, en boucle, et ne tournent qu'à l'écran. Mouvement réduit demandé : pas d'animation, vidéos à l'arrêt, fond en image fixe.
 - Les révélations ne cachent que ce qui est sous l'écran au chargement ; sans script, tout est visible.
 - Le fond est plafonné (30 images/s, résolution limitée, pause quand l'onglet est caché). Sans WebGL, la gravure fixe s'affiche en CSS. Il faut servir le site en HTTP (la texture ne charge pas en `file://`).
-- En-tête, barre du bas, menu et pied sont identiques sur toutes les pages : une modification se reporte dans chaque fichier HTML. Chaque chapitre porte `data-titre` (un mot court, affiché dans la barre du bas) et `data-num` (son chiffre romain).
+- En-tête, menu et pied sont identiques sur toutes les pages : une modification se reporte dans chaque fichier HTML.
 
 ## Lancer en local
 

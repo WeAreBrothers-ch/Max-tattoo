@@ -1,7 +1,6 @@
 import { initFond } from "./fond.js";
 import { initMenu } from "./menu.js";
 import { initEntete } from "./entete.js";
-import { initBarre } from "./barre.js";
 import { initMelange } from "./melange.js";
 import { initDefileurs } from "./defileur.js";
 import { initPile } from "./pile.js";
@@ -14,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initFond();
   initMenu();
   initEntete();
-  initBarre();
   initDefileurs();
   initPile();
   initVisionneuse();

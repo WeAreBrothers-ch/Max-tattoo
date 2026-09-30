@@ -35,9 +35,8 @@
   --gouttiere: clamp(1rem, 4.6vw, 1.5rem);
   --gap: 0.75rem;
   --entete-h: 3.5rem;
-  /* Barre de navigation du bas (téléphone et tablette) et la place qu'elle prend. */
-  --barre-h: 3.5rem;
-  --bas: calc(var(--barre-h) + env(safe-area-inset-bottom));
+  /* Marge du bas : la zone du geste d'accueil sur iPhone. */
+  --bas: env(safe-area-inset-bottom);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-sortie: cubic-bezier(0.55, 0, 0.75, 0.2);
   --font-serif: "IM Fell English", Georgia, "Times New Roman", serif;
@@ -53,19 +52,11 @@
   }
 }
 
-/* Téléphone à l'horizontale : la barre du pouce se fait plus basse. */
-@media (orientation: landscape) and (max-height: 540px) {
-  :root {
-    --barre-h: 3rem;
-  }
-}
-
 @media (min-width: 1024px) {
   :root {
     --gouttiere: 2.5rem;
     --gap: 1.25rem;
     --entete-h: 4.5rem;
-    --bas: 0px;
   }
 }
 
@@ -178,19 +169,30 @@ p {
   white-space: nowrap;
 }
 
+/*
+ * Lien « Aller au contenu » : invisible (et sans surface) tant qu'il n'a pas
+ * le focus du clavier. Décalé hors de l'écran, il dépassait sous la barre
+ * d'état de l'iPhone.
+ */
 .evitement {
   position: fixed;
-  top: 0.5rem;
+  top: calc(0.5rem + env(safe-area-inset-top));
   left: 0.5rem;
   z-index: 100;
-  padding: 0.75rem 1rem;
-  background: var(--blanc);
-  color: var(--noir);
-  transform: translateY(-200%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .evitement:focus-visible {
-  transform: none;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1rem;
+  clip-path: none;
+  background: var(--blanc);
+  color: var(--noir);
 }
 
 /* Lien souligné : le trait se retire vers la droite au survol. */
