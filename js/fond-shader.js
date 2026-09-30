@@ -2,9 +2,8 @@
  * Shaders du fond : brume qui dérive, rayons de lumière qui la traversent,
  * gravure rouge sang révélée seulement dans le halo qui suit la souris ou le doigt,
  * et dans toute la brume quand le menu est ouvert (u_devoile).
- * Sur écran tactile (u_autonome), rien ne suit le doigt : la gravure reste
- * cachée dans la brume, et de temps en temps une lueur s'allume, dérive
- * lentement en dévoilant un morceau du dessin, puis s'éteint.
+ * Sur écran tactile, le halo est une lanterne que le défilement allume
+ * (voir js/fond-pointeur.js) : il ne suit jamais le doigt.
  */
 
 export const VERTEX_SHADER = `
@@ -30,7 +29,6 @@ uniform sampler2D u_gravure;
 uniform float u_gravureAspect;
 uniform float u_gravureReady;
 uniform float u_devoile;
-uniform float u_autonome;
 
 const vec3 SANG = vec3(0.66, 0.086, 0.106);
 const vec3 BRUME = vec3(0.78, 0.8, 0.84);
@@ -84,29 +82,6 @@ float rayons(vec2 uv, float aspect, float t) {
   return bandes * cone * chute;
 }
 
-// Lueur douce autour d'un centre, rayon en hauteurs d'écran.
-float lueur(vec2 q, vec2 centre, float rayon) {
-  return 1.0 - smoothstep(0.1, 1.0, length(q - centre) / rayon);
-}
-
-// Allumage d'une lueur : éteinte plus des deux tiers du temps, elle s'allume et
-// s'éteint en plusieurs secondes (sinus lent, seuillé en douceur).
-float allumage(float t, float vitesse, float phase) {
-  return smoothstep(0.5, 0.97, sin(t * vitesse + phase));
-}
-
-// Deux lueurs qui ne s'allument pas en même temps : la première au
-// chargement (vers 8 s), la seconde une demi-période plus tard ; entre les
-// deux, la brume seule. Le défilement fait glisser leur trajet, en continu.
-float lueurs(vec2 uv, float aspect, float t, float s) {
-  vec2 q = vec2(uv.x * aspect, uv.y);
-  vec2 a = vec2(aspect * (0.5 + 0.26 * sin(t * 0.043)), 0.55 + 0.22 * sin(t * 0.037 + 1.3 + s * 3.0));
-  vec2 b = vec2(aspect * (0.42 + 0.24 * sin(t * 0.031 + 2.0)), 0.4 + 0.24 * sin(t * 0.041 + s * 2.4));
-  float la = lueur(q, a, 0.46) * allumage(t, 0.09, 0.85);
-  float lb = lueur(q, b, 0.42) * allumage(t, 0.083, -2.2);
-  return max(la, lb);
-}
-
 vec2 coverUv(vec2 uv, float aspect) {
   float ecran = u_res.x / u_res.y;
   vec2 echelle = ecran > aspect ? vec2(1.0, aspect / ecran) : vec2(ecran / aspect, 1.0);
@@ -133,15 +108,9 @@ void main() {
   // La brume passe devant la gravure : le dessin respire dans la fumée.
   // Menu ouvert : la gravure entière remonte, portée par la brume.
   float revele = max(halo * (0.8 + b * 0.35), u_devoile * (0.2 + b * 0.55));
-  float auto = 0.0;
-  if (u_autonome > 0.5) {
-    auto = lueurs(uv, aspect, t, u_scroll * 0.9);
-    // Hors des lueurs, la gravure reste cachée ; dessous, elle respire dans la brume.
-    revele = max(revele, auto * (0.7 + b * 0.5));
-  }
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));
-  vec3 couleur = BRUME * (b * 0.17 + r * 0.1 + halo * 0.03 + auto * 0.025) * mix(0.6, 1.0, vignette);
+  vec3 couleur = BRUME * (b * 0.17 + r * 0.1 + halo * 0.03) * mix(0.6, 1.0, vignette);
   // Rouge plus lumineux que la couleur de base : le dessin doit se lire sur téléphone.
   couleur += SANG * 1.35 * encre * clamp(revele, 0.0, 1.0);
   couleur += (hash(gl_FragCoord.xy + t) - 0.5) / 255.0;
