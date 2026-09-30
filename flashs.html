@@ -2,90 +2,191 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flashs — Maxime, tatoueur</title>
-  <meta name="description" content="Catalogue des flashs de la saison : dessins uniques de Maxime, tatoués une seule fois, avec tailles, emplacements et disponibilité." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Flashs d'automne 2026 — Maxime, tatoueur</title>
+  <meta name="description" content="Les flashs de la saison : dessins uniques de Maxime, tatoués une seule fois, avec taille, emplacement et disponibilité. Saisons passées et réservation." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_CH" />
+  <meta property="og:site_name" content="Maxime, tatoueur" />
+  <meta property="og:title" content="Flashs d'automne 2026 — Maxime, tatoueur" />
+  <meta property="og:description" content="Des dessins préparés à l'avance, tatoués une seule fois." />
+  <meta property="og:image" content="assets/img/partage.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="assets/fonts/im-fell-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/im-fell-sc-normal-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
   <canvas class="fond" aria-hidden="true"></canvas>
 
-  <header class="site-header">
-    <div class="grid-3">
-      <div class="col-full lg-col-1">
-        <div class="masthead">
-          <a href="index.html">Maxime</a>
-          <nav class="site-nav mono" aria-label="Navigation">
-            <ul>
-              <li><a href="flashs.html" aria-current="page">Flashs</a></li>
-              <li><a href="tatouages.html">Tatouages</a></li>
-              <li><a href="processus.html">Processus</a></li>
-              <li><a href="index.html#infos">Infos</a></li>
-            </ul>
-          </nav>
-        </div>
-        <h1 class="page-title">Flashs</h1>
-      </div>
-      <div class="col-full lg-col-2 lg-pr intro">
-        <div class="links"><div class="t-court with-indent"><p>Un flash est un dessin préparé à l'avance, tatoué une seule fois, puis rayé du catalogue. Il peut être légèrement adapté à l'endroit du corps.</p></div><div class="t-long with-indent"><p>Un flash est un dessin préparé à l'avance, à l'encre noire, et tatoué une seule fois. Il n'est pas redessiné pour quelqu'un d'autre&nbsp;: une fois porté, il est rayé du catalogue et rejoint la section <a href="tatouages.html">Tatouages</a>. Un flash peut être légèrement adapté à l'endroit du corps choisi&nbsp;; la taille indiquée est celle du dessin original.</p><p>Le catalogue change à chaque saison. Les dessins de la saison en cours sont ci-dessous, avec leur disponibilité. Pour en réserver un, écrire à Maxime avec le nom du dessin et l'emplacement souhaité.</p></div></div>
-        <div class="mono note"><span class="t-court">Automne 2026 — 2 dessins disponibles sur 4.</span><span class="t-long">Automne 2026 — 2 dessins disponibles sur 4. Mis à jour le 21 septembre 2026.</span></div>
-      </div>
+  <header class="entete" data-entete>
+    <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
+    <div class="entete-actions cap">
+      <a class="entete-rdv" href="rendez-vous.html">Rendez-vous</a>
+      <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
 
-  <main>
-    <section class="series" id="disponibles">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">① Disponibles</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Lames, mains et cierges. Chaque dessin est disponible une seule fois.</p></div><div class="t-long with-indent"><p>Lames, mains et cierges&nbsp;: ce qu'on garde quand la lumière baisse. Les dessins de l'automne sont pensés pour l'avant-bras et la cuisse, là où une pièce verticale peut respirer. Chaque dessin est disponible une seule fois, dans l'ordre des demandes.</p></div></div>
+  <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-tete">
+      <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
+    </div>
+    <nav class="menu-corps" aria-label="Chapitres">
+      <ol class="menu-liste">
+        <li class="menu-item" style="--i: 0"><a class="menu-lien" href="flashs.html" aria-current="page"><span class="menu-num cap">I</span><span class="menu-masque"><span class="menu-titre">Flashs</span></span><span class="menu-folio cap">Automne 2026</span></a></li>
+        <li class="menu-item" style="--i: 1"><a class="menu-lien" href="tatouages.html"><span class="menu-num cap">II</span><span class="menu-masque"><span class="menu-titre">Tatouages</span></span><span class="menu-folio cap">Quinze pièces</span></a></li>
+        <li class="menu-item" style="--i: 2"><a class="menu-lien" href="processus.html"><span class="menu-num cap">III</span><span class="menu-masque"><span class="menu-titre">Processus</span></span><span class="menu-folio cap">Du carnet à la peau</span></a></li>
+        <li class="menu-item" style="--i: 3"><a class="menu-lien" href="rendez-vous.html"><span class="menu-num cap">IV</span><span class="menu-masque"><span class="menu-titre">Rendez-vous</span></span><span class="menu-folio cap">Réponse sous 48 h</span></a></li>
+      </ol>
+    </nav>
+    <div class="menu-pied cap">
+      <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
+      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+    </div>
+    <div class="menu-emblemes" aria-hidden="true">
+      <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
+      <img src="assets/img/em-serpent.webp" alt="" loading="lazy" decoding="async" width="605" height="900" />
+      <img src="assets/img/em-bete.webp" alt="" loading="lazy" decoding="async" width="729" height="900" />
+      <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
+    </div>
+  </dialog>
+
+  <main id="contenu">
+    <header class="page-tete contenu">
+      <p class="page-surtitre cap"><span>I — Flashs</span><span>Automne 2026</span></p>
+      <h1 class="page-titre" style="--mots: 2.62">Flashs</h1>
+      <div class="page-intro">
+        <p class="page-intro-texte">Un flash est un dessin préparé à l'avance, tatoué une seule fois, puis rayé du catalogue. Il peut être légèrement adapté à l'endroit du corps, jamais redessiné pour quelqu'un d'autre.</p>
+        <p class="page-meta cap"><span>Deux dessins disponibles sur quatre</span><span>Mis à jour le 21 septembre 2026</span></p>
       </div>
-      <div class="publications" data-melange>
-        <figure class="pub"><div class="frame r-141"><img class="enhance" src="assets/img/fl-dague-roses.jpg" alt="Dessin de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy"></div><figcaption><span class="titre">Dague et roses</span><span class="meta">14 × 20 cm, avant-bras, cuisse</span><span class="etat">Disponible</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-141"><img class="enhance" src="assets/img/fl-masse.jpg" alt="Dessin d'une masse d'armes à tête de crâne, chaîne et cierge" loading="lazy"></div><figcaption><span class="titre">Masse d'armes</span><span class="meta">12 × 18 cm, bras, mollet</span><span class="etat">Disponible</span></figcaption></figure>
+    </header>
+
+    <section class="section contenu" id="disponibles" aria-labelledby="titre-disponibles">
+      <div class="section-filet cap"><span>I</span><span>Disponibles</span><span>Deux dessins</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-disponibles" data-revele="titre">Disponibles</h2>
+        <p class="section-chapeau" data-revele="texte">Lames, mains et cierges&nbsp;: ce qu'on garde quand la lumière baisse. Des pièces verticales, pensées pour l'avant-bras et la cuisse. Chaque dessin part dans l'ordre des demandes.</p>
+      </div>
+      <div class="grille galerie flashs-libres" data-visionneuse data-melange>
+        <figure class="planche planche--grande oeuvre est-libre" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-dague-roses.jpg" alt="Dessin de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy" decoding="async" width="660" height="880" /></div>
+          <figcaption>
+            <span class="planche-titre">Dague et roses</span>
+            <span class="planche-infos cap"><span>14 × 20 cm — avant-bras, cuisse</span><span class="planche-etat">Disponible</span></span>
+            <a class="bouton cap planche-lien" href="rendez-vous.html#ecrire">Réserver ce dessin <span class="fleche" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
+        <figure class="planche planche--grande oeuvre est-libre" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-masse.jpg" alt="Planche de dessins : masse d'armes, cierge enchaîné, vase à l'œil, main à la rose" loading="lazy" decoding="async" width="660" height="880" /></div>
+          <figcaption>
+            <span class="planche-titre">Masse d'armes</span>
+            <span class="planche-infos cap"><span>12 × 18 cm — bras, mollet</span><span class="planche-etat">Disponible</span></span>
+            <a class="bouton cap planche-lien" href="rendez-vous.html#ecrire">Réserver ce dessin <span class="fleche" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="tatoues">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">② Déjà tatoués</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Rayés jusqu'à la saison suivante. Ils ne seront pas refaits. Les pièces cicatrisées sont dans <a href="tatouages.html">Tatouages</a>.</p></div><div class="t-long with-indent"><p>Les dessins de la saison déjà portés restent affichés, rayés, jusqu'à la saison suivante. Ils ne seront pas refaits. Les photos des pièces cicatrisées sont dans la section <a href="tatouages.html">Tatouages</a>, et le chemin du carnet à la peau dans <a href="processus.html">Processus</a>.</p></div></div>
+    <section class="section contenu" id="tatoues" aria-labelledby="titre-tatoues">
+      <div class="section-filet cap"><span>II</span><span>Déjà tatoués</span><span>Deux dessins</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-tatoues" data-revele="titre">Déjà tatoués</h2>
+        <p class="section-chapeau" data-revele="texte">Rayés jusqu'à la saison suivante, ils ne seront pas refaits. Leurs photos, une fois cicatrisés, sont parmi les <a class="lien" href="tatouages.html">pièces portées</a>.</p>
       </div>
-      <div class="publications">
-        <a class="pub is-tatoue" href="tatouages.html#mains"><figure><div class="frame r-141"><img class="enhance" src="assets/img/fl-serpent.jpg" alt="Dessin d'une main baguée enlacée par un serpent" loading="lazy"></div><figcaption><span class="titre">Serpent et main</span><span class="meta">15 × 22 cm, cuisse</span><span class="etat">Tatoué</span></figcaption></figure></a>
-        <a class="pub is-tatoue" href="tatouages.html#yeux"><figure><div class="frame r-141"><img class="enhance" src="assets/img/fl-oeil.jpg" alt="Dessin d'un œil rayonnant" loading="lazy"></div><figcaption><span class="titre">Œil rayonnant</span><span class="meta">8 × 10 cm, coude</span><span class="etat">Tatoué</span></figcaption></figure></a>
+      <div class="grille galerie" data-visionneuse>
+        <figure class="planche oeuvre est-tatoue" style="--c: 1 / span 3; --cd: 2 / span 4" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-serpent.jpg" alt="Dessin d'une main baguée enlacée par un serpent" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></div>
+          <figcaption>
+            <span class="planche-titre">Serpent et main</span>
+            <span class="planche-infos cap"><span>15 × 22 cm, cuisse</span><span class="planche-etat">Tatoué</span></span>
+            <a class="lien-fleche cap planche-lien" href="tatouages.html#mains">La pièce portée <span class="fleche" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
+        <figure class="planche oeuvre est-tatoue" style="--c: 4 / span 3; --h: 4rem; --cd: 8 / span 4; --hd: 8rem" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-oeil.jpg" alt="Dessin d'un œil rayonnant" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></div>
+          <figcaption>
+            <span class="planche-titre">Œil rayonnant</span>
+            <span class="planche-infos cap"><span>8 × 10 cm, coude</span><span class="planche-etat">Tatoué</span></span>
+            <a class="lien-fleche cap planche-lien" href="tatouages.html#yeux">La pièce portée <span class="fleche" aria-hidden="true">→</span></a>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="saisons">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">③ Saisons passées</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Consultables, mais plus disponibles.</p></div><div class="t-long with-indent"><p>Chaque saison a eu son thème et sa dizaine de dessins. Les catalogues passés restent consultables pour comprendre d'où viennent les pièces, mais aucun de leurs dessins n'est disponible. Certains motifs reviennent d'une saison à l'autre, jamais à l'identique.</p></div></div>
+    <section class="section contenu" id="saisons" aria-labelledby="titre-saisons">
+      <div class="section-filet cap"><span>III</span><span>Saisons passées</span><span>Archivées</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-saisons" data-revele="titre">Saisons passées</h2>
+        <p class="section-chapeau" data-revele="texte">Chaque saison a eu son thème et sa dizaine de dessins. Certains motifs reviennent d'une saison à l'autre, jamais à l'identique&nbsp;; aucun dessin passé n'est plus disponible.</p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134 cover is-past">Été 2026</div><figcaption><span class="titre">Serpents, roses, insectes</span><span class="meta">11 dessins, archivé</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134 cover is-past">Printemps 2026</div><figcaption><span class="titre">Oiseaux, bourgeons, os</span><span class="meta">9 dessins, archivé</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134 cover is-past">Hiver 2025</div><figcaption><span class="titre">Cathédrales, brume, esprits</span><span class="meta">7 dessins, archivé</span></figcaption></figure>
-      </div>
+      <ol class="registre" data-revele="texte">
+        <li><span class="registre-saison">Été 2026</span><span class="registre-theme">Serpents, roses, insectes</span><span class="registre-compte cap">11 dessins</span></li>
+        <li><span class="registre-saison">Printemps 2026</span><span class="registre-theme">Oiseaux, bourgeons, os</span><span class="registre-compte cap">9 dessins</span></li>
+        <li><span class="registre-saison">Hiver 2025</span><span class="registre-theme">Cathédrales, brume, esprits</span><span class="registre-compte cap">7 dessins</span></li>
+      </ol>
     </section>
 
-    <section class="series" id="reserver">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">④ Réserver</h2>
-        <div class="col-full lg-col-2 lg-pr infos-body">
-          <div class="links"><div class="t-court with-indent"><p>Écrire à Maxime avec le nom du dessin et l'emplacement. Réponse sous 48 heures&nbsp;; l'acompte bloque le dessin.</p></div><div class="t-long with-indent"><p>Écrire à Maxime par e-mail ou sur Instagram avec le nom du dessin et l'emplacement souhaité. Réponse sous 48 heures avec une date et un prix. Le dessin est bloqué dès que l'acompte est versé&nbsp;; il est déduit du prix final.</p><p>Si un flash vous plaît mais que vous le voulez ailleurs, ou un peu plus grand, dites-le&nbsp;: la plupart des dessins s'adaptent. Si vous voulez un dessin qui n'existe pas encore, c'est un projet personnalisé, décrit dans la <a href="index.html#infos">section Infos</a>.</p></div></div>
-          <div class="mono contact links">
-            <a href="#">Instagram</a>
-            <a href="#">E-mail</a>
-          </div>
-        </div>
+    <section class="section contenu" id="reserver" aria-labelledby="titre-reserver">
+      <div class="section-filet cap"><span>IV</span><span>Réserver</span><span>Réponse sous 48 h</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-reserver" data-revele="titre">Réserver un flash</h2>
+        <p class="section-chapeau" data-revele="texte">Un dessin vous plaît mais vous le voulez ailleurs, ou un peu plus grand&nbsp;? Dites-le&nbsp;: la plupart s'adaptent. Un dessin qui n'existe pas encore, c'est un <a class="lien" href="rendez-vous.html#questions">projet personnalisé</a>.</p>
       </div>
+      <ol class="deroule">
+        <li data-revele="texte"><span class="deroule-num cap">I</span><h3 class="deroule-titre">Choisir</h3><p>Le nom du dessin et l'emplacement souhaité sur le corps.</p></li>
+        <li data-revele="texte"><span class="deroule-num cap">II</span><h3 class="deroule-titre">Écrire</h3><p>Par e-mail ou sur Instagram. Réponse sous 48 heures avec une date et un prix.</p></li>
+        <li data-revele="texte"><span class="deroule-num cap">III</span><h3 class="deroule-titre">Bloquer</h3><p>L'acompte réserve le dessin&nbsp;; il est déduit du prix final.</p></li>
+        <li data-revele="texte"><span class="deroule-num cap">IV</span><h3 class="deroule-titre">Porter</h3><p>Le jour de la séance, le dessin est placé et validé ensemble dans le miroir.</p></li>
+      </ol>
+      <p class="section-suite"><a class="bouton cap" href="rendez-vous.html#ecrire">Écrire à Maxime <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div><a href="index.html">Maxime</a></div>
-    <div class="quote"><p>«&nbsp;entre l'ombre et la lumière&nbsp;»</p></div>
-    <div class="right"><a href="index.html#infos">Informations</a></div>
+  <footer class="pied contenu">
+    <div class="pied-appel">
+      <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
+      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
+    </div>
+    <div class="pied-colonnes">
+      <nav aria-label="Plan du site">
+        <p class="pied-titre cap">Chapitres</p>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="flashs.html">Flashs</a></li>
+          <li><a href="tatouages.html">Tatouages</a></li>
+          <li><a href="processus.html">Processus</a></li>
+          <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="pied-titre cap">Écrire</p>
+        <ul>
+          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
+          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="pied-titre cap">Studio</p>
+        <p>Studio privé<br />Suisse romande</p>
+      </div>
+      <div>
+        <p class="pied-titre cap">Séances</p>
+        <p>Sur rendez-vous<br />en semaine</p>
+      </div>
+    </div>
+    <div class="pied-bas cap">
+      <span>© 2026 Maxime, tatoueur</span>
+      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <a href="#top">Haut de page ↑</a>
+    </div>
   </footer>
 
   <script type="module" src="js/main.js"></script>

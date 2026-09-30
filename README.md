@@ -1,55 +1,85 @@
 # Maxime — tatoueur
 
-Site vitrine de Maxime, tatoueur en Suisse romande. Quatre pages statiques, sans framework ni étape de build.
+Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni étape de build : on dépose le dossier tel quel chez l'hébergeur.
 
 ## Pages
 
 | Fichier | Contenu |
 | --- | --- |
-| `index.html` | Accueil : intro, six tuiles, aperçu de chaque section, studio, infos |
-| `flashs.html` | Catalogue de la saison : disponibles, déjà tatoués, saisons passées, réserver |
-| `tatouages.html` | Pièces réalisées par thème, photos et vidéos |
-| `processus.html` | Du carnet à la peau : carnet, encre, séance, après, avec les notes de Maxime |
-| `grimoire.html` | Variante d'architecture en une page, lue comme un livre, pensée d'abord pour le téléphone : page de titre, sommaire, six chapitres, barre de lecture en bas (sommaire plein écran), visionneuse des pièces. Styles dans `css/grimoire.css` + `css/grimoire/`, scripts dans `js/grimoire.js` + `js/grimoire/` |
+| `index.html` | Accueil : le nom en très grand sur le fond animé, manifeste, pièces portées, flashs de la saison, du carnet à la peau, le studio |
+| `flashs.html` | Flashs disponibles (ordre tiré au sort à chaque visite), déjà tatoués (tampon « Tatoué »), saisons passées, réserver |
+| `tatouages.html` | Les pièces par thème (mains, bêtes, crânes, yeux), photos et vidéos, visionneuse plein écran |
+| `processus.html` | Le carnet, l'encre, la séance, après : images et vidéos avec les mots de Maxime |
+| `rendez-vous.html` | Écrire, ce qu'il faut écrire, déroulement, studio, soins, questions |
+| `404.html` | Page introuvable (chemins depuis la racine : `<base href="/">`) |
+
+## Direction
+
+- **Fond** : brume, rayons et gravure rouge sang en WebGL (`js/fond*.js`), derrière toutes les pages. La gravure apparaît sous la souris, ou se promène seule sur téléphone. Quand le menu s'ouvre, la gravure entière remonte de la brume.
+- **Typographie** : IM Fell English (romain, italique) et IM Fell English SC (petites capitales), licence OFL. Grands titres qui prennent toute la largeur, chiffres romains, filets fins, lettrine rouge.
+- **Images en grand** : galeries éditoriales sur une grille de 6 colonnes (téléphone) et 12 colonnes (dès 768 px), avec des décalages verticaux. Toucher une œuvre l'ouvre en grand ; on glisse de l'une à l'autre.
+- **Menu** : table des matières plein écran (`<dialog>`), les chapitres montent un à un, l'emblème blanc du chapitre survolé apparaît à droite.
+- **Téléphone d'abord** : zones tactiles de 44 px, marges de sécurité (encoche), bandes à glisser pour les flashs, images pleine largeur.
 
 ## Structure
 
 ```
-site/
-├── index.html · flashs.html · tatouages.html · processus.html
+├── index.html · flashs.html · tatouages.html · processus.html · rendez-vous.html · 404.html
+├── favicon.ico · favicon.svg · apple-touch-icon.png · site.webmanifest · robots.txt
 ├── css/
-│   ├── styles.css      point d'entrée, importe les autres
+│   ├── styles.css        point d'entrée, importe les autres
 │   ├── reset.css
-│   ├── base.css        polices, variables, typographie, grille, textes court/long
-│   ├── fond.css        canevas du fond animé + repli fixe sans WebGL
-│   ├── header.css
-│   ├── tiles.css       les six tuiles de l'accueil
-│   ├── sections.css    sections numérotées et grilles de vignettes
-│   └── footer.css
+│   ├── base.css          polices, couleurs, liens, boutons, mouvement réduit
+│   ├── fond.css          canevas du fond animé + repli fixe sans WebGL
+│   ├── entete.css        en-tête fixe (se retire en descendant, revient en remontant)
+│   ├── menu.css          menu plein écran et ses animations
+│   ├── mise-en-page.css  grille, sections, têtes de page, sommaires, révélations
+│   ├── oeuvres.css       cadres, légendes, planches de flashs, tampon, pensées, parallaxe
+│   ├── accueil.css       ouverture, manifeste, bande de flashs, étapes, studio
+│   ├── pages.css         registre, déroulé, vis-à-vis, canaux, questions, 404
+│   ├── visionneuse.css   œuvres en grand
+│   └── pied.css
 ├── js/
-│   ├── main.js         point d'entrée (module)
-│   ├── fond.js         fond animé (brume, rayons, halo de gravure) : boucle, pause, repli
-│   ├── fond-gl.js      outils WebGL : programme, triangle plein écran, texture
-│   ├── fond-shader.js  le dessin de la brume et des rayons (GLSL)
-│   ├── fond-pointeur.js halo qui suit la souris, ou le doigt sur écran tactile
-│   ├── fond-balade.js  trajet lent du halo sur téléphone quand on ne touche pas l'écran
-│   ├── melange.js      ordre aléatoire des flashs disponibles
-│   └── video.js        lecture des vidéos seulement quand elles sont visibles
+│   ├── main.js           point d'entrée (module)
+│   ├── fond.js · fond-gl.js · fond-shader.js · fond-pointeur.js · fond-balade.js   le fond animé
+│   ├── menu.js           ouverture et fermeture du menu, emblèmes
+│   ├── entete.js         en-tête qui se retire, petit nom de l'accueil
+│   ├── revele.js         apparition des images et des textes au défilement
+│   ├── visionneuse.js    œuvres en grand, glisser, flèches, Échap
+│   ├── melange.js        ordre aléatoire des flashs disponibles
+│   └── video.js          vidéos lues seulement quand elles sont à l'écran
 ├── assets/
-│   ├── img/            photos, dessins, emblèmes, gravure de fond
-│   ├── video/          extraits MP4 de 9 s + image d'attente
-│   └── fonts/          IM Fell English, romain, italique et petites capitales (licence OFL)
+│   ├── img/              photos (tt-), flashs (fl-), carnet (cn-), studio (st-), emblèmes (em-*.webp, fond transparent), icônes, image de partage
+│   ├── video/            extraits MP4 de 9 s + image d'attente
+│   └── fonts/            IM Fell English
 └── tools/
-    └── build-preview.py   fabrique une version tout-en-un pour un hébergement de maquette
+    └── build-preview.py  version tout-en-un pour un hébergement de maquette
 ```
+
+## Placer une œuvre
+
+Chaque œuvre d'une galerie choisit sa place avec des variables en ligne :
+
+```html
+<figure class="oeuvre" style="--c: 1 / span 3; --h: 3rem; --cd: 7 / span 3; --hd: 6rem" data-revele="image">
+  <div class="cadre"><img class="photo" src="assets/img/tt-dague.jpg" alt="…" loading="lazy" decoding="async" width="675" height="900" /></div>
+  <figcaption class="legende"><span class="legende-titre">Main à la dague</span><span class="legende-lieu cap">Cuisse</span></figcaption>
+</figure>
+```
+
+- `--c` / `--cd` : colonnes sur téléphone (6) et dès la tablette (12). Sans valeur, toute la largeur.
+- `--h` / `--hd` : décalage vertical, pour le rythme.
+- `--r` sur le cadre : format (`3 / 4` par défaut, `9 / 16` pour les vidéos, `1 / 1`).
+- `oeuvre--plein` : l'image touche les deux bords sur téléphone. `cadre--arche` : plein cintre. `data-parallaxe` sur le cadre : léger décalage au défilement.
+- Dans un bloc `data-visionneuse`, chaque œuvre s'ouvre en grand ; la légende est reprise dans la visionneuse.
+- Une vidéo : `<video data-autoplay muted loop playsinline preload="none" poster="…">` avec un `aria-label`.
 
 ## Conventions
 
-- Direction visuelle calquée sur l'index d'archives Whole Earth : noir, blanc, une seule famille de caractères (IM Fell English, imprimerie du XVIIᵉ siècle), sections numérotées, grille de vignettes 2 / 4 / 5 colonnes.
-- Chaque bloc de texte existe en deux versions : `.t-court` affichée sur téléphone, `.t-long` affichée à partir de 1024 px.
-- Les vidéos sont muettes, en boucle, et ne tournent que lorsqu'elles sont à l'écran.
-- Le fond est dessiné en WebGL (30 images/s, résolution plafonnée, pause quand l'onglet est caché, image fixe si « réduire les animations »). Sans WebGL, la gravure fixe s'affiche en CSS. Il faut servir le site en HTTP (la texture ne charge pas en `file://`).
-- Les flashs disponibles marqués `data-melange` changent d'ordre à chaque visite.
+- Les vidéos sont muettes, en boucle, et ne tournent qu'à l'écran. Mouvement réduit demandé : pas d'animation, vidéos à l'arrêt, fond en image fixe.
+- Les révélations ne cachent que ce qui est sous l'écran au chargement ; sans script, tout est visible.
+- Le fond est plafonné (30 images/s, résolution limitée, pause quand l'onglet est caché). Sans WebGL, la gravure fixe s'affiche en CSS. Il faut servir le site en HTTP (la texture ne charge pas en `file://`).
+- En-tête, menu et pied sont identiques sur toutes les pages : une modification se reporte dans chaque fichier HTML.
 
 ## Lancer en local
 
@@ -59,8 +89,8 @@ python3 -m http.server 8000
 
 puis ouvrir `http://localhost:8000/`.
 
-## Contenus à confirmer avec Maxime
+## À compléter avant la mise en ligne
 
-- Notes de la page Processus (écrites dans sa voix, provisoires).
-- Tailles, emplacements et disponibilités des flashs ; contenu des saisons passées.
-- Liens Instagram et e-mail (vides), ville du studio.
+- **Instagram et e-mail de Maxime** : les liens sont marqués `data-a-completer="instagram"` et `data-a-completer="e-mail"` (menu, pied de page, page Rendez-vous). Remplacer leur `href="#"` par l'adresse du compte et par `mailto:…`.
+- **Adresse du site** : une fois le domaine connu, passer `og:image` en adresse absolue (`https://…/assets/img/partage.jpg`) pour les aperçus de partage.
+- Contenus à relire avec Maxime : notes de la page Processus (écrites dans sa voix), tailles et emplacements des flashs, saisons passées, date de mise à jour du catalogue.

@@ -1,0 +1,361 @@
+/*
+ * Menu : une table des matières plein écran. À l'ouverture, la page s'efface,
+ * la brume reste et la gravure rouge remonte du fond (voir js/fond.js) ;
+ * les chapitres montent un à un, chacun sous son filet.
+ */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blanc);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.menu[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sans script, le menu s'ouvre quand même (commandes HTML) sur fond noir. */
+.menu::backdrop {
+  background: #000;
+}
+
+/* Avec script, la page s'efface et laisse voir le fond animé. */
+.menu.anime::backdrop {
+  background: transparent;
+}
+
+html.menu-ouvert {
+  overflow: hidden;
+}
+
+main,
+.pied {
+  transition: opacity 700ms var(--ease);
+}
+
+html.menu-ouvert :is(main, .pied, .entete) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-tete {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: none;
+  height: calc(var(--entete-h) + env(safe-area-inset-top));
+  padding: env(safe-area-inset-top) var(--gouttiere) 0;
+}
+
+.menu-nom {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.menu-fermer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.75rem;
+  margin-right: -0.25rem;
+  padding: 0 0.25rem;
+}
+
+/* La croix reprend les deux filets du bouton Menu, tournés. */
+.menu-fermer-icone {
+  position: relative;
+  display: block;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.menu-fermer-icone::before,
+.menu-fermer-icone::after {
+  content: "";
+  position: absolute;
+  left: -0.1rem;
+  right: -0.1rem;
+  top: 50%;
+  border-top: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.menu-fermer-icone::after {
+  transform: rotate(-45deg);
+}
+
+.menu-corps {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.5rem var(--gouttiere);
+}
+
+.menu-liste {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-item {
+  position: relative;
+}
+
+/* Filets tracés à la plume : ils se déroulent de gauche à droite. */
+.menu-item::before,
+.menu-item:last-child::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--filet);
+  transform-origin: left center;
+}
+
+.menu-item::before {
+  top: 0;
+}
+
+.menu-item:last-child::after {
+  bottom: 0;
+}
+
+.menu-lien {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 0.5rem;
+  padding: 0.7rem 0 0.8rem;
+  transition: opacity 500ms var(--ease);
+}
+
+.menu-num {
+  color: var(--blanc-doux);
+  transition: color 400ms var(--ease);
+}
+
+.menu-masque {
+  display: block;
+  overflow: hidden;
+  /* Place pour les jambages sous la ligne de base. */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.menu-titre {
+  display: block;
+  font-size: clamp(2.75rem, 12.5vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  transition: translate 700ms var(--ease);
+}
+
+.menu-folio {
+  grid-column: 2;
+  margin-top: 0.3rem;
+  color: var(--blanc-doux);
+}
+
+.menu-lien[aria-current="page"] .menu-num {
+  color: var(--sang-vif);
+}
+
+.menu-pied {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem 1.5rem;
+  padding: 0.5rem var(--gouttiere) calc(1rem + env(safe-area-inset-bottom));
+}
+
+.menu-contacts {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.menu-contacts a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.menu-lieu {
+  color: var(--blanc-doux);
+}
+
+/* Emblème du chapitre survolé, gravure blanche posée dans la brume. */
+.menu-emblemes {
+  position: absolute;
+  right: 0;
+  bottom: 7%;
+  z-index: 0;
+  width: 58vw;
+  height: 44%;
+  pointer-events: none;
+  opacity: 0.22;
+}
+
+.menu-emblemes img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom;
+  opacity: 0;
+  scale: 0.97;
+  transition: opacity 700ms var(--ease), scale 1200ms var(--ease);
+}
+
+.menu-emblemes img.est-actif {
+  opacity: 1;
+  scale: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu-liste:hover .menu-lien {
+    opacity: 0.32;
+  }
+
+  .menu-liste .menu-lien:hover {
+    opacity: 1;
+  }
+
+  .menu-lien:hover .menu-titre {
+    translate: 0.12em 0;
+  }
+
+  .menu-lien:hover .menu-num {
+    color: var(--sang-vif);
+  }
+
+  .menu-contacts a,
+  .menu-nom,
+  .menu-fermer {
+    transition: opacity 400ms var(--ease);
+  }
+
+  .menu-contacts a:hover,
+  .menu-nom:hover,
+  .menu-fermer:hover {
+    opacity: 0.6;
+  }
+}
+
+.menu-lien:focus-visible {
+  outline-offset: -1px;
+}
+
+@media (min-width: 640px) {
+  .menu-lien {
+    grid-template-columns: 3.5rem minmax(0, 1fr) auto;
+    padding: 0.9rem 0 0.95rem;
+  }
+
+  .menu-folio {
+    grid-column: auto;
+    margin-top: 0;
+    text-align: right;
+  }
+}
+
+@media (min-width: 1024px) {
+  .menu-nom {
+    font-size: 1.625rem;
+  }
+
+  .menu-corps {
+    padding-right: 38vw;
+  }
+
+  .menu-titre {
+    font-size: clamp(4rem, 6.6vw, 8rem);
+  }
+
+  .menu-lien {
+    grid-template-columns: 4.5rem minmax(0, 1fr) auto;
+    padding: 1rem 0 1.05rem;
+  }
+
+  .menu-emblemes {
+    top: calc(var(--entete-h) + 3vh);
+    right: var(--gouttiere);
+    bottom: 12vh;
+    width: 30vw;
+    height: auto;
+    opacity: 0.9;
+  }
+
+  .menu-emblemes img {
+    object-position: center;
+  }
+
+  .menu-pied {
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Animations, seulement quand le script pilote l'ouverture. */
+.menu.anime .menu-item::before,
+.menu.anime .menu-item:last-child::after {
+  transform: scaleX(0);
+  transition: transform 1100ms var(--ease) calc(var(--i, 0) * 80ms + 60ms);
+}
+
+.menu.anime .menu-titre {
+  transform: translateY(110%);
+  transition: transform 1000ms var(--ease) calc(var(--i, 0) * 80ms + 160ms), translate 700ms var(--ease);
+}
+
+.menu.anime :is(.menu-num, .menu-folio, .menu-pied, .menu-tete) {
+  opacity: 0;
+  transition: opacity 800ms var(--ease) calc(var(--i, 0) * 80ms + 400ms), color 400ms var(--ease);
+}
+
+.menu.anime .menu-tete {
+  transition-delay: 0ms;
+}
+
+.menu.anime.est-ouvert .menu-item::before,
+.menu.anime.est-ouvert .menu-item:last-child::after {
+  transform: scaleX(1);
+}
+
+.menu.anime.est-ouvert .menu-titre {
+  transform: none;
+}
+
+.menu.anime.est-ouvert :is(.menu-num, .menu-folio, .menu-pied, .menu-tete) {
+  opacity: 1;
+}
+
+/* Fermeture : tout remonte et s'éteint d'un coup. */
+.menu.anime.se-ferme .menu-titre {
+  transform: translateY(-110%);
+  transition: transform 450ms var(--ease-sortie) calc(var(--i, 0) * 30ms);
+}
+
+.menu.anime.se-ferme :is(.menu-num, .menu-folio, .menu-pied, .menu-tete, .menu-emblemes) {
+  opacity: 0;
+  transition: opacity 300ms ease 0ms;
+}
+
+.menu.anime.se-ferme .menu-item::before,
+.menu.anime.se-ferme .menu-item:last-child::after {
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 450ms var(--ease-sortie);
+}

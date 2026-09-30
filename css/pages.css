@@ -1,0 +1,368 @@
+/* Pages intérieures : flashs, processus, rendez-vous, page introuvable. */
+
+/* Flashs disponibles : chaque planche en grand, avec sa réservation. */
+.planche--grande .planche-titre {
+  font-size: clamp(2rem, 8vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.planche--grande .planche-infos {
+  margin-top: 0.75rem;
+}
+
+.planche-actions {
+  margin-top: 1.25rem;
+}
+
+.planche-lien {
+  display: inline-flex;
+  margin-top: 0.75rem;
+}
+
+/* Registre des saisons passées : une ligne par saison. */
+.registre {
+  border-top: 1px solid var(--filet);
+}
+
+.registre li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  padding: 1.1rem 0 1rem;
+  border-bottom: 1px solid var(--filet);
+}
+
+.registre-saison {
+  font-size: clamp(1.75rem, 7vw, 3.5rem);
+  line-height: 1;
+}
+
+.registre-theme {
+  grid-column: 1 / -1;
+  font-style: italic;
+  color: var(--blanc-doux);
+}
+
+.registre-compte {
+  grid-row: 1;
+  grid-column: 2;
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 1024px) {
+  .registre li {
+    grid-template-columns: 5fr 5fr 2fr;
+    padding: 1.4rem 0 1.25rem;
+  }
+
+  .registre-theme {
+    grid-column: auto;
+    font-size: 1.5rem;
+  }
+
+  .registre-compte {
+    grid-row: auto;
+    grid-column: auto;
+    text-align: right;
+  }
+}
+
+/* Déroulé : étapes numérotées en chiffres romains. */
+.deroule {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--filet);
+}
+
+.deroule li {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 0.25rem 0.5rem;
+  padding: 1.25rem 0 1.4rem;
+  border-bottom: 1px solid var(--filet);
+}
+
+.deroule-num {
+  grid-row: span 2;
+  color: var(--sang-vif);
+}
+
+.deroule-titre {
+  font-size: 1.625rem;
+  line-height: 1.1;
+}
+
+.deroule p {
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 1024px) {
+  .deroule {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--gap);
+    border-top: 0;
+  }
+
+  .deroule li {
+    grid-template-columns: 1fr;
+    align-content: start;
+    gap: 0.75rem;
+    padding: 1rem 0 0;
+    border-top: 1px solid var(--filet);
+    border-bottom: 0;
+  }
+
+  .deroule-num {
+    grid-row: auto;
+  }
+
+  .deroule-titre {
+    font-size: 2rem;
+  }
+}
+
+/* Processus : une image et la phrase de Maxime, en vis-à-vis. */
+.vis-a-vis {
+  row-gap: 1.5rem;
+  align-items: end;
+}
+
+.vis-a-vis + .vis-a-vis {
+  margin-top: clamp(4rem, 12vw, 9rem);
+}
+
+.duos {
+  row-gap: clamp(3rem, 8vw, 5rem);
+}
+
+/* Croquis et encre côte à côte, reliés par une flèche. */
+.duo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.duo-fleche {
+  font-size: 1.5rem;
+  color: var(--blanc-doux);
+}
+
+/* Sur téléphone, les deux images sont étroites : « Croquis » et « Encre » suffisent. */
+@media (max-width: 1023px) {
+  .duo .legende-lieu {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .duo {
+    gap: 1rem;
+  }
+
+  .duo-fleche {
+    font-size: 2.25rem;
+  }
+}
+
+/* Rendez-vous : les canaux en très grand. */
+.canaux {
+  border-top: 1px solid var(--filet);
+}
+
+.canal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 0 1.2rem;
+  border-bottom: 1px solid var(--filet);
+  font-size: clamp(2.5rem, 11vw, 8rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+}
+
+.canal-detail {
+  display: block;
+  margin-top: 0.4rem;
+  letter-spacing: 0.08em;
+  color: var(--blanc-doux);
+}
+
+.canal-fleche {
+  font-size: 0.7em;
+  transition: transform 600ms var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .canal:hover .canal-fleche {
+    transform: translateX(-0.25em) rotate(-45deg);
+  }
+}
+
+/* Message : ce qu'il faut écrire, en quatre points. */
+.message-liste {
+  display: grid;
+  gap: 0.9rem;
+  counter-reset: message;
+}
+
+.message-liste li {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr);
+  font-size: clamp(1.375rem, 5vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.message-liste li::before {
+  counter-increment: message;
+  content: counter(message, upper-roman);
+  padding-top: 0.35em;
+  font-family: var(--font-capitales);
+  font-size: 0.9375rem;
+  letter-spacing: 0.08em;
+  color: var(--sang-vif);
+}
+
+@media (min-width: 1024px) {
+  .message-liste li {
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+  }
+
+  .message-liste li::before {
+    font-size: 1rem;
+  }
+}
+
+/* Soins : consignes courtes, séparées par des filets. */
+.soins li {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--filet);
+}
+
+.soins li:first-child {
+  border-top: 1px solid var(--filet);
+}
+
+/* Questions : chaque réponse se déplie sous sa question. */
+.questions {
+  border-top: 1px solid var(--filet);
+}
+
+.questions details {
+  border-bottom: 1px solid var(--filet);
+}
+
+.questions summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  font-size: clamp(1.375rem, 4.8vw, 2.25rem);
+  line-height: 1.15;
+  list-style: none;
+}
+
+.questions summary::-webkit-details-marker {
+  display: none;
+}
+
+.questions summary::after {
+  content: "+";
+  flex: none;
+  font-size: 1.1em;
+  line-height: 0.8;
+  transition: transform 500ms var(--ease);
+}
+
+.questions details[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.questions details p {
+  max-width: 34em;
+  padding-bottom: 1.4rem;
+  color: var(--blanc-doux);
+}
+
+/* Page introuvable. */
+.introuvable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  min-height: 100svh;
+  padding-top: var(--entete-h);
+  container-type: inline-size;
+}
+
+
+/* Flashs disponibles : deux grandes planches, la seconde décalée. L'ordre
+   change à chaque visite (js/melange.js) : la place dépend du rang, pas du dessin. */
+.flashs-libres > :nth-child(2) {
+  --h: 4rem;
+}
+
+@media (min-width: 768px) {
+  .flashs-libres > :nth-child(1) {
+    --cd: 1 / span 5;
+  }
+
+  .flashs-libres > :nth-child(2) {
+    --cd: 8 / span 5;
+    --hd: 14rem;
+  }
+}
+
+.bouton .fleche {
+  display: inline-block;
+  transition: transform 500ms var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bouton:hover .fleche {
+    transform: translateX(0.3em);
+  }
+}
+
+/* Vis-à-vis : dès la tablette, l'image et la phrase partagent la même rangée. */
+@media (min-width: 768px) {
+  .vis-a-vis {
+    align-items: center;
+  }
+
+  .vis-a-vis > * {
+    grid-row: 1;
+  }
+}
+
+.galerie--suite {
+  margin-top: clamp(4rem, 12vw, 9rem);
+}
+
+.duo-bloc .pensee {
+  max-width: 24em;
+}
+
+/* Grandes lignes : les consignes de soins, lisibles d'un coup d'œil. */
+.liste-grande li {
+  font-size: clamp(1.5rem, 5.4vw, 2.75rem);
+  line-height: 1.12;
+  padding: 1.1rem 0 1rem;
+}
+
+.introuvable-embleme {
+  width: min(46vw, 15rem);
+  margin-bottom: 1rem;
+  opacity: 0.85;
+}
+
+.introuvable-phrase {
+  max-width: 20em;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-style: italic;
+  line-height: 1.15;
+}

@@ -1,7 +1,11 @@
 @import url("reset.css");
 @import url("base.css");
 @import url("fond.css");
-@import url("header.css");
-@import url("tiles.css");
-@import url("sections.css");
-@import url("footer.css");
+@import url("entete.css");
+@import url("menu.css");
+@import url("mise-en-page.css");
+@import url("oeuvres.css");
+@import url("accueil.css");
+@import url("pages.css");
+@import url("visionneuse.css");
+@import url("pied.css");

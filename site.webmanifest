@@ -1,0 +1,14 @@
+{
+  "name": "Maxime, tatoueur",
+  "short_name": "Maxime",
+  "description": "Des dessins à l'encre noire, tatoués une seule fois.",
+  "lang": "fr",
+  "start_url": "index.html",
+  "display": "browser",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "assets/img/icone-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/img/icone-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

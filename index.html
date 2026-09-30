@@ -2,151 +2,257 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maxime — Tatoueur, Suisse romande</title>
-  <meta name="description" content="Catalogue de Maxime, tatoueur en Suisse romande : flashs par saison, tatouages réalisés, processus de dessin et prise de rendez-vous." />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Maxime — Tatoueur en Suisse romande</title>
+  <meta name="description" content="Maxime, tatoueur en Suisse romande : des dessins à l'encre noire tatoués une seule fois. Flashs de la saison, pièces portées, du carnet à la peau, rendez-vous." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_CH" />
+  <meta property="og:site_name" content="Maxime, tatoueur" />
+  <meta property="og:title" content="Maxime — Tatoueur en Suisse romande" />
+  <meta property="og:description" content="Des dessins à l'encre noire, tatoués une seule fois." />
+  <meta property="og:image" content="assets/img/partage.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="assets/fonts/im-fell-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/im-fell-sc-normal-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
   <canvas class="fond" aria-hidden="true"></canvas>
 
-  <header class="site-header site-header--index">
-    <div class="grid-3">
-      <div class="col-full lg-col-1">
-        <div class="masthead">
-          <h1><a href="index.html">Maxime</a></h1>
-          <nav class="site-nav mono" aria-label="Navigation">
-            <ul>
-              <li><a href="flashs.html">Flashs</a></li>
-              <li><a href="tatouages.html">Tatouages</a></li>
-              <li><a href="processus.html">Processus</a></li>
-              <li><a href="#infos">Infos</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <div class="col-full lg-col-2 lg-pr intro">
-        <div class="links"><div class="t-court with-indent"><p>Catalogue de Maxime, tatoueur en Suisse romande&nbsp;: des dessins à l'encre noire, tatoués une seule fois, classés par saison.</p></div><div class="t-long with-indent"><p>Ici se trouve le catalogue de Maxime, tatoueur en Suisse romande&nbsp;: des dessins à l'encre noire, préparés à l'avance et tatoués une seule fois, classés par saison depuis l'hiver 2025. On y trouve aussi les pièces déjà portées, le chemin qui mène du carnet à la peau, et de quoi prendre rendez-vous.</p></div></div>
-        <div class="mono note links"><span class="t-court">Pour réserver un dessin, <a href="#infos">écrire à Maxime</a>.</span><span class="t-long">Le catalogue se renouvelle à chaque saison. Pour réserver un dessin, <a href="#infos">écrire à Maxime</a>.</span></div>
-      </div>
-    </div>
-
-    <div class="collection-wrap">
-      <nav class="collection-grid" aria-label="Sections du catalogue">
-        <a class="tile" href="flashs.html">
-          <div class="tile-label"><span class="index">①</span><span class="name"> Flashs</span></div>
-          <figure><img src="assets/img/em-oeil.jpg" alt="Œil rayonnant, emblème de la section Flashs" loading="eager"></figure>
-        </a>
-        <a class="tile" href="tatouages.html">
-          <div class="tile-label"><span class="index">②</span><span class="name"> Tatouages</span></div>
-          <figure><img src="assets/img/em-serpent.jpg" alt="Main et serpent, emblème de la section Tatouages" loading="eager"></figure>
-        </a>
-        <a class="tile" href="processus.html">
-          <div class="tile-label"><span class="index">③</span><span class="name"> Processus</span></div>
-          <figure><img src="assets/img/em-bete.jpg" alt="Croquis d'un nain, emblème de la section Processus" loading="eager"></figure>
-        </a>
-        <a class="tile" href="flashs.html#saisons">
-          <div class="tile-label"><span class="index">④</span><span class="name"> Saisons</span></div>
-          <figure><img src="assets/img/em-dague.jpg" alt="Dague et roses, emblème de la section Saisons" loading="eager"></figure>
-        </a>
-        <a class="tile" href="#studio">
-          <div class="tile-label"><span class="index">⑤</span><span class="name"> Studio</span></div>
-          <figure><img src="assets/img/em-masse.jpg" alt="Masse d'armes, emblème de la section Studio" loading="eager"></figure>
-        </a>
-        <a class="tile" href="#infos">
-          <div class="tile-label"><span class="index">⑥</span><span class="name"> Infos</span></div>
-          <figure><img src="assets/img/em-nuages.jpg" alt="Crânes dans la brume, emblème de la section Infos" loading="eager"></figure>
-        </a>
-      </nav>
+  <header class="entete" data-entete>
+    <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
+    <div class="entete-actions cap">
+      <a class="entete-rdv" href="rendez-vous.html">Rendez-vous</a>
+      <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
 
-  <main>
-    <section class="series" id="flashs">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">① Flashs</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Dessins uniques, préparés à l'avance, tatoués une seule fois. <a href="flashs.html">Voir le catalogue de la saison</a>.</p></div><div class="t-long with-indent"><p>Les flashs sont des dessins uniques, préparés à l'avance et tatoués une seule fois. Le catalogue est renouvelé à chaque saison&nbsp;; les dessins déjà portés en sont retirés et rejoignent la section Tatouages. Un flash peut être légèrement adapté à l'endroit du corps, jamais redessiné pour quelqu'un d'autre. <a href="flashs.html">Voir le catalogue de la saison</a>, avec les tailles et les emplacements.</p></div></div>
+  <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-tete">
+      <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
+    </div>
+    <nav class="menu-corps" aria-label="Chapitres">
+      <ol class="menu-liste">
+        <li class="menu-item" style="--i: 0"><a class="menu-lien" href="flashs.html"><span class="menu-num cap">I</span><span class="menu-masque"><span class="menu-titre">Flashs</span></span><span class="menu-folio cap">Automne 2026</span></a></li>
+        <li class="menu-item" style="--i: 1"><a class="menu-lien" href="tatouages.html"><span class="menu-num cap">II</span><span class="menu-masque"><span class="menu-titre">Tatouages</span></span><span class="menu-folio cap">Quinze pièces</span></a></li>
+        <li class="menu-item" style="--i: 2"><a class="menu-lien" href="processus.html"><span class="menu-num cap">III</span><span class="menu-masque"><span class="menu-titre">Processus</span></span><span class="menu-folio cap">Du carnet à la peau</span></a></li>
+        <li class="menu-item" style="--i: 3"><a class="menu-lien" href="rendez-vous.html"><span class="menu-num cap">IV</span><span class="menu-masque"><span class="menu-titre">Rendez-vous</span></span><span class="menu-folio cap">Réponse sous 48 h</span></a></li>
+      </ol>
+    </nav>
+    <div class="menu-pied cap">
+      <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
+      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+    </div>
+    <div class="menu-emblemes" aria-hidden="true">
+      <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
+      <img src="assets/img/em-serpent.webp" alt="" loading="lazy" decoding="async" width="605" height="900" />
+      <img src="assets/img/em-bete.webp" alt="" loading="lazy" decoding="async" width="729" height="900" />
+      <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
+    </div>
+  </dialog>
+
+  <main id="contenu">
+    <section class="ouverture" aria-labelledby="titre-site">
+      <div class="ouverture-milieu">
+        <p class="ouverture-haut cap"><span>Tatoueur</span><span>Suisse romande</span></p>
+        <p class="ouverture-devise">Des dessins à l'encre noire, tatoués une seule fois.</p>
       </div>
-      <div class="publications" data-melange>
-        <a class="pub" href="flashs.html"><figure><div class="frame r-141"><img class="enhance" src="assets/img/fl-dague-roses.jpg" alt="Dessin de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy"></div><figcaption><span class="titre">Dague et roses</span></figcaption></figure></a>
-        <a class="pub" href="flashs.html"><figure><div class="frame r-141"><img class="enhance" src="assets/img/fl-masse.jpg" alt="Dessin d'une masse d'armes à tête de crâne, chaîne et cierge" loading="lazy"></div><figcaption><span class="titre">Masse d'armes</span></figcaption></figure></a>
-        <a class="pub is-tatoue" href="flashs.html#tatoues"><figure><div class="frame r-141"><img class="enhance" src="assets/img/fl-serpent.jpg" alt="Dessin d'une main baguée enlacée par un serpent" loading="lazy"></div><figcaption><span class="titre">Serpent et main</span></figcaption></figure></a>
-        <a class="pub is-tatoue" href="flashs.html#tatoues"><figure><div class="frame r-141"><img class="enhance" src="assets/img/fl-oeil.jpg" alt="Dessin d'un œil rayonnant" loading="lazy"></div><figcaption><span class="titre">Œil rayonnant</span></figcaption></figure></a>
+      <div class="ouverture-bas cap">
+        <a class="lien-fleche" href="flashs.html"><span>Flashs d'automne<span class="sauf-mobile">, deux disponibles</span></span> <span class="fleche" aria-hidden="true">→</span></a>
+        <span class="ouverture-defiler" aria-hidden="true">Défiler</span>
+      </div>
+      <h1 class="ouverture-nom" id="titre-site" data-grand-nom><span>Maxime</span></h1>
+    </section>
+
+    <section class="manifeste contenu" aria-label="Présentation">
+      <div class="grille manifeste-grille">
+        <div class="manifeste-corps" style="--cd: 1 / span 8">
+          <p class="manifeste-texte" data-revele="texte">Maxime dessine à l'encre noire des figures venues de la gravure ancienne&nbsp;: des mains, des lames, des bêtes, des cierges, des crânes dans la brume. Chaque dessin n'est tatoué qu'une fois.</p>
+          <p class="manifeste-suite cap" data-revele="texte">
+            <a class="lien-fleche" href="tatouages.html">Les pièces portées <span class="fleche" aria-hidden="true">→</span></a>
+            <a class="lien-fleche" href="flashs.html">Le catalogue de la saison <span class="fleche" aria-hidden="true">→</span></a>
+          </p>
+        </div>
+        <figure class="oeuvre" style="--c: 3 / -1; --h: 3.5rem; --cd: 10 / -1; --hd: 0" data-revele="image">
+          <div class="cadre cadre--arche" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-carnet-bougie.jpg" aria-label="Maxime dessine le soir, à la lueur d'une bougie"><source src="assets/video/v-carnet-bougie.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Le soir, à la bougie</span><span class="legende-lieu cap">Carnet</span></figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="tatouages">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">② Tatouages</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Pièces réalisées, photographiées cicatrisées. <a href="tatouages.html">Voir toutes les pièces</a>.</p></div><div class="t-long with-indent"><p>Pièces réalisées, photographiées cicatrisées lorsque c'est possible. Un trait fin, des ombres portées, et un répertoire hérité de la gravure ancienne&nbsp;: mains, lames, bêtes, cierges, cathédrales dans la brume. <a href="tatouages.html">Voir toutes les pièces</a>, classées par thème.</p></div></div>
+    <section class="section contenu" id="pieces" aria-labelledby="titre-pieces">
+      <div class="section-filet cap"><span>I</span><span>Tatouages</span><span>Quinze pièces</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-pieces" data-revele="titre">Pièces portées</h2>
+        <p class="section-chapeau" data-revele="texte">Photographiées cicatrisées, filmées quand la lumière le permet. Un trait fin, des ombres par hachures, comme en gravure.</p>
       </div>
-      <div class="publications">
-        <a class="pub" href="tatouages.html#mains"><figure><div class="frame r-134"><img class="enhance" src="assets/img/tt-roses.jpg" alt="Main tenant des roses tatouée sur une cuisse" loading="lazy"></div><figcaption><span class="titre">Cuisse</span></figcaption></figure></a>
-        <a class="pub" href="tatouages.html#betes"><figure><div class="frame r-134"><img class="enhance" src="assets/img/tt-mollet.jpg" alt="Bête cornue tatouée sur un mollet" loading="lazy"></div><figcaption><span class="titre">Mollet</span></figcaption></figure></a>
-        <a class="pub" href="tatouages.html#cranes"><figure><div class="frame r-134"><img class="enhance" src="assets/img/tt-crane-cierge.jpg" alt="Crâne surmonté d'un cierge tatoué sur un avant-bras" loading="lazy"></div><figcaption><span class="titre">Avant-bras</span></figcaption></figure></a>
-        <a class="pub" href="tatouages.html#yeux"><figure><div class="frame r-134"><img class="enhance" src="assets/img/tt-oeil.jpg" alt="Œil rayonnant tatoué sur un coude" loading="lazy"></div><figcaption><span class="titre">Coude</span></figcaption></figure></a>
-        <a class="pub" href="tatouages.html#yeux"><figure><div class="frame r-134"><img class="enhance" src="assets/img/tt-sternum.jpg" alt="Soleil et boussole tatoués sur le sternum" loading="lazy"></div><figcaption><span class="titre">Sternum</span></figcaption></figure></a>
+      <div class="grille galerie">
+        <a class="oeuvre oeuvre--plein" href="tatouages.html#cranes" style="--c: 1 / -1; --cd: 1 / span 5" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-crane-cierge.jpg" alt="Crâne surmonté d'un cierge, tatoué sur un avant-bras" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <div class="legende"><span class="legende-titre">Crâne et cierge</span><span class="legende-lieu cap">Avant-bras</span></div>
+        </a>
+        <a class="oeuvre" href="tatouages.html#cranes" style="--c: 3 / -1; --cd: 8 / span 3; --hd: 12rem" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-cranes.jpg" aria-label="Crânes dans la brume, tatoués sur un avant-bras, en vidéo"><source src="assets/video/v-cranes.mp4" type="video/mp4" /></video></div>
+          <div class="legende"><span class="legende-titre">Crânes dans la brume</span><span class="legende-lieu cap">Avant-bras</span></div>
+        </a>
+        <a class="oeuvre" href="tatouages.html#mains" style="--c: 1 / span 4; --cd: 2 / span 3; --hd: 3rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-roses.jpg" alt="Main tenant des roses, tatouée sur une cuisse" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <div class="legende"><span class="legende-titre">Main aux roses</span><span class="legende-lieu cap">Cuisse</span></div>
+        </a>
+        <a class="oeuvre" href="tatouages.html#betes" style="--c: 2 / -1; --cd: 6 / span 5; --hd: 2rem" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-hirondelle.jpg" alt="Hirondelle tatouée sur le flanc" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <div class="legende"><span class="legende-titre">Hirondelle</span><span class="legende-lieu cap">Flanc</span></div>
+        </a>
+        <a class="oeuvre" href="tatouages.html#yeux" style="--c: 1 / span 3; --cd: 1 / span 4; --hd: 2rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-sternum.jpg" alt="Rose des vents cerclée d'un serpent, tatouée sur le sternum" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <div class="legende"><span class="legende-titre">Rose des vents</span><span class="legende-lieu cap">Sternum</span></div>
+        </a>
+        <a class="oeuvre" href="tatouages.html#betes" style="--c: 4 / span 3; --h: 5rem; --cd: 6 / span 3; --hd: 10rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-mollet.jpg" alt="Chouette tenant un sceptre, tatouée sur un mollet" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <div class="legende"><span class="legende-titre">Chouette</span><span class="legende-lieu cap">Mollet</span></div>
+        </a>
+        <a class="oeuvre" href="tatouages.html#cranes" style="--c: 1 / -1; --cd: 10 / span 3; --hd: 0" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-eglise.jpg" aria-label="Cathédrale dans les nuages, tatouée sur un avant-bras, en vidéo"><source src="assets/video/v-eglise.mp4" type="video/mp4" /></video></div>
+          <div class="legende"><span class="legende-titre">Cathédrale</span><span class="legende-lieu cap">Avant-bras</span></div>
+        </a>
       </div>
+      <p class="section-suite cap"><a class="lien-fleche" href="tatouages.html">Toutes les pièces <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
 
-    <section class="series" id="processus">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">③ Processus</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Le chemin d'un seul dessin, du carnet à la peau. <a href="processus.html">Voir le processus</a>.</p></div><div class="t-long with-indent"><p>Une pièce naît trois fois&nbsp;: au carnet, au crayon rouge&nbsp;; à l'encre, quand le trait est décidé&nbsp;; sur la peau, le jour de la séance. Ci-dessous, le chemin complet d'un seul dessin, le serpent et la main. <a href="processus.html">Voir le processus</a>, avec les vidéos de dessin et de séance.</p></div></div>
+    <section class="section contenu" id="flashs" aria-labelledby="titre-flashs">
+      <div class="section-filet cap"><span>II</span><span>Flashs</span><span>Automne 2026</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-flashs" data-revele="titre">Flashs d'automne</h2>
+        <p class="section-chapeau" data-revele="texte">Des dessins préparés à l'avance, tatoués une seule fois. Une fois portés, ils sont rayés du catalogue et ne seront jamais refaits.</p>
       </div>
-      <div class="publications">
-        <a class="pub" href="processus.html#carnet"><figure><div class="frame r-134"><img class="enhance" src="assets/img/cn-4.jpg" alt="Page de carnet, croquis rouge d'une main et d'un serpent" loading="lazy"></div><figcaption><span class="titre">Carnet</span></figcaption></figure></a>
-        <a class="pub" href="processus.html#encre"><figure><div class="frame r-141"><img class="enhance" src="assets/img/fl-serpent.jpg" alt="Dessin à l'encre du serpent et de la main baguée" loading="lazy"></div><figcaption><span class="titre">Encre</span></figcaption></figure></a>
-        <a class="pub" href="processus.html#seance"><figure><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-seance-2.jpg"><source src="assets/video/v-seance-2.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Séance</span></figcaption></figure></a>
-        <a class="pub" href="processus.html#apres"><figure><div class="frame r-134"><img class="enhance" src="assets/img/tt-serpent.jpg" alt="Serpent et main baguée tatoués sur une cuisse" loading="lazy"></div><figcaption><span class="titre">Peau</span></figcaption></figure></a>
-        <a class="pub" href="tatouages.html#mains"><figure><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-serpent.jpg"><source src="assets/video/v-serpent.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Cicatrisé</span></figcaption></figure></a>
+      <div class="planches" data-melange>
+        <a class="planche oeuvre est-libre" href="flashs.html#disponibles" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-dague-roses.jpg" alt="Dessin de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy" decoding="async" width="660" height="880" /></div>
+          <div class="legende"><span class="planche-titre">Dague et roses</span></div>
+          <div class="planche-infos cap"><span>14 × 20 cm</span><span class="planche-etat">Disponible</span></div>
+        </a>
+        <a class="planche oeuvre est-libre" href="flashs.html#disponibles" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-masse.jpg" alt="Planche de dessins : masse d'armes, cierge enchaîné, vase à l'œil, main à la rose" loading="lazy" decoding="async" width="660" height="880" /></div>
+          <div class="legende"><span class="planche-titre">Masse d'armes</span></div>
+          <div class="planche-infos cap"><span>12 × 18 cm</span><span class="planche-etat">Disponible</span></div>
+        </a>
+        <a class="planche oeuvre est-tatoue" href="flashs.html#tatoues" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-serpent.jpg" alt="Dessin d'une main baguée enlacée par un serpent" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></div>
+          <div class="legende"><span class="planche-titre">Serpent et main</span></div>
+          <div class="planche-infos cap"><span>15 × 22 cm</span><span class="planche-etat">Tatoué</span></div>
+        </a>
+        <a class="planche oeuvre est-tatoue" href="flashs.html#tatoues" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-oeil.jpg" alt="Dessin d'un œil rayonnant" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></div>
+          <div class="legende"><span class="planche-titre">Œil rayonnant</span></div>
+          <div class="planche-infos cap"><span>8 × 10 cm</span><span class="planche-etat">Tatoué</span></div>
+        </a>
       </div>
+      <p class="planches-aide cap" aria-hidden="true"><span>Glisser</span><span>→</span></p>
+      <p class="section-suite cap"><a class="lien-fleche" href="flashs.html">Le catalogue complet <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
 
-    <section class="series" id="saisons">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">④ Saisons</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Un catalogue par saison. Les dessins des saisons passées ne sont plus disponibles.</p></div><div class="t-long with-indent"><p>Chaque saison a son catalogue&nbsp;: une dizaine de dessins, un thème, une date de sortie. Les catalogues passés restent consultables, mais leurs dessins ne sont plus disponibles. La saison en cours est celle qui apparaît dans la <a href="flashs.html">section Flashs</a>.</p></div></div>
+    <section class="section contenu" id="processus" aria-labelledby="titre-processus">
+      <div class="section-filet cap"><span>III</span><span>Processus</span><span>Quatre étapes</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-processus" data-revele="titre">Du carnet à la peau</h2>
+        <p class="section-chapeau" data-revele="texte">Une pièce naît trois fois&nbsp;: au carnet, à l'encre, sur la peau. Voici le chemin d'un seul dessin, le serpent et la main.</p>
       </div>
-      <div class="publications">
-        <a class="pub" href="flashs.html"><figure><div class="frame r-134 cover">Automne 2026</div><figcaption><span class="titre">En cours</span></figcaption></figure></a>
-        <a class="pub" href="flashs.html#saisons"><figure><div class="frame r-134 cover is-past">Été 2026</div><figcaption><span class="titre">Archivé</span></figcaption></figure></a>
-        <a class="pub" href="flashs.html#saisons"><figure><div class="frame r-134 cover is-past">Printemps 2026</div><figcaption><span class="titre">Archivé</span></figcaption></figure></a>
-        <a class="pub" href="flashs.html#saisons"><figure><div class="frame r-134 cover is-past">Hiver 2025</div><figcaption><span class="titre">Archivé</span></figcaption></figure></a>
-      </div>
+      <ol class="etapes">
+        <li class="etape" style="--n: 0">
+          <a class="oeuvre" href="processus.html#carnet" data-revele="image">
+            <div class="cadre"><img src="assets/img/cn-4.jpg" alt="Page de carnet, croquis rouge d'une main et d'un serpent" loading="lazy" decoding="async" width="675" height="900" /></div>
+            <div class="etape-tete"><h3 class="etape-titre">Le carnet</h3><span class="etape-num cap">I</span></div>
+            <p>Au crayon rouge, le soir, sans gomme.</p>
+          </a>
+        </li>
+        <li class="etape" style="--n: 1">
+          <a class="oeuvre" href="processus.html#encre" data-revele="image">
+            <div class="cadre"><img src="assets/img/fl-serpent.jpg" alt="Le même dessin repris à l'encre noire" loading="lazy" decoding="async" width="660" height="880" /></div>
+            <div class="etape-tete"><h3 class="etape-titre">L'encre</h3><span class="etape-num cap">II</span></div>
+            <p>Le trait est décidé, à la taille réelle.</p>
+          </a>
+        </li>
+        <li class="etape" style="--n: 2">
+          <a class="oeuvre" href="processus.html#seance" data-revele="image">
+            <div class="cadre"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-seance-2.jpg" aria-label="Séance de tatouage, les ombres posées par hachures"><source src="assets/video/v-seance-2.mp4" type="video/mp4" /></video></div>
+            <div class="etape-tete"><h3 class="etape-titre">La séance</h3><span class="etape-num cap">III</span></div>
+            <p>Une personne à la fois, le temps qu'il faut.</p>
+          </a>
+        </li>
+        <li class="etape" style="--n: 3">
+          <a class="oeuvre" href="processus.html#apres" data-revele="image">
+            <div class="cadre"><img class="photo" src="assets/img/tt-serpent.jpg" alt="Le serpent et la main tatoués sur une cuisse, cicatrisés" loading="lazy" decoding="async" width="675" height="900" /></div>
+            <div class="etape-tete"><h3 class="etape-titre">La peau</h3><span class="etape-num cap">IV</span></div>
+            <p>Photographiée une fois cicatrisée.</p>
+          </a>
+        </li>
+      </ol>
+      <p class="section-suite cap"><a class="lien-fleche" href="processus.html">Voir le processus <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
 
-    <section class="series" id="studio">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">⑤ Studio</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Studio privé en Suisse romande, sur rendez-vous, une personne à la fois.</p></div><div class="t-long with-indent"><p>Maxime tatoue en Suisse romande, sur rendez-vous, en semaine. Le studio est privé, calme et sans passage&nbsp;: une personne à la fois, le temps qu'il faut. L'adresse exacte est communiquée à la confirmation du rendez-vous.</p></div></div>
-      </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-150"><img class="enhance" src="assets/img/st-1.jpg" alt="Maxime, assis, les bras croisés sur un dossier de fauteuil" loading="lazy"></div><figcaption><span class="titre">Maxime</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-150"><img class="enhance" src="assets/img/st-2.jpg" alt="Maxime, portrait, la main sur la tempe" loading="lazy"></div><figcaption><span class="titre">Maxime</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-150"><img class="enhance" src="assets/img/st-3.jpg" alt="Maxime assis dans un fauteuil en cuir" loading="lazy"></div><figcaption><span class="titre">Le studio</span></figcaption></figure>
-      </div>
-    </section>
-
-    <section class="series" id="infos">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">⑥ Infos</h2>
-        <div class="col-full lg-col-2 lg-pr infos-body">
-          <div class="links"><div class="t-court with-indent"><p>Pour réserver, écrire par e-mail ou sur Instagram avec le dessin ou l'idée, l'emplacement et la taille. Réponse sous 48 heures.</p><p>Un acompte confirme la séance. Après&nbsp;: pas de soleil ni de bain pendant trois semaines, une crème deux fois par jour.</p></div><div class="t-long with-indent"><p>Pour réserver un flash ou proposer un projet, écrire par e-mail ou sur Instagram avec le nom du dessin choisi ou l'idée, l'emplacement et la taille approximative. Réponse sous 48 heures avec une proposition de date et un devis.</p><p>Un acompte confirme la séance et est déduit du prix final. Pour un projet personnalisé, le dessin est présenté le jour de la séance et ajusté ensemble avant de commencer.</p><p>Après la séance, une fiche de soins est remise. Pas de soleil, pas de bain ni de piscine pendant trois semaines, une crème adaptée deux fois par jour. Les retouches sont comprises dans les six mois.</p></div></div>
-          <div class="mono contact links">
-            <a href="#">Instagram</a>
-            <a href="#">E-mail</a>
-            <span>Suisse romande</span>
-          </div>
+    <section class="section contenu" id="studio" aria-labelledby="titre-studio">
+      <div class="section-filet cap"><span>IV</span><span>Le studio</span><span>Sur rendez-vous</span></div>
+      <div class="grille atelier">
+        <figure class="oeuvre" style="--c: 1 / -1; --h: 2.5rem; --cd: 1 / span 5; --hd: 4rem" data-revele="image">
+          <div class="cadre cadre--arche" style="--r: 2 / 3"><img class="photo" src="assets/img/st-3.jpg" alt="Maxime assis dans un fauteuil de cuir rouge" loading="lazy" decoding="async" width="600" height="900" /></div>
+        </figure>
+        <div class="atelier-texte" style="--c: 1 / -1; --h: 2.5rem; --cd: 7 / -1; --hd: 4rem">
+          <h2 class="atelier-phrase" id="titre-studio" data-revele="texte">Un studio privé, une personne à la fois, le temps qu'il faut.</h2>
+          <p data-revele="texte">Maxime tatoue en Suisse romande, sur rendez-vous, en semaine. Le studio est calme et sans passage&nbsp;; l'adresse exacte est donnée à la confirmation de la séance.</p>
+          <p class="cap" data-revele="texte"><a class="lien-fleche" href="rendez-vous.html">Comment réserver <span class="fleche" aria-hidden="true">→</span></a></p>
+          <figure class="oeuvre atelier-second" data-revele="image">
+            <div class="cadre" style="--r: 2 / 3"><img class="photo" src="assets/img/st-2.jpg" alt="Portrait de Maxime, la main sur la tempe" loading="lazy" decoding="async" width="600" height="900" /></div>
+          </figure>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div><a href="index.html">Maxime</a></div>
-    <div class="quote"><p>«&nbsp;entre l'ombre et la lumière&nbsp;»</p></div>
-    <div class="right"><a href="#infos">Informations</a></div>
+  <footer class="pied contenu">
+    <div class="pied-appel">
+      <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
+      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
+    </div>
+    <div class="pied-colonnes">
+      <nav aria-label="Plan du site">
+        <p class="pied-titre cap">Chapitres</p>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="flashs.html">Flashs</a></li>
+          <li><a href="tatouages.html">Tatouages</a></li>
+          <li><a href="processus.html">Processus</a></li>
+          <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="pied-titre cap">Écrire</p>
+        <ul>
+          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
+          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="pied-titre cap">Studio</p>
+        <p>Studio privé<br />Suisse romande</p>
+      </div>
+      <div>
+        <p class="pied-titre cap">Séances</p>
+        <p>Sur rendez-vous<br />en semaine</p>
+      </div>
+    </div>
+    <div class="pied-bas cap">
+      <span>© 2026 Maxime, tatoueur</span>
+      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <a href="#top">Haut de page ↑</a>
+    </div>
   </footer>
 
   <script type="module" src="js/main.js"></script>

@@ -4,9 +4,11 @@
  */
 
 export function initMelange() {
-  document.querySelectorAll("[data-melange]").forEach((grid) => {
-    const disponibles = Array.from(grid.querySelectorAll(":scope > .pub:not(.is-tatoue)"));
-    shuffle(disponibles).reverse().forEach((pub) => grid.prepend(pub));
+  document.querySelectorAll("[data-melange]").forEach((grille) => {
+    const disponibles = Array.from(grille.querySelectorAll(":scope > .est-libre"));
+    shuffle(disponibles)
+      .reverse()
+      .forEach((planche) => grille.prepend(planche));
   });
 }
 

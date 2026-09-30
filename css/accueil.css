@@ -1,0 +1,329 @@
+/* Accueil : ouverture, manifeste, pièces, flashs, chemin d'un dessin, studio. */
+
+/* Ouverture : le fond animé en entier, le nom en très grand posé en bas. */
+.ouverture {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: calc(var(--entete-h) + env(safe-area-inset-top)) var(--gouttiere) 0;
+  container-type: inline-size;
+}
+
+.ouverture-milieu {
+  display: grid;
+  align-content: center;
+  gap: 1.1rem;
+  flex: 1;
+  padding: 2rem 0;
+}
+
+.ouverture-haut {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--blanc-doux);
+}
+
+.ouverture-devise {
+  max-width: 13em;
+  font-style: italic;
+  font-size: clamp(1.5rem, 6.4vw, 2.5rem);
+  line-height: 1.12;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+.ouverture-bas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ouverture-defiler {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--blanc-doux);
+}
+
+/* Un filet vertical qui descend et recommence. */
+.ouverture-defiler::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 1.6rem;
+  background: currentColor;
+  transform-origin: top;
+  animation: defiler 2.4s var(--ease) infinite;
+}
+
+@keyframes defiler {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+.ouverture-nom {
+  /* « Maxime » mesure 3,21 em : le mot occupe toute la largeur. */
+  font-size: 28vw;
+  font-size: calc(100cqi / 3.3);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  margin-left: -0.035em;
+  margin-bottom: -0.035em;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ouverture-nom span {
+  display: inline-block;
+  animation: monter 1600ms var(--ease) 150ms both;
+}
+
+.ouverture-milieu,
+.ouverture-bas {
+  animation: apparaitre 1400ms var(--ease) 700ms both;
+}
+
+@keyframes monter {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes apparaitre {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  /* L'en-tête dit déjà « Tatoueur — Suisse romande ». */
+  .ouverture-haut {
+    visibility: hidden;
+  }
+
+  .ouverture-milieu {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-content: end;
+    padding-bottom: 12vh;
+  }
+
+  .ouverture-haut {
+    grid-column: 1 / span 4;
+    flex-direction: column;
+    gap: 0.35rem;
+    align-self: end;
+  }
+
+  .ouverture-devise {
+    grid-column: 8 / -1;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .ouverture-bas {
+    padding-bottom: 0.6rem;
+  }
+}
+
+/* Manifeste : une grande phrase, et Maxime qui dessine à la bougie. */
+.manifeste {
+  padding-top: clamp(5rem, 16vw, 12rem);
+}
+
+.manifeste-grille {
+  align-items: end;
+}
+
+.manifeste-texte {
+  max-width: 21em;
+  font-size: clamp(1.75rem, 7.4vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  text-wrap: pretty;
+}
+
+/* Lettrine rubriquée, à l'encre rouge comme dans les manuscrits. */
+.manifeste-texte::first-letter {
+  color: var(--sang-vif);
+}
+
+.manifeste-suite {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 2.5rem;
+  margin-top: clamp(1.75rem, 5vw, 3rem);
+}
+
+/* Galerie éditoriale : grands formats, décalages, un rythme de magazine. */
+.galerie {
+  row-gap: clamp(3rem, 9vw, 6.5rem);
+}
+
+/* Flashs : une bande qu'on fait glisser au pouce, alignée sur ordinateur. */
+.planches {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 76%;
+  gap: var(--gap);
+  margin-inline: calc(var(--gouttiere) * -1);
+  padding-inline: var(--gouttiere);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gouttiere);
+  scrollbar-width: none;
+}
+
+.planches::-webkit-scrollbar {
+  display: none;
+}
+
+.planches > * {
+  scroll-snap-align: start;
+}
+
+.planches-aide {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 640px) {
+  .planches {
+    grid-auto-columns: 44%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .planches {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .planches > :nth-child(even) {
+    margin-top: 6rem;
+  }
+
+  .planches-aide {
+    display: none;
+  }
+}
+
+/* Du carnet à la peau : quatre marches qui descendent. */
+.etapes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem var(--gap);
+}
+
+.etape:nth-child(even) {
+  margin-top: 4.5rem;
+}
+
+.etape-tete {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+}
+
+.etape-titre {
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.etape-num {
+  color: var(--sang-vif);
+}
+
+.etape p {
+  margin-top: 0.35rem;
+  font-size: 1.0625rem;
+  line-height: 1.3;
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 1024px) {
+  .etapes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .etape:nth-child(n) {
+    margin-top: calc(var(--n, 0) * 6rem);
+  }
+
+  .etape-titre {
+    font-size: 1.875rem;
+  }
+
+  .etape p {
+    font-size: 1.1875rem;
+  }
+}
+
+/* Studio : le portrait sous un plein cintre, les mots à côté. */
+.atelier-texte {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.atelier-phrase {
+  font-size: clamp(1.75rem, 6.6vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .atelier-phrase {
+    font-size: clamp(1.75rem, 4.2vw, 3.5rem);
+  }
+}
+
+.atelier-texte p:not(.atelier-phrase) {
+  max-width: 28em;
+}
+
+.atelier-second {
+  justify-self: end;
+  width: min(62%, 20rem);
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .atelier-second {
+    width: 44%;
+    margin-top: 3rem;
+  }
+}

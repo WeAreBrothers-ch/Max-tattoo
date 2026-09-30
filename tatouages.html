@@ -2,100 +2,244 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Tatouages — Maxime, tatoueur</title>
   <meta name="description" content="Pièces réalisées par Maxime, tatoueur en Suisse romande : mains, bêtes, crânes et cierges, yeux et soleils. Photos cicatrisées et vidéos." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_CH" />
+  <meta property="og:site_name" content="Maxime, tatoueur" />
+  <meta property="og:title" content="Tatouages — Maxime, tatoueur" />
+  <meta property="og:description" content="Mains, bêtes, crânes, cierges, yeux et soleils : les pièces portées." />
+  <meta property="og:image" content="assets/img/partage.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="assets/fonts/im-fell-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/im-fell-sc-normal-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
   <canvas class="fond" aria-hidden="true"></canvas>
 
-  <header class="site-header">
-    <div class="grid-3">
-      <div class="col-full lg-col-1">
-        <div class="masthead">
-          <a href="index.html">Maxime</a>
-          <nav class="site-nav mono" aria-label="Navigation">
-            <ul>
-              <li><a href="flashs.html">Flashs</a></li>
-              <li><a href="tatouages.html" aria-current="page">Tatouages</a></li>
-              <li><a href="processus.html">Processus</a></li>
-              <li><a href="index.html#infos">Infos</a></li>
-            </ul>
-          </nav>
-        </div>
-        <h1 class="page-title">Tatouages</h1>
-      </div>
-      <div class="col-full lg-col-2 lg-pr intro">
-        <div class="links"><div class="t-court with-indent"><p>Pièces réalisées, photographiées cicatrisées, classées par thème. Chaque légende indique l'emplacement.</p></div><div class="t-long with-indent"><p>Les pièces réalisées, photographiées cicatrisées lorsque c'est possible, et filmées quand la lumière le permettait. Un trait fin, des ombres portées, un répertoire hérité de la gravure ancienne et des marges des manuscrits&nbsp;: mains, lames, bêtes, cierges, cathédrales dans la brume.</p><p>Les pièces sont classées par thème plutôt que par date, parce que les mêmes figures reviennent d'une saison à l'autre. Chaque légende indique l'emplacement. La plupart viennent du catalogue de <a href="flashs.html">flashs</a>&nbsp;; quelques-unes sont des projets personnalisés.</p></div></div>
-        <div class="mono note t-long">Quatre thèmes, dix-sept pièces. Les vidéos sont muettes et tournent en boucle.</div>
-      </div>
+  <header class="entete" data-entete>
+    <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
+    <div class="entete-actions cap">
+      <a class="entete-rdv" href="rendez-vous.html">Rendez-vous</a>
+      <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
 
-  <main>
-    <section class="series" id="mains">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">① Mains</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Elle tient, elle offre, elle menace.</p></div><div class="t-long with-indent"><p>La main est le premier sujet de Maxime et celui qu'il n'a jamais lâché. Elle tient, elle offre, elle menace. Dague, roses, serpent&nbsp;: ce qu'elle porte dit ce qu'on garde et ce qu'on donne. Les mains se placent presque toujours sur la cuisse ou l'avant-bras, où elles peuvent se lire debout.</p></div></div>
+  <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-tete">
+      <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
+    </div>
+    <nav class="menu-corps" aria-label="Chapitres">
+      <ol class="menu-liste">
+        <li class="menu-item" style="--i: 0"><a class="menu-lien" href="flashs.html"><span class="menu-num cap">I</span><span class="menu-masque"><span class="menu-titre">Flashs</span></span><span class="menu-folio cap">Automne 2026</span></a></li>
+        <li class="menu-item" style="--i: 1"><a class="menu-lien" href="tatouages.html" aria-current="page"><span class="menu-num cap">II</span><span class="menu-masque"><span class="menu-titre">Tatouages</span></span><span class="menu-folio cap">Quinze pièces</span></a></li>
+        <li class="menu-item" style="--i: 2"><a class="menu-lien" href="processus.html"><span class="menu-num cap">III</span><span class="menu-masque"><span class="menu-titre">Processus</span></span><span class="menu-folio cap">Du carnet à la peau</span></a></li>
+        <li class="menu-item" style="--i: 3"><a class="menu-lien" href="rendez-vous.html"><span class="menu-num cap">IV</span><span class="menu-masque"><span class="menu-titre">Rendez-vous</span></span><span class="menu-folio cap">Réponse sous 48 h</span></a></li>
+      </ol>
+    </nav>
+    <div class="menu-pied cap">
+      <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
+      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+    </div>
+    <div class="menu-emblemes" aria-hidden="true">
+      <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
+      <img src="assets/img/em-serpent.webp" alt="" loading="lazy" decoding="async" width="605" height="900" />
+      <img src="assets/img/em-bete.webp" alt="" loading="lazy" decoding="async" width="729" height="900" />
+      <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
+    </div>
+  </dialog>
+
+  <main id="contenu">
+    <header class="page-tete contenu">
+      <p class="page-surtitre cap"><span>II — Tatouages</span><span>Quinze pièces, six vidéos</span></p>
+      <h1 class="page-titre" style="--mots: 4.18">Tatouages</h1>
+      <div class="page-intro">
+        <p class="page-intro-texte">Les pièces réalisées, photographiées cicatrisées et filmées quand la lumière le permettait. Elles sont classées par thème plutôt que par date&nbsp;: les mêmes figures reviennent d'une saison à l'autre.</p>
+        <p class="page-meta cap"><span>Chaque image s'ouvre en grand</span><span>Les vidéos sont muettes</span></p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-roses.jpg" alt="Main tenant des roses tatouée sur une cuisse" loading="lazy"></div><figcaption><span class="titre">Main aux roses</span><span class="meta">Cuisse</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-dague.jpg" alt="Main tenant une dague tatouée sur une cuisse" loading="lazy"></div><figcaption><span class="titre">Main à la dague</span><span class="meta">Cuisse</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-jambes.jpg"><source src="assets/video/v-jambes.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Les deux mains</span><span class="meta">Cuisses, vidéo</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-serpent.jpg" alt="Serpent et main baguée tatoués sur une cuisse" loading="lazy"></div><figcaption><span class="titre">Serpent et main</span><span class="meta">Cuisse</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-serpent.jpg"><source src="assets/video/v-serpent.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Serpent et main</span><span class="meta">Cuisse, vidéo</span></figcaption></figure>
+    </header>
+
+    <nav class="contenu" aria-label="Thèmes">
+      <ol class="table">
+        <li><a href="#mains"><span class="table-num cap">I</span><span>Mains</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">5</span></a></li>
+        <li><a href="#betes"><span class="table-num cap">II</span><span>Bêtes</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">5</span></a></li>
+        <li><a href="#cranes"><span class="table-num cap">III</span><span>Crânes, cierges et brume</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">7</span></a></li>
+        <li><a href="#yeux"><span class="table-num cap">IV</span><span>Yeux et soleils</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">4</span></a></li>
+      </ol>
+    </nav>
+
+    <section class="section contenu" id="mains" aria-labelledby="titre-mains">
+      <div class="section-filet cap"><span>I</span><span>Mains</span><span>Cinq images</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-mains" data-revele="titre">Mains</h2>
+        <p class="section-chapeau" data-revele="texte">Le premier sujet de Maxime, celui qu'il n'a jamais lâché. Elle tient, elle offre, elle menace&nbsp;: dague, roses, serpent. Presque toujours sur la cuisse ou l'avant-bras, où elle se lit debout.</p>
+      </div>
+      <div class="grille galerie" data-visionneuse>
+        <figure class="oeuvre oeuvre--plein" style="--c: 1 / -1; --cd: 1 / span 5" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-roses.jpg" alt="Main tenant des roses, tatouée sur une cuisse" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Main aux roses</span><span class="legende-lieu cap">Cuisse</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 3; --cd: 7 / span 3; --hd: 6rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-dague.jpg" alt="Main tenant une dague, tatouée sur une cuisse" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Main à la dague</span><span class="legende-lieu cap">Cuisse</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 4 / span 3; --h: 3rem; --cd: 10 / span 3; --hd: 14rem" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-jambes.jpg" aria-label="La main à la dague sur la cuisse, en vidéo"><source src="assets/video/v-jambes.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Les deux mains</span><span class="legende-lieu cap">Cuisses, vidéo</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 2 / -1; --cd: 2 / span 4; --hd: 2rem" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-serpent.jpg" alt="Serpent enlaçant une main baguée, tatoué sur une cuisse" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Serpent et main</span><span class="legende-lieu cap">Cuisse</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 4; --cd: 8 / span 3; --hd: 9rem" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-serpent.jpg" aria-label="Le serpent et la main sur la cuisse, en vidéo"><source src="assets/video/v-serpent.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Serpent et main</span><span class="legende-lieu cap">Cuisse, vidéo</span></figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="betes">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">② Bêtes</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Venues des enluminures et des bestiaires.</p></div><div class="t-long with-indent"><p>Les bêtes viennent des enluminures et des bestiaires&nbsp;: des animaux qu'on reconnaît sans pouvoir tout à fait les nommer. Un cœur ailé qui fleurit, une bête cornue au mollet, une hirondelle qui plonge sur le flanc. Elles se posent là où le corps bouge, pour que le dessin bouge avec.</p></div></div>
+    <section class="section contenu" id="betes" aria-labelledby="titre-betes">
+      <div class="section-filet cap"><span>II</span><span>Bêtes</span><span>Cinq images</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-betes" data-revele="titre">Bêtes</h2>
+        <p class="section-chapeau" data-revele="texte">Venues des enluminures et des bestiaires&nbsp;: des animaux qu'on reconnaît sans pouvoir tout à fait les nommer. Elles se posent là où le corps bouge, pour que le dessin bouge avec.</p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-mollet.jpg" alt="Bête cornue tatouée sur un mollet" loading="lazy"></div><figcaption><span class="titre">Bête cornue</span><span class="meta">Mollet</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-cuisse-bete.jpg" alt="Bête tatouée sur une cuisse" loading="lazy"></div><figcaption><span class="titre">Bête</span><span class="meta">Cuisse</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-hirondelle.jpg" alt="Hirondelle tatouée sur le flanc" loading="lazy"></div><figcaption><span class="titre">Hirondelle</span><span class="meta">Flanc</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-hirondelle.jpg"><source src="assets/video/v-hirondelle.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Hirondelle</span><span class="meta">Flanc, vidéo</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-coeur.jpg" alt="Cœur ailé fleuri tatoué sur une cuisse" loading="lazy"></div><figcaption><span class="titre">Cœur ailé</span><span class="meta">Cuisse</span></figcaption></figure>
+      <div class="grille galerie" data-visionneuse>
+        <figure class="oeuvre" style="--c: 1 / span 4; --cd: 2 / span 3; --hd: 10rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-mollet.jpg" alt="Chouette tenant un sceptre, tatouée sur un mollet" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Chouette au sceptre</span><span class="legende-lieu cap">Mollet</span></figcaption>
+        </figure>
+        <figure class="oeuvre oeuvre--plein" style="--c: 1 / -1; --h: 3rem; --cd: 7 / span 5; --hd: 0" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-cuisse-bete.jpg" alt="Tête de bouc cornue, tatouée sur une cuisse" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Tête de bouc</span><span class="legende-lieu cap">Cuisse</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 2 / -1; --cd: 1 / span 4; --hd: 2rem" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-hirondelle.jpg" alt="Hirondelle tatouée sur le flanc" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Hirondelle</span><span class="legende-lieu cap">Flanc</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 3; --cd: 6 / span 3; --hd: 9rem" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-hirondelle.jpg" aria-label="L'hirondelle sur le flanc, en vidéo"><source src="assets/video/v-hirondelle.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Hirondelle</span><span class="legende-lieu cap">Flanc, vidéo</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 4 / span 3; --h: 5rem; --cd: 10 / span 3; --hd: 3rem" data-revele="image">
+          <div class="cadre" style="--r: 1 / 1"><img class="photo" src="assets/img/tt-coeur.jpg" alt="Cœur ailé surmonté de lys, tatoué sur une cuisse" loading="lazy" decoding="async" width="900" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Cœur ailé</span><span class="legende-lieu cap">Cuisse</span></figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="cranes">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">③ Crânes, cierges et brume</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Ce qui reste, ce qui éclaire, ce qui passe.</p></div><div class="t-long with-indent"><p>Rien de morbide&nbsp;: le crâne est ce qui reste, le cierge est ce qui éclaire, la brume est ce qui passe. Ces trois figures reviennent ensemble, souvent sur l'avant-bras, en pièces verticales où l'on lit de bas en haut. La cathédrale dans les nuages est un projet personnalisé devenu un motif récurrent.</p></div></div>
+    <section class="section contenu" id="cranes" aria-labelledby="titre-cranes">
+      <div class="section-filet cap"><span>III</span><span>Crânes, cierges et brume</span><span>Sept images</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-cranes" data-revele="titre">Crânes, cierges et brume</h2>
+        <p class="section-chapeau" data-revele="texte">Rien de morbide&nbsp;: le crâne est ce qui reste, le cierge ce qui éclaire, la brume ce qui passe. Des pièces verticales, souvent sur l'avant-bras, qu'on lit de bas en haut.</p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-crane-cierge.jpg" alt="Crâne surmonté d'un cierge tatoué sur un avant-bras" loading="lazy"></div><figcaption><span class="titre">Crâne et cierge</span><span class="meta">Avant-bras</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-cranes-nuages.jpg" alt="Crânes dans les nuages tatoués sur un avant-bras" loading="lazy"></div><figcaption><span class="titre">Crânes dans la brume</span><span class="meta">Avant-bras</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-cranes.jpg"><source src="assets/video/v-cranes.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Crânes dans la brume</span><span class="meta">Avant-bras, vidéo</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-masse.jpg" alt="Masse d'armes et croix ansée tatouées sur le torse" loading="lazy"></div><figcaption><span class="titre">Masse et croix ansée</span><span class="meta">Torse</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-eglise.jpg" alt="Église dans les nuages tatouée sur un avant-bras" loading="lazy"></div><figcaption><span class="titre">Cathédrale</span><span class="meta">Avant-bras</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-eglise.jpg"><source src="assets/video/v-eglise.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Cathédrale</span><span class="meta">Avant-bras, vidéo</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-avant-bras.jpg" alt="Pièce tatouée sur un avant-bras" loading="lazy"></div><figcaption><span class="titre">Cierge</span><span class="meta">Avant-bras</span></figcaption></figure>
+      <div class="grille galerie" data-visionneuse>
+        <figure class="oeuvre oeuvre--plein" style="--c: 1 / -1; --cd: 1 / span 4" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-crane-cierge.jpg" alt="Crâne surmonté d'un cierge, tatoué sur un avant-bras" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Crâne et cierge</span><span class="legende-lieu cap">Avant-bras</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 3; --cd: 6 / span 3; --hd: 8rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-cranes-nuages.jpg" alt="Crânes dans les nuages, tatoués sur un avant-bras" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Crânes dans la brume</span><span class="legende-lieu cap">Avant-bras</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 4 / span 3; --h: 3rem; --cd: 10 / span 3; --hd: 2rem" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-cranes.jpg" aria-label="Les crânes dans la brume sur l'avant-bras, en vidéo"><source src="assets/video/v-cranes.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Crânes dans la brume</span><span class="legende-lieu cap">Avant-bras, vidéo</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 2 / -1; --cd: 2 / span 5; --hd: 3rem" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-masse.jpg" alt="Masse d'armes enchaînée et croix ansée, tatouées sur le flanc" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Masse et croix ansée</span><span class="legende-lieu cap">Flanc</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 3; --cd: 9 / span 3; --hd: 12rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-eglise.jpg" alt="Cathédrale dans les nuages, tatouée sur un avant-bras" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Cathédrale</span><span class="legende-lieu cap">Avant-bras</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 4 / span 3; --h: 4rem; --cd: 1 / span 3; --hd: 4rem" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-eglise.jpg" aria-label="La cathédrale sur l'avant-bras, en vidéo"><source src="assets/video/v-eglise.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Cathédrale</span><span class="legende-lieu cap">Avant-bras, vidéo</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 4; --cd: 5 / span 4; --hd: 10rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-avant-bras.jpg" alt="Cœur ardent couronné de flammes, tatoué à l'arrière du bras" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Cœur ardent</span><span class="legende-lieu cap">Bras</span></figcaption>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="yeux">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">④ Yeux et soleils</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Les figures les plus anciennes du répertoire, placées au centre du corps.</p></div><div class="t-long with-indent"><p>L'œil qui rayonne et le soleil à visage sont les deux figures les plus anciennes du répertoire, celles qu'on trouve gravées sur les cadrans et les frontispices. Elles se placent au centre&nbsp;: sternum, poitrine, pli du coude. Petites, elles se lisent de loin.</p></div></div>
+    <section class="section contenu" id="yeux" aria-labelledby="titre-yeux">
+      <div class="section-filet cap"><span>IV</span><span>Yeux et soleils</span><span>Quatre images</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-yeux" data-revele="titre">Yeux et soleils</h2>
+        <p class="section-chapeau" data-revele="texte">Les figures les plus anciennes du répertoire, celles des cadrans et des frontispices. Elles se placent au centre du corps&nbsp;: sternum, poitrine, pli du coude.</p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-oeil.jpg" alt="Œil rayonnant tatoué sur un coude" loading="lazy"></div><figcaption><span class="titre">Œil rayonnant</span><span class="meta">Coude</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-sternum.jpg" alt="Soleil et boussole tatoués sur le sternum" loading="lazy"></div><figcaption><span class="titre">Soleil et boussole</span><span class="meta">Sternum</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-boussole.jpg"><source src="assets/video/v-boussole.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Soleil et boussole</span><span class="meta">Sternum, vidéo</span></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-soleil.jpg" alt="Soleil à visage tatoué sur la poitrine" loading="lazy"></div><figcaption><span class="titre">Soleil à visage</span><span class="meta">Poitrine</span></figcaption></figure>
+      <div class="grille galerie" data-visionneuse>
+        <figure class="oeuvre" style="--c: 1 / span 4; --cd: 2 / span 4" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-oeil.jpg" alt="Œil rayonnant tatoué à l'arrière du coude" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Œil rayonnant</span><span class="legende-lieu cap">Coude</span></figcaption>
+        </figure>
+        <figure class="oeuvre oeuvre--plein" style="--c: 1 / -1; --h: 3rem; --cd: 7 / span 5; --hd: 7rem" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-sternum.jpg" alt="Rose des vents cerclée d'un serpent, tatouée sur le sternum" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Rose des vents</span><span class="legende-lieu cap">Sternum</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 3; --cd: 1 / span 3; --hd: 2rem" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-boussole.jpg" aria-label="La rose des vents sur le sternum, en vidéo"><source src="assets/video/v-boussole.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Rose des vents</span><span class="legende-lieu cap">Sternum, vidéo</span></figcaption>
+        </figure>
+        <figure class="oeuvre" style="--c: 4 / span 3; --h: 5rem; --cd: 5 / span 4; --hd: 9rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-soleil.jpg" alt="Soleil à visage tatoué sur la poitrine" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Soleil à visage</span><span class="legende-lieu cap">Poitrine</span></figcaption>
+        </figure>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div><a href="index.html">Maxime</a></div>
-    <div class="quote"><p>«&nbsp;entre l'ombre et la lumière&nbsp;»</p></div>
-    <div class="right"><a href="index.html#infos">Informations</a></div>
+  <footer class="pied contenu">
+    <div class="pied-appel">
+      <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
+      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
+    </div>
+    <div class="pied-colonnes">
+      <nav aria-label="Plan du site">
+        <p class="pied-titre cap">Chapitres</p>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="flashs.html">Flashs</a></li>
+          <li><a href="tatouages.html">Tatouages</a></li>
+          <li><a href="processus.html">Processus</a></li>
+          <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="pied-titre cap">Écrire</p>
+        <ul>
+          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
+          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="pied-titre cap">Studio</p>
+        <p>Studio privé<br />Suisse romande</p>
+      </div>
+      <div>
+        <p class="pied-titre cap">Séances</p>
+        <p>Sur rendez-vous<br />en semaine</p>
+      </div>
+    </div>
+    <div class="pied-bas cap">
+      <span>© 2026 Maxime, tatoueur</span>
+      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <a href="#top">Haut de page ↑</a>
+    </div>
   </footer>
 
   <script type="module" src="js/main.js"></script>

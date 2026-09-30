@@ -1,6 +1,7 @@
 /**
  * Shaders du fond : brume qui dérive, rayons de lumière qui la traversent,
- * gravure rouge sang révélée seulement dans le halo qui suit la souris ou le doigt.
+ * gravure rouge sang révélée seulement dans le halo qui suit la souris ou le doigt,
+ * et dans toute la brume quand le menu est ouvert (u_devoile).
  */
 
 export const VERTEX_SHADER = `
@@ -22,6 +23,7 @@ uniform float u_halo;
 uniform sampler2D u_gravure;
 uniform float u_gravureAspect;
 uniform float u_gravureReady;
+uniform float u_devoile;
 
 const vec3 SANG = vec3(0.66, 0.086, 0.106);
 const vec3 BRUME = vec3(0.78, 0.8, 0.84);
@@ -99,7 +101,8 @@ void main() {
   gUv.y = 1.0 - gUv.y;
   float encre = texture2D(u_gravure, gUv).a * u_gravureReady;
   // La brume passe devant la gravure : le dessin respire dans la fumée.
-  float revele = halo * (0.8 + b * 0.35);
+  // Menu ouvert : la gravure entière remonte, portée par la brume.
+  float revele = max(halo * (0.8 + b * 0.35), u_devoile * (0.2 + b * 0.55));
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));
   vec3 couleur = BRUME * (b * 0.17 + r * 0.1 + halo * 0.03) * mix(0.6, 1.0, vignette);

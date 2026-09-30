@@ -1,0 +1,233 @@
+/* Œuvres : photos, vidéos et dessins, avec leur légende de catalogue. */
+
+.oeuvre {
+  position: relative;
+  display: block;
+}
+
+.cadre {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--r, 3 / 4);
+  background: #0e0d0c;
+}
+
+.cadre img,
+.cadre video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--pos, 50% 50%);
+}
+
+/* Fenêtre en plein cintre, pour les portraits et les pièces d'ouverture. */
+.cadre--arche {
+  border-radius: 999px 999px 0 0;
+}
+
+.photo {
+  filter: brightness(1.08) saturate(82%) contrast(108%);
+}
+
+/* Pleine largeur sur téléphone : l'image touche les deux bords. */
+@media (max-width: 767px) {
+  .oeuvre--plein .cadre {
+    margin-inline: calc(var(--gouttiere) * -1);
+  }
+}
+
+.legende {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  flex-wrap: wrap;
+  padding-top: 0.7rem;
+}
+
+.legende-titre {
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+.legende-lieu {
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 1024px) {
+  .legende-titre {
+    font-size: 1.25rem;
+  }
+}
+
+/* Bouton transparent posé sur l'image : ouvre la visionneuse (js/visionneuse.js). */
+.oeuvre-ouvrir {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.oeuvre-ouvrir:focus-visible {
+  outline: 1px solid var(--blanc);
+  outline-offset: -5px;
+}
+
+.oeuvre-ouvrir:active {
+  background: rgba(244, 241, 235, 0.1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cadre img,
+  .cadre video {
+    transition: scale 1400ms var(--ease), opacity 600ms var(--ease);
+  }
+
+  :is(a.oeuvre, .oeuvre:has(.oeuvre-ouvrir)):hover .cadre :is(img, video) {
+    scale: 1.045;
+  }
+}
+
+/* Parallaxe douce des photos, calculée par le navigateur au défilement. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cadre[data-parallaxe] > :is(img, video) {
+      position: absolute;
+      top: -8%;
+      left: 0;
+      height: 116%;
+      animation: parallaxe linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes parallaxe {
+  from {
+    translate: 0 -6%;
+  }
+
+  to {
+    translate: 0 6%;
+  }
+}
+
+/* Planches de flashs : dessin sur papier, état de réservation. */
+.planche {
+  position: relative;
+}
+
+.planche .cadre {
+  background: #e9e2d4;
+}
+
+.planche figcaption {
+  padding-top: 0.75rem;
+}
+
+.planche-titre {
+  display: block;
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
+.planche-infos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+  margin-top: 0.4rem;
+  color: var(--blanc-doux);
+}
+
+.planche-etat::before {
+  content: "";
+  display: inline-block;
+  width: 0.45em;
+  height: 0.45em;
+  margin-right: 0.5em;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateY(-0.12em);
+}
+
+.planche.est-libre .planche-etat {
+  color: var(--blanc);
+}
+
+.planche.est-tatoue .cadre img {
+  opacity: 0.5;
+  filter: grayscale(0.3);
+}
+
+.planche.est-tatoue .planche-titre {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+/* Tampon « Tatoué » : encre rouge sur le papier, comme dans un registre. */
+.tampon {
+  position: absolute;
+  right: 9%;
+  bottom: 11%;
+  z-index: 1;
+  padding: 0.35em 0.7em 0.25em;
+  border: 2px solid currentColor;
+  border-radius: 0.3em;
+  box-shadow: inset 0 0 0 2px transparent, inset 0 0 0 3px currentColor;
+  color: var(--sang);
+  font-family: var(--font-capitales);
+  font-size: clamp(1rem, 4.2vw, 1.5rem);
+  line-height: 1;
+  letter-spacing: 0.14em;
+  rotate: -9deg;
+  text-shadow: none;
+  mix-blend-mode: multiply;
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .tampon {
+    font-size: clamp(1rem, 1.5vw, 1.625rem);
+  }
+}
+
+/* Pensée de Maxime : une phrase entre guillemets, en italique. */
+.pensee {
+  margin-top: 0.9rem;
+  font-style: italic;
+  font-size: 1.3125rem;
+  line-height: 1.25;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+.pensee-signature {
+  display: block;
+  margin-top: 0.5rem;
+  font-style: normal;
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 1024px) {
+  .pensee {
+    font-size: 1.5rem;
+  }
+}
+
+/* Grande pensée posée à côté de son image. */
+.pensee--grande {
+  font-size: clamp(1.75rem, 6.6vw, 3.25rem);
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .pensee--grande {
+    font-size: clamp(1.75rem, 4.2vw, 3.25rem);
+  }
+}

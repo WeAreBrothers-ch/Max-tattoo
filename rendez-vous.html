@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Rendez-vous — Maxime, tatoueur</title>
+  <meta name="description" content="Prendre rendez-vous avec Maxime, tatoueur en Suisse romande : ce qu'il faut écrire, le déroulement, l'acompte, les soins et les questions fréquentes." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_CH" />
+  <meta property="og:site_name" content="Maxime, tatoueur" />
+  <meta property="og:title" content="Rendez-vous — Maxime, tatoueur" />
+  <meta property="og:description" content="Le dessin choisi, l'emplacement, la taille. Réponse sous 48 heures." />
+  <meta property="og:image" content="assets/img/partage.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="assets/fonts/im-fell-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/im-fell-sc-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
+  <canvas class="fond" aria-hidden="true"></canvas>
+
+  <header class="entete" data-entete>
+    <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
+    <div class="entete-actions cap">
+      <a class="entete-rdv" href="rendez-vous.html" aria-current="page">Rendez-vous</a>
+      <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
+    </div>
+  </header>
+
+  <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-tete">
+      <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
+    </div>
+    <nav class="menu-corps" aria-label="Chapitres">
+      <ol class="menu-liste">
+        <li class="menu-item" style="--i: 0"><a class="menu-lien" href="flashs.html"><span class="menu-num cap">I</span><span class="menu-masque"><span class="menu-titre">Flashs</span></span><span class="menu-folio cap">Automne 2026</span></a></li>
+        <li class="menu-item" style="--i: 1"><a class="menu-lien" href="tatouages.html"><span class="menu-num cap">II</span><span class="menu-masque"><span class="menu-titre">Tatouages</span></span><span class="menu-folio cap">Quinze pièces</span></a></li>
+        <li class="menu-item" style="--i: 2"><a class="menu-lien" href="processus.html"><span class="menu-num cap">III</span><span class="menu-masque"><span class="menu-titre">Processus</span></span><span class="menu-folio cap">Du carnet à la peau</span></a></li>
+        <li class="menu-item" style="--i: 3"><a class="menu-lien" href="rendez-vous.html" aria-current="page"><span class="menu-num cap">IV</span><span class="menu-masque"><span class="menu-titre">Rendez-vous</span></span><span class="menu-folio cap">Réponse sous 48 h</span></a></li>
+      </ol>
+    </nav>
+    <div class="menu-pied cap">
+      <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
+      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+    </div>
+    <div class="menu-emblemes" aria-hidden="true">
+      <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
+      <img src="assets/img/em-serpent.webp" alt="" loading="lazy" decoding="async" width="605" height="900" />
+      <img src="assets/img/em-bete.webp" alt="" loading="lazy" decoding="async" width="729" height="900" />
+      <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
+    </div>
+  </dialog>
+
+  <main id="contenu">
+    <header class="page-tete contenu">
+      <p class="page-surtitre cap"><span>IV — Rendez-vous</span><span>Réponse sous 48 heures</span></p>
+      <h1 class="page-titre" style="--mots: 5.42">Rendez-vous</h1>
+      <div class="page-intro">
+        <p class="page-intro-texte">Pour réserver un flash ou proposer un projet, écrire à Maxime avec le dessin choisi ou l'idée, l'emplacement et la taille. Une date et un devis suivent sous 48 heures.</p>
+        <p class="page-meta cap"><span>Studio privé, Suisse romande</span><span>Sur rendez-vous, en semaine</span></p>
+      </div>
+    </header>
+
+    <section class="section contenu" id="ecrire" aria-labelledby="titre-ecrire">
+      <div class="section-filet cap"><span>I</span><span>Écrire</span><span>Deux moyens</span></div>
+      <h2 class="masque" id="titre-ecrire">Écrire à Maxime</h2>
+      <ul class="canaux">
+        <li data-revele="texte"><a class="canal" href="#" data-a-completer="instagram"><span>Instagram<span class="canal-detail cap">Message privé</span></span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
+        <li data-revele="texte"><a class="canal" href="#" data-a-completer="e-mail"><span>E-mail<span class="canal-detail cap">Réponse sous 48 heures</span></span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
+      </ul>
+    </section>
+
+    <section class="section contenu" id="message" aria-labelledby="titre-message">
+      <div class="section-filet cap"><span>II</span><span>Le message</span><span>Quatre choses</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-message" data-revele="titre">Ce qu'il faut écrire</h2>
+        <p class="section-chapeau" data-revele="texte">Quelques lignes suffisent. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
+      </div>
+      <ol class="message-liste">
+        <li data-revele="texte">Le nom du flash choisi, ou l'idée du projet</li>
+        <li data-revele="texte">L'emplacement sur le corps</li>
+        <li data-revele="texte">La taille approximative</li>
+        <li data-revele="texte">Vos disponibilités en semaine</li>
+      </ol>
+    </section>
+
+    <section class="section contenu" id="deroulement" aria-labelledby="titre-deroulement">
+      <div class="section-filet cap"><span>III</span><span>Déroulement</span><span>Du message à la séance</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-deroulement" data-revele="titre">Déroulement</h2>
+        <p class="section-chapeau" data-revele="texte">Du premier message à la séance, quatre étapes, sans surprise.</p>
+      </div>
+      <ol class="deroule">
+        <li data-revele="texte"><span class="deroule-num cap">I</span><h3 class="deroule-titre">La proposition</h3><p>Sous 48 heures&nbsp;: une date et un devis.</p></li>
+        <li data-revele="texte"><span class="deroule-num cap">II</span><h3 class="deroule-titre">L'acompte</h3><p>Il confirme la séance et bloque le dessin&nbsp;; il est déduit du prix final.</p></li>
+        <li data-revele="texte"><span class="deroule-num cap">III</span><h3 class="deroule-titre">Le dessin</h3><p>Pour un projet personnalisé, il est présenté le jour même et ajusté ensemble avant de commencer.</p></li>
+        <li data-revele="texte"><span class="deroule-num cap">IV</span><h3 class="deroule-titre">La séance</h3><p>Une personne à la fois. Entre une et trois heures pour un flash, selon l'emplacement.</p></li>
+      </ol>
+    </section>
+
+    <section class="section contenu" id="studio" aria-labelledby="titre-studio">
+      <div class="section-filet cap"><span>IV</span><span>Le studio</span><span>Suisse romande</span></div>
+      <div class="grille atelier">
+        <figure class="oeuvre" style="--c: 1 / -1; --h: 2.5rem; --cd: 1 / span 5; --hd: 4rem" data-revele="image">
+          <div class="cadre cadre--arche" style="--r: 2 / 3"><img class="photo" src="assets/img/st-1.jpg" alt="Maxime, les bras croisés sur le dossier d'un fauteuil" loading="lazy" decoding="async" width="600" height="900" /></div>
+        </figure>
+        <div class="atelier-texte" style="--c: 1 / -1; --h: 2.5rem; --cd: 7 / -1; --hd: 4rem">
+          <h2 class="atelier-phrase" id="titre-studio" data-revele="texte">Un studio privé, calme et sans passage.</h2>
+          <p data-revele="texte">Maxime tatoue en Suisse romande, sur rendez-vous, en semaine. L'adresse exacte est communiquée à la confirmation du rendez-vous.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contenu" id="soins" aria-labelledby="titre-soins">
+      <div class="section-filet cap"><span>V</span><span>Soins</span><span>Trois semaines</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-soins" data-revele="titre">Après la séance</h2>
+        <p class="section-chapeau" data-revele="texte">Une fiche de soins est remise après chaque séance. L'essentiel tient en quatre lignes.</p>
+      </div>
+      <ul class="soins liste-grande">
+        <li data-revele="texte">Pas de soleil pendant trois semaines.</li>
+        <li data-revele="texte">Ni bain ni piscine pendant trois semaines.</li>
+        <li data-revele="texte">Une crème adaptée, deux fois par jour.</li>
+        <li data-revele="texte">Les retouches sont comprises dans les six mois.</li>
+      </ul>
+    </section>
+
+    <section class="section contenu" id="questions" aria-labelledby="titre-questions">
+      <div class="section-filet cap"><span>VI</span><span>Questions</span><span>Les plus fréquentes</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-questions" data-revele="titre">Questions</h2>
+      </div>
+      <div class="questions">
+        <details>
+          <summary>Un flash peut-il être modifié&nbsp;?</summary>
+          <p>Il peut être légèrement adapté à l'endroit du corps choisi, ou un peu agrandi. Il n'est jamais redessiné pour quelqu'un d'autre&nbsp;: une fois tatoué, il est rayé du catalogue.</p>
+        </details>
+        <details>
+          <summary>Faites-vous des projets personnalisés&nbsp;?</summary>
+          <p>Oui. Décrivez l'idée, l'emplacement et la taille. Le dessin est présenté le jour de la séance et ajusté ensemble avant de commencer.</p>
+        </details>
+        <details>
+          <summary>Combien de temps dure une séance&nbsp;?</summary>
+          <p>Une pièce de la taille d'un flash prend entre une et trois heures, selon l'emplacement. On fait des pauses quand il le faut.</p>
+        </details>
+        <details>
+          <summary>À quoi sert l'acompte&nbsp;?</summary>
+          <p>Il confirme la séance et bloque le dessin choisi. Il est déduit du prix final.</p>
+        </details>
+        <details>
+          <summary>Où se trouve le studio&nbsp;?</summary>
+          <p>En Suisse romande. L'adresse exacte est communiquée à la confirmation du rendez-vous.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pied contenu">
+    <div class="pied-colonnes">
+      <nav aria-label="Plan du site">
+        <p class="pied-titre cap">Chapitres</p>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="flashs.html">Flashs</a></li>
+          <li><a href="tatouages.html">Tatouages</a></li>
+          <li><a href="processus.html">Processus</a></li>
+          <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="pied-titre cap">Écrire</p>
+        <ul>
+          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
+          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="pied-titre cap">Studio</p>
+        <p>Studio privé<br />Suisse romande</p>
+      </div>
+      <div>
+        <p class="pied-titre cap">Séances</p>
+        <p>Sur rendez-vous<br />en semaine</p>
+      </div>
+    </div>
+    <div class="pied-bas cap">
+      <span>© 2026 Maxime, tatoueur</span>
+      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <a href="#top">Haut de page ↑</a>
+    </div>
+  </footer>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

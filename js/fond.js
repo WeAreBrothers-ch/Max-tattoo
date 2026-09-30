@@ -1,7 +1,8 @@
 /**
  * Fond animé : brume et rayons de lumière en mouvement permanent, gravure
  * rouge sang révélée dans un halo qui suit la souris (ou le doigt), dessinés
- * en WebGL dans un canevas fixe derrière la page.
+ * en WebGL dans un canevas fixe derrière la page. Quand le menu s'ouvre
+ * (classe menu-ouvert sur <html>), la gravure entière remonte de la brume.
  * Mouvement réduit demandé : une seule image fixe.
  * WebGL indisponible ou perdu : la gravure fixe en CSS prend le relais.
  */
@@ -16,6 +17,7 @@ const SCROLL_DRIFT = 0.00035;
 const HALO_DESKTOP_PX = 380;
 const HALO_MOBILE_PX = 240;
 const MOBILE_MAX_WIDTH = 767;
+const DEVOILE_LERP = 0.05;
 const GRAVURES = {
   paysage: "assets/img/fond-paysage-masque.webp",
   portrait: "assets/img/fond-portrait-masque.webp",
@@ -49,7 +51,9 @@ function start(canvas) {
   let orientation = "";
   let frame = 0;
   let lastDraw = 0;
+  let devoile = 0;
   const startTime = performance.now();
+  const html = document.documentElement;
 
   function resize() {
     const width = window.innerWidth;
@@ -84,6 +88,9 @@ function start(canvas) {
   function draw(now) {
     const time = reduceMotion ? 40 : (now - startTime) / 1000;
     const lantern = pointeur.update();
+    const devoileCible = html.classList.contains("menu-ouvert") ? 1 : 0;
+    devoile = reduceMotion ? devoileCible : devoile + (devoileCible - devoile) * DEVOILE_LERP;
+    gl.uniform1f(uniforms.u_devoile, devoile);
     gl.uniform1f(uniforms.u_time, time);
     gl.uniform1f(uniforms.u_scroll, window.scrollY * SCROLL_DRIFT);
     gl.uniform2f(uniforms.u_pointer, lantern.x, lantern.y);
@@ -110,6 +117,11 @@ function start(canvas) {
   function pause() {
     cancelAnimationFrame(frame);
     frame = 0;
+  }
+
+  // Sans boucle (mouvement réduit), l'ouverture du menu redessine une fois.
+  if (reduceMotion) {
+    new MutationObserver(() => draw(performance.now())).observe(html, { attributes: true, attributeFilter: ["class"] });
   }
 
   window.addEventListener("resize", () => {

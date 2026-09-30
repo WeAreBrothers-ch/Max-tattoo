@@ -1,0 +1,117 @@
+/* Pied de page : l'appel à écrire en très grand, puis le plan du site. */
+
+.pied {
+  padding: clamp(7rem, 20vw, 15rem) var(--gouttiere) calc(1.25rem + env(safe-area-inset-bottom));
+}
+
+.pied-appel {
+  display: grid;
+  gap: 1.25rem;
+  padding-bottom: clamp(3.5rem, 9vw, 7rem);
+}
+
+.pied-appel .cap {
+  color: var(--blanc-doux);
+}
+
+.pied-geant {
+  display: inline-block;
+  font-size: clamp(3.25rem, 15vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+.pied-geant .fleche {
+  display: inline-block;
+  font-size: 0.75em;
+  transition: transform 700ms var(--ease);
+}
+
+@media (min-width: 1024px) {
+  /* « Prendre rendez-vous → » tient sur une ligne. */
+  .pied-geant {
+    font-size: min(8.4vw, 12rem);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pied-geant:hover .fleche {
+    transform: translateX(0.2em);
+  }
+}
+
+.pied-colonnes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.25rem var(--gap);
+  padding-top: 1rem;
+  border-top: 1px solid var(--filet);
+}
+
+.pied-titre {
+  margin-bottom: 0.6rem;
+  color: var(--blanc-doux);
+}
+
+.pied-colonnes a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+}
+
+.pied-colonnes p {
+  padding-top: 0.45rem;
+}
+
+.pied-bas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  margin-top: clamp(3.5rem, 9vw, 7rem);
+  color: var(--blanc-doux);
+}
+
+.pied-devise {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.125rem;
+  letter-spacing: 0;
+}
+
+.pied-bas a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  color: var(--blanc);
+}
+
+@media (min-width: 1024px) {
+  .pied-colonnes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .pied-bas {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+
+  .pied-bas > :last-child {
+    justify-self: end;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pied-colonnes a,
+  .pied-bas a {
+    transition: opacity 400ms var(--ease);
+  }
+
+  .pied-colonnes a:hover,
+  .pied-bas a:hover {
+    opacity: 0.6;
+  }
+}

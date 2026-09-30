@@ -1,11 +1,12 @@
 /**
  * Les vidéos sont muettes et en boucle. Elles ne tournent que lorsqu'elles
- * sont visibles à l'écran, pour économiser batterie et bande passante.
+ * sont visibles à l'écran, pour économiser batterie et forfait.
+ * Mouvement réduit demandé : elles restent sur leur image d'attente.
  */
 
 export function initVideos() {
   const videos = Array.from(document.querySelectorAll("video[data-autoplay]"));
-  if (videos.length === 0) {
+  if (videos.length === 0 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return;
   }
 
@@ -28,12 +29,13 @@ export function initVideos() {
         }
       });
     },
-    { rootMargin: "120px 0px", threshold: 0.1 }
+    { rootMargin: "200px 0px", threshold: 0.01 }
   );
 
   videos.forEach((video) => observer.observe(video));
 }
 
+/** @param {HTMLVideoElement} video */
 function playSafely(video) {
   const attempt = video.play();
   if (attempt && typeof attempt.catch === "function") {

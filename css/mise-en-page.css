@@ -1,0 +1,258 @@
+/*
+ * Mise en page : une grille de 6 colonnes sur téléphone, 12 dès la tablette.
+ * Chaque œuvre choisit sa place avec deux variables en ligne :
+ *   --c  colonnes sur téléphone (ex. « 1 / -1 », « 3 / span 4 »)
+ *   --cd colonnes sur ordinateur (ex. « 7 / span 4 »)
+ * et son décalage vertical avec --h (téléphone) et --hd (ordinateur).
+ */
+
+.contenu {
+  width: 100%;
+  max-width: 120rem;
+  margin-inline: auto;
+  padding-inline: var(--gouttiere);
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: var(--gap);
+  align-items: start;
+}
+
+.grille > * {
+  grid-column: var(--c, 1 / -1);
+  margin-top: var(--h, 0);
+}
+
+/* Dès la tablette, les œuvres prennent leur place d'ordinateur. */
+@media (min-width: 768px) {
+  .grille {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .grille > * {
+    grid-column: var(--cd, var(--c, 1 / -1));
+    margin-top: var(--hd, var(--h, 0));
+  }
+}
+
+/* Sections : un filet de chapitre, un grand titre, une phrase. */
+.section {
+  padding-top: clamp(6rem, 16vw, 13rem);
+  /* Une ancre atteinte en remontant ne passe pas sous l'en-tête revenu. */
+  scroll-margin-top: calc(var(--entete-h) - clamp(6rem, 16vw, 13rem));
+}
+
+.section-filet {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--filet);
+  color: var(--blanc-doux);
+}
+
+.section-filet > :nth-child(2) {
+  flex: 1;
+}
+
+.section-tete {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: clamp(1.75rem, 4vw, 3rem);
+  margin-bottom: clamp(2.5rem, 7vw, 5.5rem);
+}
+
+.section-titre {
+  font-size: clamp(3rem, 13.5vw, 10rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  text-wrap: balance;
+}
+
+.section-chapeau {
+  max-width: 28em;
+}
+
+.section-suite {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+}
+
+@media (min-width: 1024px) {
+  .section-tete {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: end;
+  }
+
+  .section-titre {
+    grid-column: 1 / span 8;
+  }
+
+  .section-chapeau {
+    grid-column: 9 / -1;
+    padding-bottom: 0.6em;
+  }
+}
+
+/* Tête de page (pages intérieures) : le titre prend toute la largeur. */
+.page-tete {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: min(88svh, 52rem);
+  padding-top: calc(var(--entete-h) + env(safe-area-inset-top) + 2rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  container-type: inline-size;
+}
+
+.page-surtitre {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--blanc-doux);
+}
+
+.page-titre {
+  /* --mots : largeur du mot en em, mesurée pour IM Fell English. */
+  font-size: min(calc(90vw / var(--mots, 5)), 15rem);
+  font-size: min(calc(100cqi / var(--mots, 5)), 15rem);
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  margin-top: 0.1em;
+  margin-left: -0.04em;
+  white-space: nowrap;
+}
+
+.page-intro {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: clamp(1.75rem, 5vw, 3.5rem);
+}
+
+.page-intro-texte {
+  max-width: 30em;
+  font-size: 1.3125rem;
+  line-height: 1.28;
+}
+
+.page-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 1024px) {
+  .page-intro {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: end;
+  }
+
+  .page-intro-texte {
+    grid-column: 1 / span 6;
+    font-size: 1.75rem;
+    line-height: 1.22;
+  }
+
+  .page-meta {
+    grid-column: 9 / -1;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+  }
+}
+
+/* Petit sommaire de page, à points de conduite. */
+.table {
+  margin-top: clamp(3rem, 8vw, 6rem);
+  border-top: 1px solid var(--filet);
+}
+
+.table a {
+  display: grid;
+  grid-template-columns: 2.25rem auto minmax(1rem, 1fr) auto;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.75rem 0 0.6rem;
+  border-bottom: 1px solid var(--filet);
+  font-size: 1.3125rem;
+}
+
+.table-num,
+.table-compte {
+  color: var(--blanc-doux);
+}
+
+.table-points {
+  border-bottom: 1px dotted var(--filet);
+  transform: translateY(-0.25em);
+}
+
+@media (min-width: 1024px) {
+  .table a {
+    grid-template-columns: 4.5rem auto minmax(1rem, 1fr) auto;
+    font-size: 2rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .table a {
+    transition: color 400ms var(--ease);
+  }
+
+  .table a:hover .table-num {
+    color: var(--sang-vif);
+  }
+}
+
+/*
+ * Révélations au défilement (js/revele.js ne cache que ce qui est sous
+ * l'écran) : le texte monte, l'image se découvre de bas en haut.
+ * Le masque porte sur les enfants : Chrome en tient compte pour décider si
+ * l'élément observé est visible, il ne doit donc pas être masqué lui-même.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .a-reveler:is([data-revele="texte"], [data-revele="titre"]) {
+    transition:
+      opacity 1100ms var(--ease) var(--delai, 0ms),
+      transform 1300ms var(--ease) var(--delai, 0ms);
+  }
+
+  .a-reveler:not(.est-revele)[data-revele="texte"] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+
+  .a-reveler:not(.est-revele)[data-revele="titre"] {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
+
+  .a-reveler[data-revele="image"] > * {
+    transition: clip-path 1400ms var(--ease) var(--delai, 0ms);
+  }
+
+  .a-reveler:not(.est-revele)[data-revele="image"] > * {
+    clip-path: inset(100% 0 0 0);
+  }
+
+  .a-reveler[data-revele="image"] .cadre > :is(img, video) {
+    transition:
+      transform 1900ms var(--ease) var(--delai, 0ms),
+      scale 1400ms var(--ease),
+      opacity 600ms var(--ease);
+  }
+
+  .a-reveler:not(.est-revele)[data-revele="image"] .cadre > :is(img, video) {
+    transform: scale(1.22);
+  }
+}

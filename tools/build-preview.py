@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
-PAGES = ["index.html", "flashs.html", "tatouages.html", "processus.html", "grimoire.html"]
+PAGES = ["index.html", "flashs.html", "tatouages.html", "processus.html", "rendez-vous.html", "404.html"]
 FONT_MIME = {".otf": "font/otf", ".woff2": "font/woff2", ".woff": "font/woff"}
 
 

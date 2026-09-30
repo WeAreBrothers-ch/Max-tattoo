@@ -2,94 +2,262 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Processus — Maxime, tatoueur</title>
-  <meta name="description" content="Du carnet à la peau : comment Maxime dessine, encre et tatoue. Vidéos de dessin et de séance, pages de carnet et notes." />
+  <meta name="description" content="Du carnet à la peau : comment Maxime dessine, encre et tatoue. Pages de carnet au crayon rouge, vidéos de dessin et de séance, soins après." />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_CH" />
+  <meta property="og:site_name" content="Maxime, tatoueur" />
+  <meta property="og:title" content="Processus — Maxime, tatoueur" />
+  <meta property="og:description" content="Une pièce naît trois fois : au carnet, à l'encre, sur la peau." />
+  <meta property="og:image" content="assets/img/partage.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.ico" sizes="48x48" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="preload" href="assets/fonts/im-fell-normal-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/im-fell-sc-normal-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <a class="evitement" href="#contenu">Aller au contenu</a>
   <canvas class="fond" aria-hidden="true"></canvas>
 
-  <header class="site-header">
-    <div class="grid-3">
-      <div class="col-full lg-col-1">
-        <div class="masthead">
-          <a href="index.html">Maxime</a>
-          <nav class="site-nav mono" aria-label="Navigation">
-            <ul>
-              <li><a href="flashs.html">Flashs</a></li>
-              <li><a href="tatouages.html">Tatouages</a></li>
-              <li><a href="processus.html" aria-current="page">Processus</a></li>
-              <li><a href="index.html#infos">Infos</a></li>
-            </ul>
-          </nav>
-        </div>
-        <h1 class="page-title">Processus</h1>
-      </div>
-      <div class="col-full lg-col-2 lg-pr intro">
-        <div class="links"><div class="t-court with-indent"><p>Une pièce naît trois fois&nbsp;: au carnet, à l'encre, sur la peau.</p></div><div class="t-long with-indent"><p>Une pièce naît trois fois. Au carnet d'abord, au crayon rouge, le soir, quand les idées se cherchent. À l'encre ensuite, quand le trait est décidé et qu'on ne repasse plus. Sur la peau enfin, le jour de la séance, où il ne reste qu'à poser proprement ce qui a déjà été tranché sur le papier.</p><p>Cette page montre ces trois moments, avec les mots de Maxime sous chaque image. Les vidéos sont courtes et muettes&nbsp;; elles tournent en boucle.</p></div></div>
-        <div class="mono note"><span class="t-court">Un mot de Maxime sous chaque image.</span><span class="t-long">Notes écrites par Maxime. Certaines sont provisoires et seront relues avec lui.</span></div>
-      </div>
+  <header class="entete" data-entete>
+    <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
+    <div class="entete-actions cap">
+      <a class="entete-rdv" href="rendez-vous.html">Rendez-vous</a>
+      <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
 
-  <main>
-    <section class="series" id="carnet">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">① Le carnet</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Au crayon rouge, sans retouche.</p></div><div class="t-long with-indent"><p>Tout commence au carnet, au crayon rouge&nbsp;: une couleur qui ne se prend pas pour du définitif. Les pages sont montrées telles quelles, sans retouche, avec les hésitations. Les croquis deviennent des <a href="flashs.html">flashs</a> ou servent de base à un projet personnalisé.</p></div></div>
+  <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-tete">
+      <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
+    </div>
+    <nav class="menu-corps" aria-label="Chapitres">
+      <ol class="menu-liste">
+        <li class="menu-item" style="--i: 0"><a class="menu-lien" href="flashs.html"><span class="menu-num cap">I</span><span class="menu-masque"><span class="menu-titre">Flashs</span></span><span class="menu-folio cap">Automne 2026</span></a></li>
+        <li class="menu-item" style="--i: 1"><a class="menu-lien" href="tatouages.html"><span class="menu-num cap">II</span><span class="menu-masque"><span class="menu-titre">Tatouages</span></span><span class="menu-folio cap">Quinze pièces</span></a></li>
+        <li class="menu-item" style="--i: 2"><a class="menu-lien" href="processus.html" aria-current="page"><span class="menu-num cap">III</span><span class="menu-masque"><span class="menu-titre">Processus</span></span><span class="menu-folio cap">Du carnet à la peau</span></a></li>
+        <li class="menu-item" style="--i: 3"><a class="menu-lien" href="rendez-vous.html"><span class="menu-num cap">IV</span><span class="menu-masque"><span class="menu-titre">Rendez-vous</span></span><span class="menu-folio cap">Réponse sous 48 h</span></a></li>
+      </ol>
+    </nav>
+    <div class="menu-pied cap">
+      <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
+      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+    </div>
+    <div class="menu-emblemes" aria-hidden="true">
+      <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
+      <img src="assets/img/em-serpent.webp" alt="" loading="lazy" decoding="async" width="605" height="900" />
+      <img src="assets/img/em-bete.webp" alt="" loading="lazy" decoding="async" width="729" height="900" />
+      <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
+    </div>
+  </dialog>
+
+  <main id="contenu">
+    <header class="page-tete contenu">
+      <p class="page-surtitre cap"><span>III — Processus</span><span>Du carnet à la peau</span></p>
+      <h1 class="page-titre" style="--mots: 3.86">Processus</h1>
+      <div class="page-intro">
+        <p class="page-intro-texte">Une pièce naît trois fois. Au carnet d'abord, au crayon rouge, le soir. À l'encre ensuite, quand le trait est décidé. Sur la peau enfin, où il ne reste qu'à poser proprement ce qui a été tranché sur le papier.</p>
+        <p class="page-meta cap"><span>Quatre chapitres</span><span>Les mots sont ceux de Maxime</span></p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-carnet-bougie.jpg"><source src="assets/video/v-carnet-bougie.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Le soir</span><p class="pensee"><span class="t-court">«&nbsp;Le soir, à la bougie. La flamme bouge, le trait suit.&nbsp;»</span><span class="t-long">«&nbsp;Je dessine le soir, souvent à la bougie. La flamme bouge, les ombres aussi, et le trait suit. Le jour, je corrige.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-carnet-main.jpg"><source src="assets/video/v-carnet-main.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Une main</span><p class="pensee"><span class="t-court">«&nbsp;La main&nbsp;: elle tient, elle offre, elle menace.&nbsp;»</span><span class="t-long">«&nbsp;La main est le premier sujet que j'ai dessiné et celui que je n'ai jamais lâché. Elle tient, elle offre, elle menace. Tout dépend de ce qu'on lui met dedans.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-carnet-deux-mains.jpg"><source src="assets/video/v-carnet-deux-mains.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Deux mains</span><p class="pensee"><span class="t-court">«&nbsp;La dague et les roses. Ce qu'on garde, ce qu'on donne.&nbsp;»</span><span class="t-long">«&nbsp;Deux mains qui se répondent&nbsp;: l'une avec la dague, l'autre avec les roses. Ce qu'on garde et ce qu'on donne. Je les ai dessinées pour être portées sur les deux jambes.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/cn-6.jpg" alt="Page de carnet, croquis rouge d'un nain à chapeau pointu" loading="lazy"></div><figcaption><span class="titre">Le nain</span><p class="pensee"><span class="t-court">«&nbsp;Des figures qui ont l'air d'avoir mille ans.&nbsp;»</span><span class="t-long">«&nbsp;Les bêtes et les figures viennent des marges des manuscrits. J'aime ce qui a l'air d'avoir déjà mille ans, même dessiné hier.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/cn-7.jpg" alt="Page de carnet, croquis rouge de crânes dans les nuages" loading="lazy"></div><figcaption><span class="titre">Crânes dans la brume</span><p class="pensee"><span class="t-court">«&nbsp;Rien de morbide. Des esprits dans la brume.&nbsp;»</span><span class="t-long">«&nbsp;Rien de morbide. Ce sont les esprits de ce qui a existé et qui continue. La brume, c'est ce qui passe entre les deux.&nbsp;»</span></p></figcaption></figure>
+    </header>
+
+    <nav class="contenu" aria-label="Chapitres du processus">
+      <ol class="table">
+        <li><a href="#carnet"><span class="table-num cap">I</span><span>Le carnet</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">Crayon rouge</span></a></li>
+        <li><a href="#encre"><span class="table-num cap">II</span><span>L'encre</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">Taille réelle</span></a></li>
+        <li><a href="#seance"><span class="table-num cap">III</span><span>La séance</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">Une à trois heures</span></a></li>
+        <li><a href="#apres"><span class="table-num cap">IV</span><span>Après</span><span class="table-points" aria-hidden="true"></span><span class="table-compte cap">Six mois</span></a></li>
+      </ol>
+    </nav>
+
+    <section class="section contenu" id="carnet" aria-labelledby="titre-carnet">
+      <div class="section-filet cap"><span>I</span><span>Le carnet</span><span>Crayon rouge</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-carnet" data-revele="titre">Le carnet</h2>
+        <p class="section-chapeau" data-revele="texte">Tout commence au crayon rouge, une couleur qui ne se prend pas pour du définitif. Les pages sont montrées telles quelles, avec leurs hésitations. Les croquis deviennent des <a class="lien" href="flashs.html">flashs</a> ou la base d'un projet personnalisé.</p>
+      </div>
+      <div class="grille vis-a-vis" data-visionneuse>
+        <figure class="oeuvre oeuvre--plein" style="--c: 1 / -1; --cd: 1 / span 4" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-carnet-bougie.jpg" aria-label="Maxime dessine le soir, à la lueur d'une bougie"><source src="assets/video/v-carnet-bougie.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Le soir</span><span class="legende-lieu cap">Carnet, vidéo</span></figcaption>
+        </figure>
+        <blockquote class="pensee pensee--grande" style="--cd: 6 / -1" data-revele="texte">
+          <p>«&nbsp;Je dessine le soir, souvent à la bougie. La flamme bouge, les ombres aussi, et le trait suit. Le jour, je corrige.&nbsp;»</p>
+          <span class="pensee-signature cap">Maxime</span>
+        </blockquote>
+      </div>
+      <div class="grille vis-a-vis vis-a-vis--inverse" data-visionneuse>
+        <figure class="oeuvre" style="--c: 2 / -1; --cd: 8 / span 4" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-carnet-main.jpg" aria-label="Maxime dessine une main au crayon rouge"><source src="assets/video/v-carnet-main.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Une main</span><span class="legende-lieu cap">Carnet, vidéo</span></figcaption>
+        </figure>
+        <blockquote class="pensee pensee--grande" style="--cd: 1 / span 6" data-revele="texte">
+          <p>«&nbsp;La main est le premier sujet que j'ai dessiné et celui que je n'ai jamais lâché. Elle tient, elle offre, elle menace.&nbsp;»</p>
+          <span class="pensee-signature cap">Maxime</span>
+        </blockquote>
+      </div>
+      <div class="grille galerie galerie--suite" data-visionneuse>
+        <figure class="oeuvre" style="--c: 1 / span 4; --cd: 1 / span 4" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-carnet-deux-mains.jpg" aria-label="Maxime dessine deux mains, l'une à la dague, l'autre aux roses"><source src="assets/video/v-carnet-deux-mains.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Deux mains</span><span class="legende-lieu cap">Carnet, vidéo</span></figcaption>
+          <p class="pensee">«&nbsp;L'une avec la dague, l'autre avec les roses&nbsp;: ce qu'on garde et ce qu'on donne.&nbsp;»</p>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 3; --cd: 6 / span 3; --hd: 8rem" data-revele="image">
+          <div class="cadre"><img src="assets/img/cn-6.jpg" alt="Page de carnet, croquis rouge d'un nain à chapeau pointu" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Le nain</span><span class="legende-lieu cap">Carnet</span></figcaption>
+          <p class="pensee">«&nbsp;J'aime ce qui a l'air d'avoir mille ans, même dessiné hier.&nbsp;»</p>
+        </figure>
+        <figure class="oeuvre" style="--c: 4 / span 3; --h: 4rem; --cd: 10 / span 3; --hd: 3rem" data-revele="image">
+          <div class="cadre"><img src="assets/img/cn-7.jpg" alt="Page de carnet, croquis rouge de crânes dans les nuages" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Crânes</span><span class="legende-lieu cap">Carnet</span></figcaption>
+          <p class="pensee">«&nbsp;Rien de morbide. Des esprits dans la brume.&nbsp;»</p>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="encre">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">② L'encre</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Le trait décidé, à la taille réelle. Deux croquis et leur version encrée.</p></div><div class="t-long with-indent"><p>Quand le croquis tient, il est repris à l'encre noire, sur papier, à la taille réelle du tatouage. C'est le dessin qu'on voit dans le catalogue et celui qui sera décalqué sur la peau. Ci-dessous, deux croquis suivis de leur version encrée.</p></div></div>
+    <section class="section contenu" id="encre" aria-labelledby="titre-encre">
+      <div class="section-filet cap"><span>II</span><span>L'encre</span><span>Taille réelle</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-encre" data-revele="titre">L'encre</h2>
+        <p class="section-chapeau" data-revele="texte">Quand le croquis tient, il est repris à l'encre noire, sur papier, à la taille réelle du tatouage. C'est le dessin du catalogue, et celui qui sera décalqué sur la peau.</p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/cn-3.jpg" alt="Page de carnet, croquis rouge d'une main tenant une dague" loading="lazy"></div><figcaption><span class="titre">Croquis</span><p class="pensee"><span class="t-court">«&nbsp;Le crayon rouge cherche.&nbsp;»</span><span class="t-long">«&nbsp;Le crayon rouge cherche. Il a le droit de se tromper, c'est pour ça qu'il est rouge.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-141"><img class="enhance" src="assets/img/fl-dague-roses.jpg" alt="Dessin à l'encre de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy"></div><figcaption><span class="titre">Encre</span><p class="pensee"><span class="t-court">«&nbsp;L'encre décide. Une seule fois par ligne.&nbsp;»</span><span class="t-long">«&nbsp;L'encre décide. Je repasse chaque ligne une seule fois. Si elle est fausse, je recommence la feuille, pas la ligne.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/cn-4.jpg" alt="Page de carnet, croquis rouge d'une main et d'un serpent" loading="lazy"></div><figcaption><span class="titre">Croquis</span><p class="pensee"><span class="t-court">«&nbsp;Le serpent mue sans changer de forme.&nbsp;»</span><span class="t-long">«&nbsp;Le serpent est le seul animal qui se renouvelle en gardant sa forme. Il revient dans presque toutes mes saisons.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-141"><img class="enhance" src="assets/img/fl-serpent.jpg" alt="Dessin à l'encre d'une main baguée enlacée par un serpent" loading="lazy"></div><figcaption><span class="titre">Encre</span><p class="pensee"><span class="t-court">«&nbsp;Les bagues sont venues en dernier.&nbsp;»</span><span class="t-long">«&nbsp;Les bagues et le bracelet sont venus à l'encre, pas au crayon. Il faut laisser une place à ce qui arrive en dernier.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-141"><img class="enhance" src="assets/img/fl-masse.jpg" alt="Dessin à l'encre d'une masse d'armes à tête de crâne, chaîne et cierge" loading="lazy"></div><figcaption><span class="titre">Encre</span><p class="pensee"><span class="t-court">«&nbsp;L'arme, la lumière et ce qui reste.&nbsp;»</span><span class="t-long">«&nbsp;La masse, le cierge et le crâne&nbsp;: l'arme, la lumière et ce qui reste. Trois choses qui vont ensemble depuis longtemps.&nbsp;»</span></p></figcaption></figure>
+      <div class="grille duos" data-visionneuse>
+        <div class="duo-bloc" style="--cd: 1 / span 6" data-revele="image">
+          <div class="duo">
+            <figure class="oeuvre">
+              <div class="cadre"><img src="assets/img/cn-3.jpg" alt="Croquis rouge de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy" decoding="async" width="675" height="900" /></div>
+              <figcaption class="legende"><span class="legende-titre">Croquis</span><span class="legende-lieu cap">Crayon</span></figcaption>
+            </figure>
+            <span class="duo-fleche" aria-hidden="true">→</span>
+            <figure class="oeuvre">
+              <div class="cadre"><img src="assets/img/fl-dague-roses.jpg" alt="Le même dessin repris à l'encre noire" loading="lazy" decoding="async" width="660" height="880" /></div>
+              <figcaption class="legende"><span class="legende-titre">Dague et roses</span><span class="legende-lieu cap">Encre</span></figcaption>
+            </figure>
+          </div>
+          <p class="pensee">«&nbsp;Le crayon rouge cherche. Il a le droit de se tromper&nbsp;; l'encre, elle, décide.&nbsp;»</p>
+        </div>
+        <div class="duo-bloc" style="--cd: 7 / span 6; --hd: 12rem" data-revele="image">
+          <div class="duo">
+            <figure class="oeuvre">
+              <div class="cadre"><img src="assets/img/cn-4.jpg" alt="Croquis rouge d'une main enlacée par un serpent" loading="lazy" decoding="async" width="675" height="900" /></div>
+              <figcaption class="legende"><span class="legende-titre">Croquis</span><span class="legende-lieu cap">Crayon</span></figcaption>
+            </figure>
+            <span class="duo-fleche" aria-hidden="true">→</span>
+            <figure class="oeuvre">
+              <div class="cadre"><img src="assets/img/fl-serpent.jpg" alt="Le même dessin repris à l'encre noire, avec bagues et bracelet" loading="lazy" decoding="async" width="660" height="880" /></div>
+              <figcaption class="legende"><span class="legende-titre">Serpent et main</span><span class="legende-lieu cap">Encre</span></figcaption>
+            </figure>
+          </div>
+          <p class="pensee">«&nbsp;Les bagues sont venues à l'encre, pas au crayon. Il faut laisser une place à ce qui arrive en dernier.&nbsp;»</p>
+        </div>
+        <figure class="oeuvre" style="--c: 2 / -1; --cd: 2 / span 4; --hd: 3rem" data-revele="image">
+          <div class="cadre"><img src="assets/img/fl-masse.jpg" alt="Planche à l'encre : masse d'armes, cierge enchaîné, vase à l'œil, main à la rose" loading="lazy" decoding="async" width="660" height="880" /></div>
+          <figcaption class="legende"><span class="legende-titre">Masse d'armes</span><span class="legende-lieu cap">Encre</span></figcaption>
+          <p class="pensee">«&nbsp;L'arme, la lumière et ce qui reste. Trois choses qui vont ensemble depuis longtemps.&nbsp;»</p>
+        </figure>
       </div>
     </section>
 
-    <section class="series" id="seance">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">③ La séance</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Le dessin est décalqué, validé dans le miroir, puis posé. Une à trois heures.</p></div><div class="t-long with-indent"><p>Le dessin est décalqué, positionné, validé ensemble dans le miroir. Puis on commence. Une pièce de la taille d'un flash prend entre une et trois heures selon l'emplacement. Le studio est calme, une personne à la fois, et l'on fait des pauses quand il le faut.</p></div></div>
+    <section class="section contenu" id="seance" aria-labelledby="titre-seance">
+      <div class="section-filet cap"><span>III</span><span>La séance</span><span>Une à trois heures</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-seance" data-revele="titre">La séance</h2>
+        <p class="section-chapeau" data-revele="texte">Le dessin est décalqué, positionné, validé ensemble dans le miroir. Puis on commence. Une personne à la fois, dans le calme, avec des pauses quand il le faut.</p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-seance-1.jpg"><source src="assets/video/v-seance-1.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Le trait</span><p class="pensee"><span class="t-court">«&nbsp;Je parle peu. Le dessin est déjà décidé.&nbsp;»</span><span class="t-long">«&nbsp;En séance je parle peu. Le dessin est déjà décidé, il ne reste qu'à le poser proprement. C'est le moment le plus calme.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><video data-autoplay muted loop playsinline preload="metadata" poster="assets/video/v-seance-2.jpg"><source src="assets/video/v-seance-2.mp4" type="video/mp4"></video></div><figcaption><span class="titre">Les ombres</span><p class="pensee"><span class="t-court">«&nbsp;Les ombres en dernier, par hachures, comme en gravure.&nbsp;»</span><span class="t-long">«&nbsp;Les ombres viennent en dernier, par petites hachures, comme en gravure. C'est là que la pièce prend de la profondeur.&nbsp;»</span></p></figcaption></figure>
+      <div class="grille vis-a-vis" data-visionneuse>
+        <figure class="oeuvre oeuvre--plein" style="--c: 1 / -1; --cd: 2 / span 4" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-seance-1.jpg" aria-label="Maxime en séance, penché sur le tatouage"><source src="assets/video/v-seance-1.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Le trait</span><span class="legende-lieu cap">Séance, vidéo</span></figcaption>
+        </figure>
+        <blockquote class="pensee pensee--grande" style="--cd: 7 / -1" data-revele="texte">
+          <p>«&nbsp;En séance, je parle peu. Le dessin est déjà décidé&nbsp;; il ne reste qu'à le poser proprement. C'est le moment le plus calme.&nbsp;»</p>
+          <span class="pensee-signature cap">Maxime</span>
+        </blockquote>
+      </div>
+      <div class="grille vis-a-vis vis-a-vis--inverse" data-visionneuse>
+        <figure class="oeuvre" style="--c: 2 / -1; --cd: 8 / span 4" data-revele="image">
+          <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-seance-2.jpg" aria-label="Les ombres posées par petites hachures"><source src="assets/video/v-seance-2.mp4" type="video/mp4" /></video></div>
+          <figcaption class="legende"><span class="legende-titre">Les ombres</span><span class="legende-lieu cap">Séance, vidéo</span></figcaption>
+        </figure>
+        <blockquote class="pensee pensee--grande" style="--cd: 1 / span 6" data-revele="texte">
+          <p>«&nbsp;Les ombres viennent en dernier, par petites hachures, comme en gravure. C'est là que la pièce prend sa profondeur.&nbsp;»</p>
+          <span class="pensee-signature cap">Maxime</span>
+        </blockquote>
       </div>
     </section>
 
-    <section class="series" id="apres">
-      <div class="grid-3">
-        <h2 class="col-full lg-col-1">④ Après</h2>
-        <div class="links col-full lg-col-2 lg-pr"><div class="t-court with-indent"><p>Une pièce n'est finie qu'une fois cicatrisée. Retouches comprises dans les six mois.</p></div><div class="t-long with-indent"><p>Une fiche de soins est remise après chaque séance. Pas de soleil, pas de bain ni de piscine pendant trois semaines, une crème adaptée deux fois par jour. Une pièce n'est finie qu'une fois cicatrisée&nbsp;: c'est à ce moment qu'on la photographie pour la section <a href="tatouages.html">Tatouages</a>. Les retouches sont comprises dans les six mois.</p></div></div>
+    <section class="section contenu" id="apres" aria-labelledby="titre-apres">
+      <div class="section-filet cap"><span>IV</span><span>Après</span><span>Six mois</span></div>
+      <div class="section-tete">
+        <h2 class="section-titre" id="titre-apres" data-revele="titre">Après</h2>
+        <p class="section-chapeau" data-revele="texte">Une pièce n'est finie qu'une fois cicatrisée&nbsp;: c'est à ce moment qu'on la photographie. Une fiche de soins est remise après chaque séance, et les retouches sont comprises dans les six mois.</p>
       </div>
-      <div class="publications">
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-serpent.jpg" alt="Serpent et main baguée tatoués sur une cuisse, cicatrisés" loading="lazy"></div><figcaption><span class="titre">Serpent et main</span><p class="pensee"><span class="t-court">«&nbsp;Cicatrisé, le trait s'assoit dans la peau.&nbsp;»</span><span class="t-long">«&nbsp;Cicatrisé, le trait s'assoit un peu dans la peau. C'est là qu'on voit s'il tient.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-oeil.jpg" alt="Œil rayonnant tatoué sur un coude, cicatrisé" loading="lazy"></div><figcaption><span class="titre">Œil rayonnant</span><p class="pensee"><span class="t-court">«&nbsp;Un dessin qui survit au coude survit partout.&nbsp;»</span><span class="t-long">«&nbsp;Le coude bouge tout le temps. Un dessin qui y survit survivra partout.&nbsp;»</span></p></figcaption></figure>
-        <figure class="pub"><div class="frame r-134"><img class="enhance" src="assets/img/tt-roses.jpg" alt="Main aux roses tatouée sur une cuisse, cicatrisée" loading="lazy"></div><figcaption><span class="titre">Main aux roses</span><p class="pensee"><span class="t-court">«&nbsp;Dans dix ans, un peu plus douces.&nbsp;»</span><span class="t-long">«&nbsp;Les roses sont les premières à s'adoucir. Dans dix ans elles seront encore là, un peu plus douces.&nbsp;»</span></p></figcaption></figure>
+      <div class="grille galerie" data-visionneuse>
+        <figure class="oeuvre oeuvre--plein" style="--c: 1 / -1; --cd: 1 / span 4" data-revele="image">
+          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-serpent.jpg" alt="Le serpent et la main tatoués sur une cuisse, cicatrisés" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Serpent et main</span><span class="legende-lieu cap">Cicatrisé</span></figcaption>
+          <p class="pensee">«&nbsp;Cicatrisé, le trait s'assoit un peu dans la peau. C'est là qu'on voit s'il tient.&nbsp;»</p>
+        </figure>
+        <figure class="oeuvre" style="--c: 1 / span 3; --cd: 6 / span 3; --hd: 10rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-oeil.jpg" alt="Œil rayonnant tatoué à l'arrière du coude, cicatrisé" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Œil rayonnant</span><span class="legende-lieu cap">Cicatrisé</span></figcaption>
+          <p class="pensee">«&nbsp;Le coude bouge tout le temps. Un dessin qui y survit survivra partout.&nbsp;»</p>
+        </figure>
+        <figure class="oeuvre" style="--c: 4 / span 3; --h: 4rem; --cd: 10 / span 3; --hd: 3rem" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-roses.jpg" alt="Main aux roses tatouée sur une cuisse, cicatrisée" loading="lazy" decoding="async" width="675" height="900" /></div>
+          <figcaption class="legende"><span class="legende-titre">Main aux roses</span><span class="legende-lieu cap">Cicatrisé</span></figcaption>
+          <p class="pensee">«&nbsp;Dans dix ans, les roses seront encore là, un peu plus douces.&nbsp;»</p>
+        </figure>
       </div>
+      <p class="section-suite cap"><a class="lien-fleche" href="rendez-vous.html#soins">Les soins, en détail <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div><a href="index.html">Maxime</a></div>
-    <div class="quote"><p>«&nbsp;entre l'ombre et la lumière&nbsp;»</p></div>
-    <div class="right"><a href="index.html#infos">Informations</a></div>
+  <footer class="pied contenu">
+    <div class="pied-appel">
+      <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
+      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
+    </div>
+    <div class="pied-colonnes">
+      <nav aria-label="Plan du site">
+        <p class="pied-titre cap">Chapitres</p>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="flashs.html">Flashs</a></li>
+          <li><a href="tatouages.html">Tatouages</a></li>
+          <li><a href="processus.html">Processus</a></li>
+          <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        </ul>
+      </nav>
+      <div>
+        <p class="pied-titre cap">Écrire</p>
+        <ul>
+          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
+          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="pied-titre cap">Studio</p>
+        <p>Studio privé<br />Suisse romande</p>
+      </div>
+      <div>
+        <p class="pied-titre cap">Séances</p>
+        <p>Sur rendez-vous<br />en semaine</p>
+      </div>
+    </div>
+    <div class="pied-bas cap">
+      <span>© 2026 Maxime, tatoueur</span>
+      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <a href="#top">Haut de page ↑</a>
+    </div>
   </footer>
 
   <script type="module" src="js/main.js"></script>
