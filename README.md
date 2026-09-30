@@ -17,9 +17,20 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 
 - **Fond** : brume, rayons et gravure rouge sang en WebGL (`js/fond*.js`), derrière toutes les pages. La gravure apparaît sous la souris, ou se promène seule sur téléphone. Quand le menu s'ouvre, la gravure entière remonte de la brume.
 - **Typographie** : IM Fell English (romain, italique) et IM Fell English SC (petites capitales), licence OFL. Grands titres qui prennent toute la largeur, chiffres romains, filets fins, lettrine rouge.
-- **Images en grand** : galeries éditoriales sur une grille de 6 colonnes (téléphone) et 12 colonnes (dès 768 px), avec des décalages verticaux. Toucher une œuvre l'ouvre en grand ; on glisse de l'une à l'autre.
-- **Menu** : table des matières plein écran (`<dialog>`), les chapitres montent un à un, l'emblème blanc du chapitre survolé apparaît à droite.
-- **Téléphone d'abord** : zones tactiles de 44 px, marges de sécurité (encoche), bandes à glisser pour les flashs, images pleine largeur.
+- **Menu** : table des matières plein écran (`<dialog>`) ; les chapitres montent un à un, l'emblème blanc du chapitre apparaît (en haut sur téléphone, à droite sur ordinateur).
+
+## Téléphone d'abord
+
+Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est une version d'ordinateur rétrécie. Calibré de 320 à 430 px de large, debout et à l'horizontale.
+
+- **Barre du bas** (téléphone et tablette) : Menu à gauche, le chapitre en cours au milieu (il change en roulant), Réserver à droite ; son filet se remplit à mesure qu'on lit. Dans le menu, « Fermer » prend la place exacte de « Menu ».
+- **Accueil** : la couverture tient dans l'écran, le nom posé juste au-dessus de la barre. Les pièces forment une pile de tirages : chaque photo s'arrête en haut de l'écran et la suivante vient la recouvrir.
+- **Rangées à glisser** (tatouages par thème, flashs, pages du carnet, crayon → encre, pièces cicatrisées) : une œuvre par geste, la suivante dépasse pour inviter à glisser, un compteur « 2 / 5 » et un filet suivent le doigt. Dès 768 px, les mêmes œuvres redeviennent une grille éditoriale.
+- **Processus** : les vidéos verticales passent en « stories » d'un bord à l'autre, la phrase de Maxime posée dessus.
+- **Visionneuse** : l'œuvre grandit depuis sa vignette ; on glisse de l'une à l'autre, on la tire vers le bas pour la reposer, et elle retourne à sa place dans la rangée.
+- **Retour du téléphone** : le bouton ou le geste « retour » referme le menu ou la visionneuse au lieu de quitter la page.
+- **Animations** : courtes sur téléphone (on y fait défiler vite), aucune ne fait attendre le pouce ; les rangées se dévoilent d'un bloc. D'une page à l'autre, la barre du bas ne bouge pas. Zones tactiles de 44 px, marges de sécurité (encoche).
+- **Tablette et ordinateur** : grille de 12 colonnes dès 768 px, avec décalages verticaux et parallaxe douce ; dès 1024 px, en-tête fixe en haut et plus de barre du bas.
 
 ## Structure
 
@@ -31,21 +42,26 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 │   ├── reset.css
 │   ├── base.css          polices, couleurs, liens, boutons, mouvement réduit
 │   ├── fond.css          canevas du fond animé + repli fixe sans WebGL
-│   ├── entete.css        en-tête fixe (se retire en descendant, revient en remontant)
+│   ├── entete.css        en-tête (le nom seul sur téléphone, bandeau fixe sur ordinateur)
+│   ├── barre.css         barre du bas, sous le pouce (téléphone et tablette)
 │   ├── menu.css          menu plein écran et ses animations
 │   ├── mise-en-page.css  grille, sections, têtes de page, sommaires, révélations
-│   ├── oeuvres.css       cadres, légendes, planches de flashs, tampon, pensées, parallaxe
+│   ├── oeuvres.css       cadres, légendes, rangées à glisser, pile de tirages, planches, tampon, pensées
 │   ├── accueil.css       ouverture, manifeste, bande de flashs, étapes, studio
-│   ├── pages.css         registre, déroulé, vis-à-vis, canaux, questions, 404
+│   ├── pages.css         fiches de flashs, registre, déroulé, stories, crayon → encre, canaux, questions, 404
 │   ├── visionneuse.css   œuvres en grand
 │   └── pied.css
 ├── js/
 │   ├── main.js           point d'entrée (module)
 │   ├── fond.js · fond-gl.js · fond-shader.js · fond-pointeur.js · fond-balade.js   le fond animé
 │   ├── menu.js           ouverture et fermeture du menu, emblèmes
-│   ├── entete.js         en-tête qui se retire, petit nom de l'accueil
+│   ├── couche.js         le « retour » du téléphone referme le menu ou la visionneuse
+│   ├── entete.js         en-tête qui se retire (ordinateur), petit nom de l'accueil
+│   ├── barre.js          barre du bas : chapitre en cours, filet de lecture
+│   ├── defileur.js       rangées à glisser : compteur et filet
+│   ├── pile.js           pile de tirages de l'accueil (téléphone)
 │   ├── revele.js         apparition des images et des textes au défilement
-│   ├── visionneuse.js    œuvres en grand, glisser, flèches, Échap
+│   ├── visionneuse.js    œuvres en grand : envol depuis la vignette, glisser, tirer vers le bas, flèches, Échap
 │   ├── melange.js        ordre aléatoire des flashs disponibles
 │   └── video.js          vidéos lues seulement quand elles sont à l'écran
 ├── assets/
@@ -61,14 +77,14 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 Chaque œuvre d'une galerie choisit sa place avec des variables en ligne :
 
 ```html
-<figure class="oeuvre" style="--c: 1 / span 3; --h: 3rem; --cd: 7 / span 3; --hd: 6rem" data-revele="image">
+<figure class="oeuvre" style="--cd: 7 / span 3; --hd: 6rem" data-revele="image">
   <div class="cadre"><img class="photo" src="assets/img/tt-dague.jpg" alt="…" loading="lazy" decoding="async" width="675" height="900" /></div>
   <figcaption class="legende"><span class="legende-titre">Main à la dague</span><span class="legende-lieu cap">Cuisse</span></figcaption>
 </figure>
 ```
 
-- `--c` / `--cd` : colonnes sur téléphone (6) et dès la tablette (12). Sans valeur, toute la largeur.
-- `--h` / `--hd` : décalage vertical, pour le rythme.
+- Sur téléphone, la forme de la galerie décide : `galerie--defile defileur` (rangée à glisser, avec `data-defileur="Nom de la rangée"`), `galerie--pile` (pile de tirages, chaque carte avec `--n: 0, 1, 2…`), ou la grille de 6 colonnes avec `--c` (ex. `1 / span 3`) et `--h` (décalage).
+- `--cd` / `--hd` : colonnes (sur 12) et décalage vertical dès 768 px.
 - `--r` sur le cadre : format (`3 / 4` par défaut, `9 / 16` pour les vidéos, `1 / 1`).
 - `oeuvre--plein` : l'image touche les deux bords sur téléphone. `cadre--arche` : plein cintre. `data-parallaxe` sur le cadre : léger décalage au défilement.
 - Dans un bloc `data-visionneuse`, chaque œuvre s'ouvre en grand ; la légende est reprise dans la visionneuse.
@@ -79,7 +95,7 @@ Chaque œuvre d'une galerie choisit sa place avec des variables en ligne :
 - Les vidéos sont muettes, en boucle, et ne tournent qu'à l'écran. Mouvement réduit demandé : pas d'animation, vidéos à l'arrêt, fond en image fixe.
 - Les révélations ne cachent que ce qui est sous l'écran au chargement ; sans script, tout est visible.
 - Le fond est plafonné (30 images/s, résolution limitée, pause quand l'onglet est caché). Sans WebGL, la gravure fixe s'affiche en CSS. Il faut servir le site en HTTP (la texture ne charge pas en `file://`).
-- En-tête, menu et pied sont identiques sur toutes les pages : une modification se reporte dans chaque fichier HTML.
+- En-tête, barre du bas, menu et pied sont identiques sur toutes les pages : une modification se reporte dans chaque fichier HTML. Chaque chapitre porte `data-titre` (un mot court, affiché dans la barre du bas) et `data-num` (son chiffre romain).
 
 ## Lancer en local
 

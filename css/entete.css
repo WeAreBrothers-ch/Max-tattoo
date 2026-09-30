@@ -1,10 +1,12 @@
 /*
- * En-tête fixe, en différence : blanc sur le noir, noir sur le papier des
- * dessins. Il se retire quand on descend et revient dès qu'on remonte.
+ * En-tête. Téléphone et tablette : le nom seul en haut de page, qui part
+ * avec le défilement ; la navigation est sous le pouce, dans la barre du bas.
+ * Ordinateur : bandeau fixe, en différence (blanc sur le noir, noir sur le
+ * papier des dessins), qui se retire en descendant et revient en remontant.
  */
 
 .entete {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -18,42 +20,28 @@
   text-shadow: none;
   mix-blend-mode: difference;
   pointer-events: none;
-  transition: transform 700ms var(--ease), opacity 500ms var(--ease);
 }
 
 .entete > * {
   pointer-events: auto;
 }
 
-.entete.est-cache {
-  transform: translateY(-110%);
-}
-
 .entete-nom {
+  display: inline-flex;
+  align-items: center;
   justify-self: start;
-  font-size: 1.5rem;
+  min-height: 2.75rem;
+  font-size: 1.375rem;
   line-height: 1;
-  transition: opacity 500ms var(--ease), transform 700ms var(--ease);
 }
 
-/* Accueil : le petit nom attend que le grand soit passé. */
-.au-sommet .entete-nom {
-  opacity: 0;
-  transform: translateY(-0.4rem);
-  pointer-events: none;
-}
-
-.entete-milieu {
+.entete-milieu,
+.entete-actions {
   display: none;
 }
 
-.entete-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.75rem;
-}
-
-.entete-rdv {
+/* Accueil sur téléphone : le grand nom de l'ouverture suffit. */
+.page-accueil .entete {
   display: none;
 }
 
@@ -76,38 +64,29 @@
   transition: width 500ms var(--ease);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .bouton-menu:hover .bouton-menu-icone {
-    width: 2.25rem;
-  }
-
-  .entete-rdv,
-  .entete-nom {
-    transition: opacity 400ms var(--ease);
-  }
-
-  .entete-rdv:hover {
-    opacity: 0.6;
-  }
-}
-
-@media (min-width: 640px) {
-  .entete-rdv {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.75rem;
-  }
-}
-
-.entete-rdv[aria-current="page"] {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.3em;
-}
-
 @media (min-width: 1024px) {
-  .entete {
+  .entete,
+  .page-accueil .entete {
+    position: fixed;
+    display: grid;
     grid-template-columns: 1fr auto 1fr;
+    transition: transform 700ms var(--ease), opacity 500ms var(--ease);
+  }
+
+  .entete.est-cache {
+    transform: translateY(-110%);
+  }
+
+  .entete-nom {
+    font-size: 1.625rem;
+    transition: opacity 500ms var(--ease), transform 700ms var(--ease);
+  }
+
+  /* Accueil : le petit nom attend que le grand soit passé. */
+  .au-sommet .entete-nom {
+    opacity: 0;
+    transform: translateY(-0.4rem);
+    pointer-events: none;
   }
 
   .entete-milieu {
@@ -115,11 +94,35 @@
   }
 
   .entete-actions {
+    display: flex;
     justify-self: end;
+    align-items: center;
     gap: 2.5rem;
   }
 
-  .entete-nom {
-    font-size: 1.625rem;
+  .entete-rdv {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  .entete-rdv[aria-current="page"] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+}
+
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .bouton-menu:hover .bouton-menu-icone {
+    width: 2.25rem;
+  }
+
+  .entete-rdv {
+    transition: opacity 400ms var(--ease);
+  }
+
+  .entete-rdv:hover {
+    opacity: 0.6;
   }
 }

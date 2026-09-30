@@ -41,7 +41,7 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.25rem 1rem;
+  gap: 0.2rem 1rem;
   flex-wrap: wrap;
   padding-top: 0.7rem;
 }
@@ -68,6 +68,7 @@
   z-index: 2;
   width: 100%;
   cursor: zoom-in;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .oeuvre-ouvrir:focus-visible {
@@ -75,8 +76,13 @@
   outline-offset: -5px;
 }
 
-.oeuvre-ouvrir:active {
-  background: rgba(244, 241, 235, 0.1);
+/* Au doigt, l'image s'enfonce à peine sous l'appui. */
+.cadre {
+  transition: scale 160ms ease;
+}
+
+:is(a.oeuvre:active, .oeuvre:has(.oeuvre-ouvrir:active)) .cadre {
+  scale: 0.985;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -90,9 +96,9 @@
   }
 }
 
-/* Parallaxe douce des photos, calculée par le navigateur au défilement. */
+/* Parallaxe douce des photos (tablette et ordinateur), calculée par le navigateur. */
 @supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
     .cadre[data-parallaxe] > :is(img, video) {
       position: absolute;
       top: -8%;
@@ -115,6 +121,169 @@
   }
 }
 
+/*
+ * Défilé : une rangée qu'on fait glisser au pouce, une œuvre par geste.
+ * La carte suivante dépasse de 1,75 rem pour inviter à glisser ; un compteur
+ * et un filet (js/defileur.js) disent où l'on en est. Chaque galerie décide
+ * à partir de quelle largeur elle redevient une grille.
+ */
+.defileur {
+  position: relative;
+  display: flex;
+  gap: var(--gap);
+  margin-inline: calc(var(--gouttiere) * -1);
+  padding-inline: var(--gouttiere);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gouttiere);
+  scrollbar-width: none;
+}
+
+.defileur::-webkit-scrollbar {
+  display: none;
+}
+
+/* Un geste, une œuvre : l'aimant arrête chaque carte, comme un album. */
+.defileur > * {
+  flex: 0 0 var(--carte, calc(100vw - 2 * var(--gouttiere) - 2.5rem));
+  margin-top: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.defileur:focus-visible {
+  outline-offset: -1px;
+}
+
+.defileur-etat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.1rem;
+  color: var(--blanc-doux);
+}
+
+.defileur-etat[hidden] {
+  display: none;
+}
+
+.defileur-compteur {
+  flex: none;
+  min-width: 3.25em;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.defileur-piste {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  overflow: hidden;
+  background: var(--filet);
+}
+
+.defileur-curseur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  background: var(--blanc);
+  transition: transform 120ms linear;
+}
+
+/* Galerie en défilé sur téléphone, grille éditoriale dès 768 px. */
+@media (max-width: 767px) {
+  .galerie--defile .cadre {
+    aspect-ratio: 3 / 4;
+  }
+}
+
+@media (min-width: 768px) {
+  .galerie--defile.defileur {
+    display: grid;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .galerie--defile.defileur > * {
+    flex: none;
+    margin-top: var(--hd, 0);
+  }
+}
+
+/*
+ * Pile de tirages (accueil, téléphone) : chaque carte s'arrête en haut de
+ * l'écran et la suivante vient la recouvrir ; la carte recouverte recule et
+ * s'assombrit (--couvert, calculé par js/pile.js). Le défilement fait tout :
+ * aucune animation ne tourne seule.
+ */
+@media (max-width: 767px) {
+  .galerie--pile {
+    display: block;
+  }
+
+  .galerie--pile > .oeuvre {
+    position: sticky;
+    top: calc(env(safe-area-inset-top) + 1rem + var(--n, 0) * 0.45rem);
+    margin: 0 0 2.5rem;
+    padding-bottom: 0.35rem;
+    background: var(--noir);
+    box-shadow: 0 -1.25rem 2.5rem rgba(0, 0, 0, 0.75);
+    scale: calc(1 - var(--couvert, 0) * 0.06);
+    transform-origin: 50% 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .galerie--pile > .oeuvre {
+      scale: none;
+    }
+  }
+
+  .galerie--pile > .oeuvre:first-child {
+    box-shadow: none;
+  }
+
+  .galerie--pile > .oeuvre:last-child {
+    margin-bottom: 0;
+  }
+
+  .galerie--pile .cadre {
+    aspect-ratio: 3 / 4;
+  }
+
+  .galerie--pile .cadre::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: #000;
+    opacity: calc(var(--couvert, 0) * 0.65);
+    pointer-events: none;
+  }
+
+  .galerie--pile .legende {
+    flex-wrap: nowrap;
+  }
+
+  .galerie--pile .legende-titre {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  /* Dans la pile, c'est le défilement qui montre les cartes : pas de dévoilement. */
+  .galerie--pile > .a-reveler > * {
+    clip-path: none !important;
+  }
+
+  .galerie--pile > .a-reveler .cadre > :is(img, video) {
+    transform: none !important;
+  }
+}
+
 /* Planches de flashs : dessin sur papier, état de réservation. */
 .planche {
   position: relative;
@@ -122,6 +291,7 @@
 
 .planche .cadre {
   background: #e9e2d4;
+  container-type: inline-size;
 }
 
 .planche figcaption {
@@ -168,7 +338,7 @@
   text-decoration-thickness: 1px;
 }
 
-/* Tampon « Tatoué » : encre rouge sur le papier, comme dans un registre. */
+/* Tampon « Tatoué » : encre rouge sur le papier, à l'échelle de la planche. */
 .tampon {
   position: absolute;
   right: 9%;
@@ -180,7 +350,8 @@
   box-shadow: inset 0 0 0 2px transparent, inset 0 0 0 3px currentColor;
   color: var(--sang);
   font-family: var(--font-capitales);
-  font-size: clamp(1rem, 4.2vw, 1.5rem);
+  font-size: 1rem;
+  font-size: clamp(0.75rem, 7cqi, 1.625rem);
   line-height: 1;
   letter-spacing: 0.14em;
   rotate: -9deg;
@@ -190,17 +361,11 @@
   pointer-events: none;
 }
 
-@media (min-width: 1024px) {
-  .tampon {
-    font-size: clamp(1rem, 1.5vw, 1.625rem);
-  }
-}
-
 /* Pensée de Maxime : une phrase entre guillemets, en italique. */
 .pensee {
   margin-top: 0.9rem;
   font-style: italic;
-  font-size: 1.3125rem;
+  font-size: 1.25rem;
   line-height: 1.25;
   -webkit-hyphens: manual;
   hyphens: manual;
@@ -219,15 +384,16 @@
   }
 }
 
-/* Grande pensée posée à côté de son image. */
+/* Grande pensée posée à côté de son image (sur l'image, sur téléphone). */
 .pensee--grande {
-  font-size: clamp(1.75rem, 6.6vw, 3.25rem);
-  line-height: 1.12;
+  font-size: clamp(1.375rem, 6vw, 1.875rem);
+  line-height: 1.16;
   text-wrap: balance;
 }
 
 @media (min-width: 768px) {
   .pensee--grande {
     font-size: clamp(1.75rem, 4.2vw, 3.25rem);
+    line-height: 1.12;
   }
 }

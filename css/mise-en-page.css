@@ -1,9 +1,12 @@
 /*
- * Mise en page : une grille de 6 colonnes sur téléphone, 12 dès la tablette.
- * Chaque œuvre choisit sa place avec deux variables en ligne :
- *   --c  colonnes sur téléphone (ex. « 1 / -1 », « 3 / span 4 »)
- *   --cd colonnes sur ordinateur (ex. « 7 / span 4 »)
- * et son décalage vertical avec --h (téléphone) et --hd (ordinateur).
+ * Mise en page, téléphone d'abord.
+ * Téléphone : une colonne ; chaque galerie choisit une forme pensée pour le
+ * pouce (pile de tirages, défilé à glisser, stories) plutôt qu'une grille
+ * d'ordinateur rétrécie. Une grille de 6 colonnes reste disponible pour les
+ * rares paires (--c : « 1 / span 3 », « 4 / span 3 »).
+ * Dès 768 px : 12 colonnes et placements éditoriaux, choisis œuvre par œuvre
+ * avec deux variables en ligne : --cd (colonnes, ex. « 7 / span 4 ») et
+ * --hd (décalage vertical).
  */
 
 .contenu {
@@ -25,7 +28,6 @@
   margin-top: var(--h, 0);
 }
 
-/* Dès la tablette, les œuvres prennent leur place d'ordinateur. */
 @media (min-width: 768px) {
   .grille {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -39,9 +41,17 @@
 
 /* Sections : un filet de chapitre, un grand titre, une phrase. */
 .section {
-  padding-top: clamp(6rem, 16vw, 13rem);
-  /* Une ancre atteinte en remontant ne passe pas sous l'en-tête revenu. */
-  scroll-margin-top: calc(var(--entete-h) - clamp(6rem, 16vw, 13rem));
+  --section-haut: 5.5rem;
+  padding-top: var(--section-haut);
+  /* Une ancre place le filet du chapitre juste sous le haut de l'écran. */
+  scroll-margin-top: calc(1rem - var(--section-haut));
+}
+
+@media (min-width: 768px) {
+  .section {
+    --section-haut: clamp(7rem, 14vw, 13rem);
+    scroll-margin-top: calc(var(--entete-h) - var(--section-haut));
+  }
 }
 
 .section-filet {
@@ -60,14 +70,13 @@
 
 .section-tete {
   display: grid;
-  gap: 1.25rem;
-  margin-top: clamp(1.75rem, 4vw, 3rem);
-  margin-bottom: clamp(2.5rem, 7vw, 5.5rem);
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
 }
 
 .section-titre {
-  font-size: clamp(3rem, 13.5vw, 10rem);
-  line-height: 0.92;
+  font-size: clamp(2.5rem, 12vw, 3.75rem);
+  line-height: 0.95;
   letter-spacing: -0.02em;
   -webkit-hyphens: manual;
   hyphens: manual;
@@ -78,10 +87,16 @@
   max-width: 28em;
 }
 
-.section-suite {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: clamp(2.5rem, 6vw, 5rem);
+@media (min-width: 768px) {
+  .section-tete {
+    gap: 1.25rem;
+    margin: clamp(1.75rem, 4vw, 3rem) 0 clamp(2.5rem, 7vw, 5.5rem);
+  }
+
+  .section-titre {
+    font-size: clamp(3.75rem, 11vw, 10rem);
+    line-height: 0.92;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -101,14 +116,40 @@
   }
 }
 
+/* « Voir tout » : sur téléphone, une ligne pleine largeur, facile à toucher. */
+.section-suite {
+  margin-top: 2rem;
+}
+
+.section-suite .lien-fleche {
+  display: flex;
+  justify-content: space-between;
+  min-height: 3.5rem;
+  border-top: 1px solid var(--filet);
+  border-bottom: 1px solid var(--filet);
+}
+
+@media (min-width: 768px) {
+  .section-suite {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .section-suite .lien-fleche {
+    display: inline-flex;
+    justify-content: flex-start;
+    min-height: 2.75rem;
+    border: 0;
+  }
+}
+
 /* Tête de page (pages intérieures) : le titre prend toute la largeur. */
 .page-tete {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  min-height: min(88svh, 52rem);
-  padding-top: calc(var(--entete-h) + env(safe-area-inset-top) + 2rem);
-  padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  padding-top: calc(var(--entete-h) + env(safe-area-inset-top) + 1.5rem);
+  padding-bottom: 0.5rem;
   container-type: inline-size;
 }
 
@@ -125,7 +166,7 @@
   font-size: min(calc(100cqi / var(--mots, 5)), 15rem);
   line-height: 0.86;
   letter-spacing: -0.02em;
-  margin-top: 0.1em;
+  margin-top: 0.12em;
   margin-left: -0.04em;
   white-space: nowrap;
 }
@@ -133,23 +174,51 @@
 .page-intro {
   display: grid;
   gap: 1.25rem;
-  margin-top: clamp(1.75rem, 5vw, 3.5rem);
+  margin-top: 1.75rem;
 }
 
 .page-intro-texte {
   max-width: 30em;
-  font-size: 1.3125rem;
-  line-height: 1.28;
+  font-size: 1.25rem;
+  line-height: 1.3;
 }
 
 .page-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 1.5rem;
+  flex-direction: column;
+  gap: 0.3rem;
   color: var(--blanc-doux);
 }
 
+@media (min-width: 768px) {
+  .page-tete {
+    justify-content: flex-end;
+    min-height: min(70svh, 44rem);
+    padding-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .page-intro {
+    margin-top: clamp(1.75rem, 5vw, 3.5rem);
+  }
+
+  .page-intro-texte {
+    font-size: 1.3125rem;
+    line-height: 1.28;
+  }
+
+  .page-meta {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.5rem;
+  }
+}
+
 @media (min-width: 1024px) {
+  .page-tete {
+    min-height: min(88svh, 52rem);
+    padding-top: calc(var(--entete-h) + 2rem);
+  }
+
   .page-intro {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap);
@@ -172,19 +241,23 @@
 
 /* Petit sommaire de page, à points de conduite. */
 .table {
-  margin-top: clamp(3rem, 8vw, 6rem);
+  margin-top: 2.5rem;
   border-top: 1px solid var(--filet);
 }
 
 .table a {
   display: grid;
-  grid-template-columns: 2.25rem auto minmax(1rem, 1fr) auto;
+  grid-template-columns: 2.5rem auto minmax(1rem, 1fr) auto;
   align-items: baseline;
   gap: 0.5rem;
   min-height: 3.25rem;
-  padding: 0.75rem 0 0.6rem;
+  padding: 0.8rem 0 0.65rem;
   border-bottom: 1px solid var(--filet);
   font-size: 1.3125rem;
+}
+
+.table a:active {
+  opacity: 0.55;
 }
 
 .table-num,
@@ -195,6 +268,12 @@
 .table-points {
   border-bottom: 1px dotted var(--filet);
   transform: translateY(-0.25em);
+}
+
+@media (min-width: 768px) {
+  .table {
+    margin-top: clamp(3rem, 8vw, 6rem);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -217,28 +296,44 @@
 /*
  * Révélations au défilement (js/revele.js ne cache que ce qui est sous
  * l'écran) : le texte monte, l'image se découvre de bas en haut.
+ * Sur téléphone, on fait défiler vite : les apparitions sont plus courtes
+ * et plus proches, pour ne jamais faire attendre le pouce.
  * Le masque porte sur les enfants : Chrome en tient compte pour décider si
  * l'élément observé est visible, il ne doit donc pas être masqué lui-même.
  */
+:root {
+  --revele-texte: 700ms;
+  --revele-image: 900ms;
+  --revele-course: 1rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --revele-texte: 1100ms;
+    --revele-image: 1400ms;
+    --revele-course: 1.5rem;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .a-reveler:is([data-revele="texte"], [data-revele="titre"]) {
     transition:
-      opacity 1100ms var(--ease) var(--delai, 0ms),
-      transform 1300ms var(--ease) var(--delai, 0ms);
+      opacity var(--revele-texte) var(--ease) var(--delai, 0ms),
+      transform calc(var(--revele-texte) + 200ms) var(--ease) var(--delai, 0ms);
   }
 
   .a-reveler:not(.est-revele)[data-revele="texte"] {
     opacity: 0;
-    transform: translateY(1.5rem);
+    transform: translateY(var(--revele-course));
   }
 
   .a-reveler:not(.est-revele)[data-revele="titre"] {
     opacity: 0;
-    transform: translateY(0.35em);
+    transform: translateY(0.3em);
   }
 
   .a-reveler[data-revele="image"] > * {
-    transition: clip-path 1400ms var(--ease) var(--delai, 0ms);
+    transition: clip-path var(--revele-image) var(--ease) var(--delai, 0ms), scale 160ms ease;
   }
 
   .a-reveler:not(.est-revele)[data-revele="image"] > * {
@@ -247,12 +342,12 @@
 
   .a-reveler[data-revele="image"] .cadre > :is(img, video) {
     transition:
-      transform 1900ms var(--ease) var(--delai, 0ms),
+      transform calc(var(--revele-image) + 500ms) var(--ease) var(--delai, 0ms),
       scale 1400ms var(--ease),
       opacity 600ms var(--ease);
   }
 
   .a-reveler:not(.est-revele)[data-revele="image"] .cadre > :is(img, video) {
-    transform: scale(1.22);
+    transform: scale(1.14);
   }
 }

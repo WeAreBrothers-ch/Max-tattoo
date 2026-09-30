@@ -1,7 +1,14 @@
 /* Pied de page : l'appel à écrire en très grand, puis le plan du site. */
 
 .pied {
-  padding: clamp(7rem, 20vw, 15rem) var(--gouttiere) calc(1.25rem + env(safe-area-inset-bottom));
+  /* En bas sur téléphone, la barre du pouce ne cache jamais la dernière ligne. */
+  padding: clamp(6rem, 20vw, 15rem) var(--gouttiere) calc(var(--bas) + 1.5rem);
+}
+
+@media (min-width: 1024px) {
+  .pied {
+    padding-bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  }
 }
 
 .pied-appel {

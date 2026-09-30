@@ -21,7 +21,7 @@
   <link rel="preload" href="assets/fonts/im-fell-sc-normal-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
+<body class="page-accueil">
   <a class="evitement" href="#contenu">Aller au contenu</a>
   <canvas class="fond" aria-hidden="true"></canvas>
 
@@ -33,6 +33,12 @@
       <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
+
+  <nav class="barre" data-barre aria-label="Navigation">
+    <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal"><span class="barre-icone" aria-hidden="true"></span>Menu</button>
+    <p class="barre-titre cap" aria-hidden="true"><span data-barre-titre>Accueil</span></p>
+    <a class="barre-rdv cap" href="rendez-vous.html">Réserver</a>
+  </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
     <div class="menu-tete">
@@ -57,12 +63,17 @@
       <img src="assets/img/em-bete.webp" alt="" loading="lazy" decoding="async" width="729" height="900" />
       <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
     </div>
+    <div class="menu-barre">
+      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close"><span class="menu-fermer-icone" aria-hidden="true"></span>Fermer</button>
+      <span class="menu-barre-titre cap" aria-hidden="true">Sommaire</span>
+      <a class="menu-barre-rdv cap" href="rendez-vous.html">Réserver</a>
+    </div>
   </dialog>
 
   <main id="contenu">
-    <section class="ouverture" aria-labelledby="titre-site">
+    <section class="ouverture" aria-labelledby="titre-site" data-titre="Accueil">
+      <p class="ouverture-haut cap"><span>Tatoueur</span><span>Suisse romande</span></p>
       <div class="ouverture-milieu">
-        <p class="ouverture-haut cap"><span>Tatoueur</span><span>Suisse romande</span></p>
         <p class="ouverture-devise">Des dessins à l'encre noire, tatoués une seule fois.</p>
       </div>
       <div class="ouverture-bas cap">
@@ -81,45 +92,45 @@
             <a class="lien-fleche" href="flashs.html">Le catalogue de la saison <span class="fleche" aria-hidden="true">→</span></a>
           </p>
         </div>
-        <figure class="oeuvre" style="--c: 3 / -1; --h: 3.5rem; --cd: 10 / -1; --hd: 0" data-revele="image">
+        <figure class="oeuvre" style="--c: 2 / span 4; --h: 2.75rem; --cd: 10 / -1; --hd: 0" data-revele="image">
           <div class="cadre cadre--arche" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-carnet-bougie.jpg" aria-label="Maxime dessine le soir, à la lueur d'une bougie"><source src="assets/video/v-carnet-bougie.mp4" type="video/mp4" /></video></div>
           <figcaption class="legende"><span class="legende-titre">Le soir, à la bougie</span><span class="legende-lieu cap">Carnet</span></figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="section contenu" id="pieces" aria-labelledby="titre-pieces">
+    <section class="section contenu" id="pieces" aria-labelledby="titre-pieces" data-num="I" data-titre="Pièces">
       <div class="section-filet cap"><span>I</span><span>Tatouages</span><span>Quinze pièces</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-pieces" data-revele="titre">Pièces portées</h2>
         <p class="section-chapeau" data-revele="texte">Photographiées cicatrisées, filmées quand la lumière le permet. Un trait fin, des ombres par hachures, comme en gravure.</p>
       </div>
-      <div class="grille galerie">
-        <a class="oeuvre oeuvre--plein" href="tatouages.html#cranes" style="--c: 1 / -1; --cd: 1 / span 5" data-revele="image">
+      <div class="grille galerie galerie--pile">
+        <a class="oeuvre" href="tatouages.html#cranes" style="--n: 0; --cd: 1 / span 5" data-revele="image">
           <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-crane-cierge.jpg" alt="Crâne surmonté d'un cierge, tatoué sur un avant-bras" loading="lazy" decoding="async" width="675" height="900" /></div>
           <div class="legende"><span class="legende-titre">Crâne et cierge</span><span class="legende-lieu cap">Avant-bras</span></div>
         </a>
-        <a class="oeuvre" href="tatouages.html#cranes" style="--c: 3 / -1; --cd: 8 / span 3; --hd: 12rem" data-revele="image">
+        <a class="oeuvre" href="tatouages.html#cranes" style="--n: 1; --cd: 8 / span 3; --hd: 12rem" data-revele="image">
           <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-cranes.jpg" aria-label="Crânes dans la brume, tatoués sur un avant-bras, en vidéo"><source src="assets/video/v-cranes.mp4" type="video/mp4" /></video></div>
           <div class="legende"><span class="legende-titre">Crânes dans la brume</span><span class="legende-lieu cap">Avant-bras</span></div>
         </a>
-        <a class="oeuvre" href="tatouages.html#mains" style="--c: 1 / span 4; --cd: 2 / span 3; --hd: 3rem" data-revele="image">
+        <a class="oeuvre" href="tatouages.html#mains" style="--n: 2; --cd: 2 / span 3; --hd: 3rem" data-revele="image">
           <div class="cadre"><img class="photo" src="assets/img/tt-roses.jpg" alt="Main tenant des roses, tatouée sur une cuisse" loading="lazy" decoding="async" width="675" height="900" /></div>
           <div class="legende"><span class="legende-titre">Main aux roses</span><span class="legende-lieu cap">Cuisse</span></div>
         </a>
-        <a class="oeuvre" href="tatouages.html#betes" style="--c: 2 / -1; --cd: 6 / span 5; --hd: 2rem" data-revele="image">
+        <a class="oeuvre" href="tatouages.html#betes" style="--n: 3; --cd: 6 / span 5; --hd: 2rem" data-revele="image">
           <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-hirondelle.jpg" alt="Hirondelle tatouée sur le flanc" loading="lazy" decoding="async" width="675" height="900" /></div>
           <div class="legende"><span class="legende-titre">Hirondelle</span><span class="legende-lieu cap">Flanc</span></div>
         </a>
-        <a class="oeuvre" href="tatouages.html#yeux" style="--c: 1 / span 3; --cd: 1 / span 4; --hd: 2rem" data-revele="image">
+        <a class="oeuvre sauf-mobile" href="tatouages.html#yeux" style="--cd: 1 / span 4; --hd: 2rem" data-revele="image">
           <div class="cadre"><img class="photo" src="assets/img/tt-sternum.jpg" alt="Rose des vents cerclée d'un serpent, tatouée sur le sternum" loading="lazy" decoding="async" width="675" height="900" /></div>
           <div class="legende"><span class="legende-titre">Rose des vents</span><span class="legende-lieu cap">Sternum</span></div>
         </a>
-        <a class="oeuvre" href="tatouages.html#betes" style="--c: 4 / span 3; --h: 5rem; --cd: 6 / span 3; --hd: 10rem" data-revele="image">
+        <a class="oeuvre sauf-mobile" href="tatouages.html#betes" style="--cd: 6 / span 3; --hd: 10rem" data-revele="image">
           <div class="cadre"><img class="photo" src="assets/img/tt-mollet.jpg" alt="Chouette tenant un sceptre, tatouée sur un mollet" loading="lazy" decoding="async" width="675" height="900" /></div>
           <div class="legende"><span class="legende-titre">Chouette</span><span class="legende-lieu cap">Mollet</span></div>
         </a>
-        <a class="oeuvre" href="tatouages.html#cranes" style="--c: 1 / -1; --cd: 10 / span 3; --hd: 0" data-revele="image">
+        <a class="oeuvre" href="tatouages.html#cranes" style="--n: 4; --cd: 10 / span 3; --hd: 0" data-revele="image">
           <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-eglise.jpg" aria-label="Cathédrale dans les nuages, tatouée sur un avant-bras, en vidéo"><source src="assets/video/v-eglise.mp4" type="video/mp4" /></video></div>
           <div class="legende"><span class="legende-titre">Cathédrale</span><span class="legende-lieu cap">Avant-bras</span></div>
         </a>
@@ -127,13 +138,13 @@
       <p class="section-suite cap"><a class="lien-fleche" href="tatouages.html">Toutes les pièces <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
 
-    <section class="section contenu" id="flashs" aria-labelledby="titre-flashs">
+    <section class="section contenu" id="flashs" aria-labelledby="titre-flashs" data-num="II" data-titre="Flashs">
       <div class="section-filet cap"><span>II</span><span>Flashs</span><span>Automne 2026</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-flashs" data-revele="titre">Flashs d'automne</h2>
         <p class="section-chapeau" data-revele="texte">Des dessins préparés à l'avance, tatoués une seule fois. Une fois portés, ils sont rayés du catalogue et ne seront jamais refaits.</p>
       </div>
-      <div class="planches" data-melange>
+      <div class="planches defileur" data-melange data-defileur="Flashs d'automne">
         <a class="planche oeuvre est-libre" href="flashs.html#disponibles" data-revele="image">
           <div class="cadre"><img src="assets/img/fl-dague-roses.jpg" alt="Dessin de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy" decoding="async" width="660" height="880" /></div>
           <div class="legende"><span class="planche-titre">Dague et roses</span></div>
@@ -155,11 +166,10 @@
           <div class="planche-infos cap"><span>8 × 10 cm</span><span class="planche-etat">Tatoué</span></div>
         </a>
       </div>
-      <p class="planches-aide cap" aria-hidden="true"><span>Glisser</span><span>→</span></p>
       <p class="section-suite cap"><a class="lien-fleche" href="flashs.html">Le catalogue complet <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
 
-    <section class="section contenu" id="processus" aria-labelledby="titre-processus">
+    <section class="section contenu" id="processus" aria-labelledby="titre-processus" data-num="III" data-titre="Processus">
       <div class="section-filet cap"><span>III</span><span>Processus</span><span>Quatre étapes</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-processus" data-revele="titre">Du carnet à la peau</h2>
@@ -198,7 +208,7 @@
       <p class="section-suite cap"><a class="lien-fleche" href="processus.html">Voir le processus <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
 
-    <section class="section contenu" id="studio" aria-labelledby="titre-studio">
+    <section class="section contenu" id="studio" aria-labelledby="titre-studio" data-num="IV" data-titre="Studio">
       <div class="section-filet cap"><span>IV</span><span>Le studio</span><span>Sur rendez-vous</span></div>
       <div class="grille atelier">
         <figure class="oeuvre" style="--c: 1 / -1; --h: 2.5rem; --cd: 1 / span 5; --hd: 4rem" data-revele="image">

@@ -1,6 +1,8 @@
 /*
- * Visionneuse : une pièce en grand, on glisse de l'une à l'autre au doigt
- * (défilement natif aimanté), ou aux flèches du clavier et de l'écran.
+ * Visionneuse : une œuvre en grand. Elle grandit depuis sa vignette et y
+ * retourne à la fermeture (js/visionneuse.js) ; on glisse d'une œuvre à
+ * l'autre au doigt (défilement natif aimanté) et on la tire vers le bas
+ * pour la reposer. Au clavier : flèches et Échap.
  */
 
 .visionneuse {
@@ -13,43 +15,52 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: transparent;
+  /* Le noir s'éclaircit quand on tire l'image vers le bas (--fond, de 1 à 0). */
+  background: rgba(0, 0, 0, var(--fond, 1));
   color: var(--blanc);
   overflow: hidden;
   overscroll-behavior: contain;
 }
 
 .visionneuse::backdrop {
-  background: #000;
+  background: transparent;
 }
 
 .visionneuse[open] {
   display: flex;
   flex-direction: column;
-  animation: visionneuse-entree 450ms var(--ease);
-}
-
-.visionneuse[open]::backdrop {
-  animation: visionneuse-fond 300ms ease;
-}
-
-.visionneuse.se-ferme,
-.visionneuse.se-ferme::backdrop {
-  opacity: 0;
-  transition: opacity 250ms ease;
+  animation: visionneuse-fond 320ms ease;
 }
 
 @keyframes visionneuse-fond {
   from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+/* Compteur, légendes et flèches arrivent juste après l'image. */
+.visionneuse[open] :is(.visionneuse-tete, .vue figcaption, .visionneuse-nav, .visionneuse-aide) {
+  animation: visionneuse-habillage 420ms ease 140ms both;
+}
+
+@keyframes visionneuse-habillage {
+  from {
     opacity: 0;
   }
 }
 
-@keyframes visionneuse-entree {
-  from {
-    opacity: 0;
-    transform: scale(0.985);
-  }
+.visionneuse :is(.visionneuse-tete, .vue figcaption, .visionneuse-aide) {
+  opacity: var(--habillage, 1);
+}
+
+.visionneuse.se-ferme {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 300ms ease;
+}
+
+.visionneuse.se-ferme :is(.visionneuse-tete, .vue figcaption, .visionneuse-nav, .visionneuse-aide) {
+  opacity: 0;
+  transition: opacity 180ms ease;
 }
 
 html.visionneuse-ouverte {
@@ -58,15 +69,16 @@ html.visionneuse-ouverte {
 
 .visionneuse-tete {
   display: flex;
+  flex: none;
   justify-content: space-between;
   align-items: center;
-  flex: none;
   height: calc(var(--entete-h) + env(safe-area-inset-top));
   padding: env(safe-area-inset-top) var(--gouttiere) 0;
 }
 
 .visionneuse-compteur {
   color: var(--blanc-doux);
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .visionneuse-fermer {
@@ -76,6 +88,10 @@ html.visionneuse-ouverte {
   min-height: 2.75rem;
   margin-right: -0.25rem;
   padding: 0 0.25rem;
+}
+
+.visionneuse-fermer:active {
+  opacity: 0.55;
 }
 
 .visionneuse-bande {
@@ -89,6 +105,8 @@ html.visionneuse-ouverte {
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  /* Le doigt glisse à l'horizontale ; le geste vertical est lu par le script. */
+  touch-action: pan-x pinch-zoom;
 }
 
 .visionneuse-bande::-webkit-scrollbar {
@@ -102,7 +120,7 @@ html.visionneuse-ouverte {
   justify-content: center;
   gap: 1rem;
   min-height: 0;
-  padding: 0 var(--gouttiere) calc(1.5rem + env(safe-area-inset-bottom));
+  padding: 0 var(--gouttiere) calc(1.25rem + env(safe-area-inset-bottom));
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
@@ -115,6 +133,7 @@ html.visionneuse-ouverte {
   min-height: 0;
   max-height: 80svh;
   object-fit: contain;
+  transform-origin: 50% 50%;
 }
 
 .vue figcaption {
@@ -129,11 +148,23 @@ html.visionneuse-ouverte {
   color: var(--blanc-doux);
 }
 
+/* Sur téléphone, un rappel discret du geste pour reposer l'image. */
+.visionneuse-aide {
+  flex: none;
+  padding: 0 var(--gouttiere) calc(0.9rem + env(safe-area-inset-bottom));
+  color: var(--blanc-doux);
+  text-align: center;
+}
+
 .visionneuse-nav {
   display: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .visionneuse-aide {
+    display: none;
+  }
+
   .visionneuse-nav {
     position: absolute;
     top: 50%;

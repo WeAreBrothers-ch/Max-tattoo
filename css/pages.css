@@ -1,23 +1,61 @@
 /* Pages intérieures : flashs, processus, rendez-vous, page introuvable. */
 
-/* Flashs disponibles : chaque planche en grand, avec sa réservation. */
+/*
+ * Flashs disponibles : une fiche par dessin. Téléphone : la planche en
+ * pleine largeur, puis la taille, l'emplacement et un bouton de
+ * réservation large comme le pouce. Ordinateur : deux planches décalées.
+ * L'ordre change à chaque visite (js/melange.js) : la place dépend du rang.
+ */
 .planche--grande .planche-titre {
-  font-size: clamp(2rem, 8vw, 3.25rem);
+  font-size: clamp(2rem, 9vw, 3.25rem);
   line-height: 1;
   letter-spacing: -0.01em;
 }
 
 .planche--grande .planche-infos {
-  margin-top: 0.75rem;
-}
-
-.planche-actions {
-  margin-top: 1.25rem;
+  margin-top: 0.7rem;
 }
 
 .planche-lien {
   display: inline-flex;
-  margin-top: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.planche--grande .planche-lien.bouton {
+  display: flex;
+  width: 100%;
+  margin-top: 1.25rem;
+}
+
+.flashs-libres > :nth-child(2) {
+  --h: 1rem;
+}
+
+@media (min-width: 768px) {
+  .planche--grande .planche-lien.bouton {
+    display: inline-flex;
+    width: auto;
+  }
+
+  .flashs-libres > :nth-child(1) {
+    --cd: 1 / span 5;
+  }
+
+  .flashs-libres > :nth-child(2) {
+    --cd: 8 / span 5;
+    --hd: 14rem;
+  }
+}
+
+.bouton .fleche {
+  display: inline-block;
+  transition: transform 500ms var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bouton:hover .fleche {
+    transform: translateX(0.3em);
+  }
 }
 
 /* Registre des saisons passées : une ligne par saison. */
@@ -35,7 +73,7 @@
 }
 
 .registre-saison {
-  font-size: clamp(1.75rem, 7vw, 3.5rem);
+  font-size: clamp(1.75rem, 8vw, 3.5rem);
   line-height: 1;
 }
 
@@ -72,20 +110,20 @@
 /* Déroulé : étapes numérotées en chiffres romains. */
 .deroule {
   display: grid;
-  gap: 0;
   border-top: 1px solid var(--filet);
 }
 
 .deroule li {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  gap: 0.25rem 0.5rem;
-  padding: 1.25rem 0 1.4rem;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  gap: 0.3rem 0.5rem;
+  padding: 1.2rem 0 1.3rem;
   border-bottom: 1px solid var(--filet);
 }
 
 .deroule-num {
   grid-row: span 2;
+  padding-top: 0.35rem;
   color: var(--sang-vif);
 }
 
@@ -116,6 +154,7 @@
 
   .deroule-num {
     grid-row: auto;
+    padding-top: 0;
   }
 
   .deroule-titre {
@@ -123,42 +162,137 @@
   }
 }
 
-/* Processus : une image et la phrase de Maxime, en vis-à-vis. */
+/*
+ * Processus. Téléphone : chaque vidéo verticale devient une « story » d'un
+ * bord à l'autre, la phrase de Maxime posée dessus, sur un voile qui monte
+ * du bas. Tablette et ordinateur : l'image et la phrase en vis-à-vis.
+ */
 .vis-a-vis {
-  row-gap: 1.5rem;
   align-items: end;
 }
 
-.vis-a-vis + .vis-a-vis {
-  margin-top: clamp(4rem, 12vw, 9rem);
+@media (max-width: 767px) {
+  .vis-a-vis {
+    grid-template-columns: minmax(0, 1fr);
+    margin-inline: calc(var(--gouttiere) * -1);
+  }
+
+  .vis-a-vis > * {
+    grid-area: 1 / 1;
+    margin: 0;
+  }
+
+  .vis-a-vis .oeuvre--plein .cadre {
+    margin-inline: 0;
+  }
+
+  .vis-a-vis .cadre {
+    width: 100%;
+    max-height: calc(100svh - var(--bas) - 1.5rem);
+  }
+
+  /* La légende en haut de l'image, sur un voile léger. */
+  .vis-a-vis .legende {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    padding: 1rem var(--gouttiere) 3rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.55), transparent);
+    pointer-events: none;
+  }
+
+  .vis-a-vis .pensee--grande {
+    z-index: 3;
+    align-self: end;
+    padding: 5rem var(--gouttiere) 1.4rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.55) 35%, rgba(0, 0, 0, 0.88));
+    pointer-events: none;
+  }
+
+  .vis-a-vis + .vis-a-vis,
+  .vis-a-vis + .galerie--suite {
+    margin-top: 2.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .vis-a-vis {
+    row-gap: 1.5rem;
+    align-items: center;
+  }
+
+  .vis-a-vis > * {
+    grid-row: 1;
+  }
+
+  .vis-a-vis + .vis-a-vis {
+    margin-top: clamp(4rem, 12vw, 9rem);
+  }
+
+  .galerie--suite {
+    margin-top: clamp(4rem, 12vw, 9rem);
+  }
 }
 
 .duos {
-  row-gap: clamp(3rem, 8vw, 5rem);
+  row-gap: 2.5rem;
 }
 
-/* Croquis et encre côte à côte, reliés par une flèche. */
-.duo {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  align-items: center;
-  gap: 0.5rem;
+@media (min-width: 768px) {
+  .duos {
+    row-gap: clamp(3rem, 8vw, 5rem);
+  }
+}
+
+/*
+ * Du crayon à l'encre. Téléphone : on glisse du croquis rouge au dessin
+ * encré, une image à la fois. Dès 768 px : côte à côte, reliés par une flèche.
+ */
+.duo > .oeuvre {
+  --carte: calc(100vw - 2 * var(--gouttiere) - 3rem);
 }
 
 .duo-fleche {
+  display: none;
   font-size: 1.5rem;
   color: var(--blanc-doux);
 }
 
-/* Sur téléphone, les deux images sont étroites : « Croquis » et « Encre » suffisent. */
-@media (max-width: 1023px) {
+.duo-bloc .pensee {
+  max-width: 24em;
+}
+
+@media (min-width: 768px) {
+  .duo.defileur {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.5rem;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .duo.defileur > * {
+    flex: none;
+  }
+
+  .duo-fleche {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
   .duo .legende-lieu {
     display: none;
   }
 }
 
 @media (min-width: 1024px) {
-  .duo {
+  .duo.defileur {
     gap: 1rem;
   }
 
@@ -184,6 +318,10 @@
   letter-spacing: -0.015em;
 }
 
+.canal:active {
+  opacity: 0.55;
+}
+
 .canal-detail {
   display: block;
   margin-top: 0.4rem;
@@ -205,14 +343,14 @@
 /* Message : ce qu'il faut écrire, en quatre points. */
 .message-liste {
   display: grid;
-  gap: 0.9rem;
+  gap: 1rem;
   counter-reset: message;
 }
 
 .message-liste li {
   display: grid;
-  grid-template-columns: 2.25rem minmax(0, 1fr);
-  font-size: clamp(1.375rem, 5vw, 2.25rem);
+  grid-template-columns: 2.5rem minmax(0, 1fr);
+  font-size: clamp(1.375rem, 6vw, 2.25rem);
   line-height: 1.15;
 }
 
@@ -246,6 +384,13 @@
   border-top: 1px solid var(--filet);
 }
 
+/* Grandes lignes : les consignes de soins, lisibles d'un coup d'œil. */
+.liste-grande li {
+  font-size: clamp(1.375rem, 6vw, 2.75rem);
+  line-height: 1.15;
+  padding: 1.05rem 0 1rem;
+}
+
 /* Questions : chaque réponse se déplie sous sa question. */
 .questions {
   border-top: 1px solid var(--filet);
@@ -261,9 +406,13 @@
   align-items: baseline;
   gap: 1rem;
   padding: 1.1rem 0;
-  font-size: clamp(1.375rem, 4.8vw, 2.25rem);
+  font-size: clamp(1.3125rem, 5.4vw, 2.25rem);
   line-height: 1.15;
   list-style: none;
+}
+
+.questions summary:active {
+  opacity: 0.6;
 }
 
 .questions summary::-webkit-details-marker {
@@ -295,63 +444,8 @@
   justify-content: center;
   gap: 1.5rem;
   min-height: 100svh;
-  padding-top: var(--entete-h);
+  padding: calc(var(--entete-h) + env(safe-area-inset-top)) 0 var(--bas);
   container-type: inline-size;
-}
-
-
-/* Flashs disponibles : deux grandes planches, la seconde décalée. L'ordre
-   change à chaque visite (js/melange.js) : la place dépend du rang, pas du dessin. */
-.flashs-libres > :nth-child(2) {
-  --h: 4rem;
-}
-
-@media (min-width: 768px) {
-  .flashs-libres > :nth-child(1) {
-    --cd: 1 / span 5;
-  }
-
-  .flashs-libres > :nth-child(2) {
-    --cd: 8 / span 5;
-    --hd: 14rem;
-  }
-}
-
-.bouton .fleche {
-  display: inline-block;
-  transition: transform 500ms var(--ease);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .bouton:hover .fleche {
-    transform: translateX(0.3em);
-  }
-}
-
-/* Vis-à-vis : dès la tablette, l'image et la phrase partagent la même rangée. */
-@media (min-width: 768px) {
-  .vis-a-vis {
-    align-items: center;
-  }
-
-  .vis-a-vis > * {
-    grid-row: 1;
-  }
-}
-
-.galerie--suite {
-  margin-top: clamp(4rem, 12vw, 9rem);
-}
-
-.duo-bloc .pensee {
-  max-width: 24em;
-}
-
-/* Grandes lignes : les consignes de soins, lisibles d'un coup d'œil. */
-.liste-grande li {
-  font-size: clamp(1.5rem, 5.4vw, 2.75rem);
-  line-height: 1.12;
-  padding: 1.1rem 0 1rem;
 }
 
 .introuvable-embleme {
@@ -362,7 +456,7 @@
 
 .introuvable-phrase {
   max-width: 20em;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
   font-style: italic;
   line-height: 1.15;
 }

@@ -21,7 +21,7 @@
   <link rel="preload" href="assets/fonts/im-fell-sc-normal-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
+<body class="page-rendez-vous">
   <a class="evitement" href="#contenu">Aller au contenu</a>
   <canvas class="fond" aria-hidden="true"></canvas>
 
@@ -33,6 +33,12 @@
       <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
+
+  <nav class="barre" data-barre aria-label="Navigation">
+    <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal"><span class="barre-icone" aria-hidden="true"></span>Menu</button>
+    <p class="barre-titre cap" aria-hidden="true"><span data-barre-titre>Rendez-vous</span></p>
+    <a class="barre-rdv cap" href="#ecrire">Écrire</a>
+  </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
     <div class="menu-tete">
@@ -57,10 +63,15 @@
       <img src="assets/img/em-bete.webp" alt="" loading="lazy" decoding="async" width="729" height="900" />
       <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
     </div>
+    <div class="menu-barre">
+      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close"><span class="menu-fermer-icone" aria-hidden="true"></span>Fermer</button>
+      <span class="menu-barre-titre cap" aria-hidden="true">Sommaire</span>
+      <a class="menu-barre-rdv cap" href="rendez-vous.html">Réserver</a>
+    </div>
   </dialog>
 
   <main id="contenu">
-    <header class="page-tete contenu">
+    <header class="page-tete contenu" data-titre="Rendez-vous">
       <p class="page-surtitre cap"><span>IV — Rendez-vous</span><span>Réponse sous 48 heures</span></p>
       <h1 class="page-titre" style="--mots: 5.42">Rendez-vous</h1>
       <div class="page-intro">
@@ -69,7 +80,7 @@
       </div>
     </header>
 
-    <section class="section contenu" id="ecrire" aria-labelledby="titre-ecrire">
+    <section class="section contenu" id="ecrire" aria-labelledby="titre-ecrire" data-num="I" data-titre="Écrire">
       <div class="section-filet cap"><span>I</span><span>Écrire</span><span>Deux moyens</span></div>
       <h2 class="masque" id="titre-ecrire">Écrire à Maxime</h2>
       <ul class="canaux">
@@ -78,7 +89,7 @@
       </ul>
     </section>
 
-    <section class="section contenu" id="message" aria-labelledby="titre-message">
+    <section class="section contenu" id="message" aria-labelledby="titre-message" data-num="II" data-titre="Message">
       <div class="section-filet cap"><span>II</span><span>Le message</span><span>Quatre choses</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-message" data-revele="titre">Ce qu'il faut écrire</h2>
@@ -92,7 +103,7 @@
       </ol>
     </section>
 
-    <section class="section contenu" id="deroulement" aria-labelledby="titre-deroulement">
+    <section class="section contenu" id="deroulement" aria-labelledby="titre-deroulement" data-num="III" data-titre="Étapes">
       <div class="section-filet cap"><span>III</span><span>Déroulement</span><span>Du message à la séance</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-deroulement" data-revele="titre">Déroulement</h2>
@@ -106,7 +117,7 @@
       </ol>
     </section>
 
-    <section class="section contenu" id="studio" aria-labelledby="titre-studio">
+    <section class="section contenu" id="studio" aria-labelledby="titre-studio" data-num="IV" data-titre="Studio">
       <div class="section-filet cap"><span>IV</span><span>Le studio</span><span>Suisse romande</span></div>
       <div class="grille atelier">
         <figure class="oeuvre" style="--c: 1 / -1; --h: 2.5rem; --cd: 1 / span 5; --hd: 4rem" data-revele="image">
@@ -119,7 +130,7 @@
       </div>
     </section>
 
-    <section class="section contenu" id="soins" aria-labelledby="titre-soins">
+    <section class="section contenu" id="soins" aria-labelledby="titre-soins" data-num="V" data-titre="Soins">
       <div class="section-filet cap"><span>V</span><span>Soins</span><span>Trois semaines</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-soins" data-revele="titre">Après la séance</h2>
@@ -133,7 +144,7 @@
       </ul>
     </section>
 
-    <section class="section contenu" id="questions" aria-labelledby="titre-questions">
+    <section class="section contenu" id="questions" aria-labelledby="titre-questions" data-num="VI" data-titre="Questions">
       <div class="section-filet cap"><span>VI</span><span>Questions</span><span>Les plus fréquentes</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-questions" data-revele="titre">Questions</h2>

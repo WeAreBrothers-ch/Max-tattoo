@@ -1,9 +1,12 @@
 /**
- * Menu plein écran bâti sur <dialog> : focus gardé à l'intérieur, Échap pour
- * fermer, page figée derrière. Le script ajoute l'entrée et la sortie animées
- * et fait remonter la gravure du fond (js/fond.js lit la classe menu-ouvert).
+ * Menu plein écran bâti sur <dialog> : focus gardé à l'intérieur, Échap ou
+ * « retour » du téléphone pour fermer, page figée derrière. Le script ajoute
+ * l'entrée et la sortie animées et fait remonter la gravure du fond
+ * (js/fond.js lit la classe menu-ouvert).
  * Sans script, les commandes HTML (commandfor) ouvrent le menu quand même.
  */
+
+import { creerCouche } from "./couche.js";
 
 const MENU_SORTIE_MS = 480;
 
@@ -19,6 +22,7 @@ export function initMenu() {
   const liens = Array.from(dialog.querySelectorAll(".menu-lien"));
   const emblemes = Array.from(dialog.querySelectorAll(".menu-emblemes img"));
   const indexCourant = Math.max(0, liens.findIndex((lien) => lien.getAttribute("aria-current") === "page"));
+  const couche = creerCouche("menu", fermer);
   let minuteur = 0;
 
   dialog.classList.add("anime");
@@ -31,6 +35,7 @@ export function initMenu() {
     dialog.classList.remove("se-ferme");
     if (!dialog.open) {
       dialog.showModal();
+      couche.ouverte();
     }
     html.classList.add("menu-ouvert");
     boutons.forEach((bouton) => bouton.setAttribute("aria-expanded", "true"));
@@ -43,6 +48,7 @@ export function initMenu() {
     if (!dialog.open || dialog.classList.contains("se-ferme")) {
       return;
     }
+    couche.fermee();
     dialog.classList.remove("est-ouvert");
     dialog.classList.add("se-ferme");
     // La page revient une fois les chapitres presque sortis, pas dessous.
@@ -81,13 +87,36 @@ export function initMenu() {
   liens.forEach((lien, index) => {
     lien.addEventListener("pointerenter", () => montrerEmbleme(index));
     lien.addEventListener("focus", () => montrerEmbleme(index));
-    // Le chapitre en cours : on referme simplement le menu.
-    if (lien.getAttribute("aria-current") === "page") {
-      lien.addEventListener("click", (event) => {
+  });
+
+  dialog.querySelectorAll("a[href]").forEach((lien) => {
+    lien.addEventListener("click", (event) => {
+      if (!(lien instanceof HTMLAnchorElement) || event.defaultPrevented || lien.target === "_blank") {
+        return;
+      }
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      const url = new URL(lien.href, window.location.href);
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
+        return;
+      }
+      const memePage = url.origin === window.location.origin && url.pathname === window.location.pathname;
+      if (memePage) {
+        // La page en cours : le menu se referme, puis on rejoint l'ancre s'il y en a une.
         event.preventDefault();
+        const cible = url.hash.length > 1 ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
+        if (cible) {
+          dialog.addEventListener("close", () => cible.scrollIntoView(), { once: true });
+        }
         fermer();
-      });
-    }
+        return;
+      }
+      // Une autre page : l'entrée « menu » de l'historique est retirée avant de partir.
+      if (couche.naviguer(url.href)) {
+        event.preventDefault();
+      }
+    });
   });
 
   dialog.querySelector(".menu-liste")?.addEventListener("pointerleave", () => montrerEmbleme(indexCourant));
