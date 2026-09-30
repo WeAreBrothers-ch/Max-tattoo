@@ -1,8 +1,7 @@
 /*
  * Barre du bas (téléphone et tablette), sous le pouce : le menu à gauche,
  * le chapitre en cours au milieu comme le titre courant d'un livre, la
- * réservation à droite. Son filet supérieur se remplit à mesure qu'on
- * avance dans la page (js/barre.js).
+ * réservation à droite (js/barre.js).
  */
 
 .barre {
@@ -18,25 +17,8 @@
   height: var(--bas);
   padding: 0 var(--gouttiere) env(safe-area-inset-bottom);
   background: rgba(0, 0, 0, 0.92);
-  /* Calque à part : le filet de lecture se redessine sans toucher à la page. */
-  contain: layout paint;
-}
-
-/* Filet du haut, puis la part déjà lue, tracée en blanc. */
-.barre::before,
-.barre::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
   border-top: 1px solid var(--filet);
-}
-
-.barre::after {
-  border-top-color: var(--blanc);
-  transform: scaleX(var(--progression, 0));
-  transform-origin: left center;
+  contain: layout paint;
 }
 
 .barre-menu,

@@ -70,6 +70,7 @@ function start(canvas) {
   if (tempsAcquis > 0) {
     canvas.classList.add("sans-fondu");
   }
+  gl.uniform1f(uniforms.u_chaleur, tactile ? 1 : 0);
   const pointeur = createPointeur({
     immediate: reduceMotion,
     tactile,
@@ -137,6 +138,7 @@ function start(canvas) {
     gl.uniform1f(uniforms.u_scroll, scrollLisse * SCROLL_DRIFT);
     gl.uniform2f(uniforms.u_pointer, lantern.x, lantern.y);
     gl.uniform1f(uniforms.u_pointerForce, lantern.force);
+    gl.uniform1f(uniforms.u_rayon, lantern.rayon ?? 1);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     canvas.classList.add("is-ready");
   }

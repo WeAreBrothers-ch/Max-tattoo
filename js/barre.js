@@ -1,7 +1,6 @@
 /**
- * Barre du bas (téléphone et tablette). Son filet se remplit à mesure qu'on
- * avance dans la page, et son milieu nomme le chapitre en cours, comme le
- * titre courant d'un livre. Les chapitres portent data-titre : un mot court,
+ * Barre du bas (téléphone et tablette). Son milieu nomme le chapitre en
+ * cours, comme le titre courant d'un livre. Les chapitres portent data-titre : un mot court,
  * qui tient entre les deux boutons même sur un petit écran.
  */
 
@@ -13,23 +12,6 @@ export function initBarre() {
   if (!(barre instanceof HTMLElement) || !(libelle instanceof HTMLElement)) {
     return;
   }
-
-  let enAttente = false;
-  function suivreLecture() {
-    enAttente = false;
-    const parcours = document.documentElement.scrollHeight - window.innerHeight;
-    const avance = parcours > 0 ? Math.min(1, Math.max(0, window.scrollY / parcours)) : 0;
-    barre.style.setProperty("--progression", avance.toFixed(4));
-  }
-  const demander = () => {
-    if (!enAttente) {
-      enAttente = true;
-      requestAnimationFrame(suivreLecture);
-    }
-  };
-  window.addEventListener("scroll", demander, { passive: true });
-  window.addEventListener("resize", demander);
-  suivreLecture();
 
   const chapitres = Array.from(document.querySelectorAll("[data-titre]"));
   if (chapitres.length === 0 || !("IntersectionObserver" in window)) {

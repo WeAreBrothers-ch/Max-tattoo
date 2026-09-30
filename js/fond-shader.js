@@ -2,8 +2,9 @@
  * Shaders du fond : brume qui dérive, rayons de lumière qui la traversent,
  * gravure rouge sang révélée seulement dans le halo qui suit la souris ou le doigt,
  * et dans toute la brume quand le menu est ouvert (u_devoile).
- * Sur écran tactile, le halo est une lanterne que le défilement allume
- * (voir js/fond-pointeur.js) : il ne suit jamais le doigt.
+ * Sur écran tactile, le halo est une lanterne qui se promène seule
+ * (voir js/fond-pointeur.js) : il ne suit jamais le doigt. Sa lumière est
+ * chaude (u_chaleur), son rayon respire (u_rayon).
  */
 
 export const VERTEX_SHADER = `
@@ -29,6 +30,8 @@ uniform sampler2D u_gravure;
 uniform float u_gravureAspect;
 uniform float u_gravureReady;
 uniform float u_devoile;
+uniform float u_rayon;
+uniform float u_chaleur;
 
 const vec3 SANG = vec3(0.66, 0.086, 0.106);
 const vec3 BRUME = vec3(0.78, 0.8, 0.84);
@@ -97,9 +100,12 @@ void main() {
   float b = brume(p, t);
   float r = rayons(uv, aspect, t);
 
-  // Halo en pixels : plein au centre, fondu jusqu'au bord (comme l'ancien dégradé CSS).
-  float distance = length(gl_FragCoord.xy - u_pointer * u_res) / u_halo;
-  float halo = (1.0 - smoothstep(0.15, 1.0, distance)) * u_pointerForce;
+  // Halo en pixels : plein au centre, fondu jusqu'au bord. Le bord n'est pas
+  // un cercle : la fumée le ronge, il ondule lentement comme une flamme dans la brume.
+  float distance = length(gl_FragCoord.xy - u_pointer * u_res) / (u_halo * u_rayon);
+  float fumee = noise(p * 2.2 + vec2(t * 0.12, -t * 0.09)) * 0.65 + noise(p * 4.7 - t * 0.2) * 0.35;
+  distance += (fumee - 0.5) * 0.34 * smoothstep(0.25, 0.9, distance);
+  float halo = (1.0 - smoothstep(0.12, 1.0, distance)) * u_pointerForce;
 
   vec2 ondulation = vec2(noise(p * 3.0 + t * 0.2), noise(p * 3.0 - t * 0.2)) - 0.5;
   vec2 gUv = coverUv(uv, u_gravureAspect) + ondulation * 0.004;
@@ -111,6 +117,8 @@ void main() {
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));
   vec3 couleur = BRUME * (b * 0.17 + r * 0.1 + halo * 0.03) * mix(0.6, 1.0, vignette);
+  // Lanterne : une lumière chaude, ambrée, qui éclaire la fumée autour d'elle.
+  couleur += vec3(0.62, 0.3, 0.16) * halo * halo * (0.35 + b) * 0.07 * u_chaleur;
   // Rouge plus lumineux que la couleur de base : le dessin doit se lire sur téléphone.
   couleur += SANG * 1.35 * encre * clamp(revele, 0.0, 1.0);
   couleur += (hash(gl_FragCoord.xy + t) - 0.5) / 255.0;

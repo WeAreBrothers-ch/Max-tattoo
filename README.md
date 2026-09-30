@@ -23,7 +23,7 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 
 Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est une version d'ordinateur rétrécie. Calibré de 320 à 430 px de large, debout et à l'horizontale.
 
-- **Barre du bas** (téléphone et tablette) : Menu à gauche, le chapitre en cours au milieu (il change en roulant), Réserver à droite ; son filet se remplit à mesure qu'on lit. Dans le menu, « Fermer » prend la place exacte de « Menu ».
+- **Barre du bas** (téléphone et tablette) : Menu à gauche, le chapitre en cours au milieu (il change en roulant), Réserver à droite. Dans le menu, « Fermer » prend la place exacte de « Menu ».
 - **Accueil** : la couverture tient dans l'écran, le nom posé juste au-dessus de la barre. Les pièces forment une pile de tirages : chaque photo s'arrête en haut de l'écran et la suivante vient la recouvrir.
 - **Rangées à glisser** (tatouages par thème, flashs, pages du carnet, crayon → encre, pièces cicatrisées) : une œuvre par geste, la suivante dépasse pour inviter à glisser, un compteur « 2 / 5 » et un filet suivent le doigt. Dès 768 px, les mêmes œuvres redeviennent une grille éditoriale.
 - **Processus** : les vidéos verticales passent en « stories » d'un bord à l'autre, la phrase de Maxime posée dessus.

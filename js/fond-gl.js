@@ -17,6 +17,8 @@ const UNIFORMS = [
   "u_gravureAspect",
   "u_gravureReady",
   "u_devoile",
+  "u_rayon",
+  "u_chaleur",
 ];
 
 /**
@@ -61,6 +63,8 @@ export function createScene(canvas, { octaves }) {
   gl.uniform1f(uniforms.u_gravureReady, 0);
   gl.uniform1f(uniforms.u_gravureAspect, 1);
   gl.uniform1f(uniforms.u_devoile, 0);
+  gl.uniform1f(uniforms.u_rayon, 1);
+  gl.uniform1f(uniforms.u_chaleur, 0);
 
   return { gl, uniforms };
 }
