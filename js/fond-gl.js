@@ -22,9 +22,10 @@ const UNIFORMS = [
 
 /**
  * @param {HTMLCanvasElement} canvas
+ * @param {{ octaves: number }} options octaves de la brume (moins sur téléphone)
  * @returns {{ gl: WebGLRenderingContext, uniforms: Record<string, WebGLUniformLocation | null> }}
  */
-export function createScene(canvas) {
+export function createScene(canvas, { octaves }) {
   const gl = canvas.getContext("webgl", {
     alpha: false,
     antialias: false,
@@ -42,7 +43,8 @@ export function createScene(canvas) {
     throw new Error("Programme WebGL impossible à créer");
   }
   gl.attachShader(program, compile(gl, gl.VERTEX_SHADER, VERTEX_SHADER));
-  gl.attachShader(program, compile(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER));
+  const fragment = FRAGMENT_SHADER.replace("#define OCTAVES 5", `#define OCTAVES ${Math.round(octaves)}`);
+  gl.attachShader(program, compile(gl, gl.FRAGMENT_SHADER, fragment));
   gl.linkProgram(program);
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
     throw new Error(`Liaison du programme : ${gl.getProgramInfoLog(program)}`);

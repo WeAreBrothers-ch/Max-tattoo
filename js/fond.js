@@ -2,11 +2,15 @@
  * Fond animé : brume et rayons de lumière en mouvement permanent, gravure
  * rouge sang révélée dans un halo qui suit la souris, dessinés en WebGL dans
  * un canevas fixe derrière la page. Sur écran tactile, rien ne suit le doigt :
- * des lueurs dérivent seules et la gravure affleure dans la brume.
+ * la gravure reste cachée, et de temps en temps une lueur la dévoile en partie.
  * Quand le menu s'ouvre (classe menu-ouvert sur <html>), la gravure entière
  * remonte de la brume.
  * Le canevas garde sa taille quand la barre d'adresse du téléphone apparaît
  * ou disparaît : il ne se redessine à neuf que si sa taille change vraiment.
+ * Téléphone : moins de pixels et une octave de brume en moins (la brume est
+ * floue, rien ne se voit), et 20 images/s pendant le défilement pour laisser
+ * toute la place au doigt. D'une page à l'autre, le fond reprend là où il en
+ * était au lieu de repartir du noir.
  * Mouvement réduit demandé : une seule image fixe.
  * WebGL indisponible ou perdu : la gravure fixe en CSS prend le relais.
  */
@@ -16,12 +20,18 @@ import { createPointeur } from "./fond-pointeur.js";
 
 const MAX_PIXELS = 1_100_000;
 const MAX_DPR = 1.5;
+const MAX_PIXELS_TACTILE = 420_000;
+const MAX_DPR_TACTILE = 1;
 const FRAME_MS = 1000 / 30;
+const FRAME_DEFILEMENT_MS = 1000 / 20;
+const DEFILEMENT_CALME_MS = 180;
+const CLE_TEMPS = "fond-temps";
 const SCROLL_DRIFT = 0.00035;
 const HALO_DESKTOP_PX = 380;
 const HALO_MOBILE_PX = 240;
 const MOBILE_MAX_WIDTH = 767;
 const DEVOILE_LERP = 0.05;
+const GRAVURE_LERP = 0.12;
 // Le défilement fait dériver la brume ; lissé, il ne donne jamais d'à-coup.
 const SCROLL_LERP = 0.08;
 const GRAVURES = {
@@ -43,7 +53,8 @@ export function initFond() {
 
 /** @param {HTMLCanvasElement} canvas */
 function start(canvas) {
-  const { gl, uniforms } = createScene(canvas);
+  const tactile = window.matchMedia("(hover: none)").matches;
+  const { gl, uniforms } = createScene(canvas, { octaves: tactile ? 4 : 5 });
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const pointeur = createPointeur({
     immediate: reduceMotion,
@@ -60,9 +71,17 @@ function start(canvas) {
   let devoile = 0;
   let scrollLisse = window.scrollY;
   let taille = "";
+  let dernierDefilement = -Infinity;
+  // La gravure arrive en fondu quand sa texture est prête, jamais d'un coup.
+  let gravure = 0;
+  let gravureCible = 0;
   const startTime = performance.now();
   const html = document.documentElement;
-  const tactile = window.matchMedia("(hover: none)").matches;
+  // Temps déjà écoulé sur les pages précédentes : la brume continue son chemin.
+  const tempsAcquis = lireTemps();
+  if (tempsAcquis > 0) {
+    canvas.classList.add("sans-fondu");
+  }
   gl.uniform1f(uniforms.u_autonome, tactile ? 1 : 0);
 
   /** @returns {boolean} vrai si la taille a changé */
@@ -74,7 +93,9 @@ function start(canvas) {
       return false;
     }
     taille = `${width}x${height}`;
-    const scale = Math.min(window.devicePixelRatio || 1, MAX_DPR, Math.sqrt(MAX_PIXELS / (width * height)));
+    const scale = tactile
+      ? Math.min(window.devicePixelRatio || 1, MAX_DPR_TACTILE, Math.sqrt(MAX_PIXELS_TACTILE / (width * height)))
+      : Math.min(window.devicePixelRatio || 1, MAX_DPR, Math.sqrt(MAX_PIXELS / (width * height)));
     canvas.width = Math.round(width * scale);
     canvas.height = Math.round(height * scale);
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -94,20 +115,24 @@ function start(canvas) {
     loadGravure(gl, GRAVURES[next])
       .then((ratio) => {
         gl.uniform1f(uniforms.u_gravureAspect, ratio);
-        gl.uniform1f(uniforms.u_gravureReady, 1);
+        gravureCible = 1;
         draw(performance.now());
       })
       // Sans gravure, la brume et les rayons restent : rien ne casse.
-      .catch(() => gl.uniform1f(uniforms.u_gravureReady, 0));
+      .catch(() => {
+        gravureCible = 0;
+      });
   }
 
   /** @param {number} now */
   function draw(now) {
-    const time = reduceMotion ? 40 : (now - startTime) / 1000;
+    const time = reduceMotion ? 40 : tempsAcquis + (now - startTime) / 1000;
     const lantern = pointeur.update();
     const devoileCible = html.classList.contains("menu-ouvert") ? 1 : 0;
     devoile = reduceMotion ? devoileCible : devoile + (devoileCible - devoile) * DEVOILE_LERP;
     gl.uniform1f(uniforms.u_devoile, devoile);
+    gravure = reduceMotion ? gravureCible : gravure + (gravureCible - gravure) * GRAVURE_LERP;
+    gl.uniform1f(uniforms.u_gravureReady, gravure);
     gl.uniform1f(uniforms.u_time, time);
     scrollLisse = reduceMotion ? window.scrollY : scrollLisse + (window.scrollY - scrollLisse) * SCROLL_LERP;
     gl.uniform1f(uniforms.u_scroll, scrollLisse * SCROLL_DRIFT);
@@ -120,7 +145,9 @@ function start(canvas) {
   /** @param {number} now */
   function loop(now) {
     frame = requestAnimationFrame(loop);
-    if (now - lastDraw >= FRAME_MS) {
+    const pas = now - dernierDefilement < DEFILEMENT_CALME_MS ? FRAME_DEFILEMENT_MS : FRAME_MS;
+    // Petite marge : un écran à 60 Hz tombe juste sur une image sur deux.
+    if (now - lastDraw >= pas - 4) {
       lastDraw = now;
       draw(now);
     }
@@ -142,6 +169,19 @@ function start(canvas) {
     new MutationObserver(() => draw(performance.now())).observe(html, { attributes: true, attributeFilter: ["class"] });
   }
 
+  window.addEventListener(
+    "scroll",
+    () => {
+      dernierDefilement = performance.now();
+    },
+    { passive: true }
+  );
+  window.addEventListener("pagehide", () => {
+    if (!reduceMotion) {
+      ecrireTemps(tempsAcquis + (performance.now() - startTime) / 1000);
+    }
+  });
+
   window.addEventListener("resize", () => {
     if (resize()) {
       draw(performance.now());
@@ -157,6 +197,25 @@ function start(canvas) {
   resize();
   draw(performance.now());
   play();
+}
+
+/** @returns {number} secondes de brume déjà écoulées dans cette visite */
+function lireTemps() {
+  try {
+    const valeur = Number(window.sessionStorage.getItem(CLE_TEMPS));
+    return Number.isFinite(valeur) && valeur > 0 ? valeur : 0;
+  } catch {
+    return 0;
+  }
+}
+
+/** @param {number} secondes */
+function ecrireTemps(secondes) {
+  try {
+    window.sessionStorage.setItem(CLE_TEMPS, secondes.toFixed(2));
+  } catch {
+    // Stockage refusé (navigation privée) : la brume repartira de zéro.
+  }
 }
 
 /**

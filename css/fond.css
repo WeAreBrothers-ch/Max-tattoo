@@ -15,7 +15,12 @@
   height: 100lvh;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 1600ms ease;
+  transition: opacity 900ms ease;
+}
+
+/* D'une page à l'autre, le fond est déjà là : pas de fondu depuis le noir. */
+.fond.sans-fondu {
+  transition: none;
 }
 
 .fond.is-ready {

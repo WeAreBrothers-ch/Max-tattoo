@@ -15,7 +15,7 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 
 ## Direction
 
-- **Fond** : brume, rayons et gravure rouge sang en WebGL (`js/fond*.js`), derrière toutes les pages. La gravure apparaît sous la souris ; sur téléphone, rien ne suit le doigt : trois lueurs dérivent seules et la gravure affleure partout où la brume s'éclaircit. Quand le menu s'ouvre, la gravure entière remonte de la brume.
+- **Fond** : brume, rayons et gravure rouge sang en WebGL (`js/fond*.js`), derrière toutes les pages. La gravure apparaît sous la souris ; sur téléphone, rien ne suit le doigt : elle reste cachée, et de temps en temps une lueur s'allume, dérive en dévoilant un morceau du dessin, puis s'éteint. D'une page à l'autre, la brume continue son chemin au lieu de repartir du noir. Quand le menu s'ouvre, la gravure entière remonte de la brume.
 - **Typographie** : IM Fell English (romain, italique) et IM Fell English SC (petites capitales), licence OFL. Grands titres qui prennent toute la largeur, chiffres romains, filets fins, lettrine rouge.
 - **Menu** : table des matières plein écran (`<dialog>`) ; les chapitres montent un à un, l'emblème blanc du chapitre apparaît (en haut sur téléphone, à droite sur ordinateur).
 

@@ -18,8 +18,8 @@
   height: var(--bas);
   padding: 0 var(--gouttiere) env(safe-area-inset-bottom);
   background: rgba(0, 0, 0, 0.92);
-  /* D'une page à l'autre, la barre ne bouge pas : seul son titre change. */
-  view-transition-name: barre;
+  /* Calque à part : le filet de lecture se redessine sans toucher à la page. */
+  contain: layout paint;
 }
 
 /* Filet du haut, puis la part déjà lue, tracée en blanc. */

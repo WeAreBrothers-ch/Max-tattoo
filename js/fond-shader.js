@@ -2,9 +2,9 @@
  * Shaders du fond : brume qui dérive, rayons de lumière qui la traversent,
  * gravure rouge sang révélée seulement dans le halo qui suit la souris ou le doigt,
  * et dans toute la brume quand le menu est ouvert (u_devoile).
- * Sur écran tactile (u_autonome), rien ne suit le doigt : trois lueurs
- * dérivent seules, très lentement, et la gravure affleure partout où la
- * brume s'éclaircit.
+ * Sur écran tactile (u_autonome), rien ne suit le doigt : la gravure reste
+ * cachée dans la brume, et de temps en temps une lueur s'allume, dérive
+ * lentement en dévoilant un morceau du dessin, puis s'éteint.
  */
 
 export const VERTEX_SHADER = `
@@ -16,6 +16,9 @@ void main() {
 
 export const FRAGMENT_SHADER = `
 precision mediump float;
+
+// Nombre d'octaves de la brume : 5 sur ordinateur, 4 sur téléphone (js/fond-gl.js).
+#define OCTAVES 5
 
 uniform vec2 u_res;
 uniform float u_time;
@@ -52,7 +55,7 @@ float noise(vec2 p) {
 float fbm(vec2 p) {
   float value = 0.0;
   float amplitude = 0.5;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < OCTAVES; i++) {
     value += amplitude * noise(p);
     p = p * 2.03 + vec2(1.7, 9.2);
     amplitude *= 0.5;
@@ -86,17 +89,22 @@ float lueur(vec2 q, vec2 centre, float rayon) {
   return 1.0 - smoothstep(0.1, 1.0, length(q - centre) / rayon);
 }
 
-// Trois lueurs aux trajets lents et sans rapport simple : le dessin ne se
-// répète pas à l'œil.
+// Allumage d'une lueur : éteinte plus des deux tiers du temps, elle s'allume et
+// s'éteint en plusieurs secondes (sinus lent, seuillé en douceur).
+float allumage(float t, float vitesse, float phase) {
+  return smoothstep(0.5, 0.97, sin(t * vitesse + phase));
+}
+
+// Deux lueurs qui ne s'allument pas en même temps : la première au
+// chargement (vers 8 s), la seconde une demi-période plus tard ; entre les
+// deux, la brume seule. Le défilement fait glisser leur trajet, en continu.
 float lueurs(vec2 uv, float aspect, float t, float s) {
   vec2 q = vec2(uv.x * aspect, uv.y);
-  // Le défilement avance la phase des trajets : les lueurs glissent, sans jamais sauter d'un bord à l'autre.
-  vec2 a = vec2(aspect * (0.5 + 0.28 * sin(t * 0.071)), 0.55 + 0.28 * sin(t * 0.053 + 1.3 + s * 3.0));
-  vec2 b = vec2(aspect * (0.3 + 0.22 * sin(t * 0.047 + 2.0)), 0.3 + 0.2 * sin(t * 0.061 + s * 2.1));
-  vec2 c = vec2(aspect * (0.72 + 0.18 * sin(t * 0.039 + 4.0)), 0.78 + 0.16 * sin(t * 0.044 + 0.5 + s * 4.2));
-  float l = max(lueur(q, a, 0.5), max(lueur(q, b, 0.4) * 0.85, lueur(q, c, 0.36) * 0.75));
-  // La lumière respire, lentement.
-  return l * (0.8 + 0.2 * sin(t * 0.3));
+  vec2 a = vec2(aspect * (0.5 + 0.26 * sin(t * 0.043)), 0.55 + 0.22 * sin(t * 0.037 + 1.3 + s * 3.0));
+  vec2 b = vec2(aspect * (0.42 + 0.24 * sin(t * 0.031 + 2.0)), 0.4 + 0.24 * sin(t * 0.041 + s * 2.4));
+  float la = lueur(q, a, 0.46) * allumage(t, 0.09, 0.85);
+  float lb = lueur(q, b, 0.42) * allumage(t, 0.083, -2.2);
+  return max(la, lb);
 }
 
 vec2 coverUv(vec2 uv, float aspect) {
@@ -128,8 +136,8 @@ void main() {
   float auto = 0.0;
   if (u_autonome > 0.5) {
     auto = lueurs(uv, aspect, t, u_scroll * 0.9);
-    // Partout, la gravure affleure où la brume s'éclaircit ; sous les lueurs, elle se lit.
-    revele = max(revele, max(0.1 + b * 0.3, auto * (0.7 + b * 0.5)));
+    // Hors des lueurs, la gravure reste cachée ; dessous, elle respire dans la brume.
+    revele = max(revele, auto * (0.7 + b * 0.5));
   }
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));

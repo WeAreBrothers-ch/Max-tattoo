@@ -20,19 +20,27 @@ export function initPile() {
     enAttente = false;
     visibles.forEach((pile) => {
       const cartes = Array.from(pile.children).filter((el) => el instanceof HTMLElement && el.offsetParent !== null);
+      // Toutes les mesures d'abord, toutes les écritures ensuite : une seule mise en page par image.
+      // Le haut (origine du recul) et la hauteur sans transformation : la mesure
+      // ne dépend pas du recul qu'elle commande, donc rien ne tremble.
+      const hauts = cartes.map((carte) => carte.getBoundingClientRect().top);
+      const hauteurs = cartes.map((carte) => /** @type {HTMLElement} */ (carte).offsetHeight);
+      const valeurs = cartes.map((carte, i) => {
+        if (!telephone.matches || i === cartes.length - 1) {
+          return "";
+        }
+        const couvert = Math.min(1, Math.max(0, (hauts[i] + hauteurs[i] - hauts[i + 1]) / Math.max(1, hauteurs[i])));
+        return couvert.toFixed(2);
+      });
       cartes.forEach((carte, i) => {
-        if (!(carte instanceof HTMLElement)) {
+        if (!(carte instanceof HTMLElement) || carte.style.getPropertyValue("--couvert") === valeurs[i]) {
           return;
         }
-        const suivante = cartes[i + 1];
-        if (!telephone.matches || !suivante) {
+        if (valeurs[i]) {
+          carte.style.setProperty("--couvert", valeurs[i]);
+        } else {
           carte.style.removeProperty("--couvert");
-          return;
         }
-        const haut = carte.getBoundingClientRect();
-        const dessous = suivante.getBoundingClientRect();
-        const couvert = Math.min(1, Math.max(0, (haut.bottom - dessous.top) / Math.max(1, haut.height)));
-        carte.style.setProperty("--couvert", couvert.toFixed(3));
       });
     });
   }

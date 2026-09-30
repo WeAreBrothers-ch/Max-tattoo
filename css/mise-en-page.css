@@ -295,15 +295,14 @@
 
 /*
  * Révélations au défilement (js/revele.js ne cache que ce qui est sous
- * l'écran) : le texte monte, l'image se découvre de bas en haut.
- * Sur téléphone, on fait défiler vite : les apparitions sont plus courtes
- * et plus proches, pour ne jamais faire attendre le pouce.
- * Le masque porte sur les enfants : Chrome en tient compte pour décider si
- * l'élément observé est visible, il ne doit donc pas être masqué lui-même.
+ * l'écran). Téléphone : un simple fondu qui monte, pour le texte comme pour
+ * les images (opacité et déplacement : le téléphone les anime sans rien
+ * repeindre). Dès 768 px : l'image se découvre de bas en haut, derrière un
+ * masque ; le masque porte sur les enfants, car Chrome en tient compte pour
+ * décider si l'élément observé est visible.
  */
 :root {
-  --revele-texte: 700ms;
-  --revele-image: 900ms;
+  --revele-texte: 650ms;
   --revele-course: 1rem;
 }
 
@@ -316,20 +315,30 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .a-reveler:is([data-revele="texte"], [data-revele="titre"]) {
+  .a-reveler {
     transition:
       opacity var(--revele-texte) var(--ease) var(--delai, 0ms),
       transform calc(var(--revele-texte) + 200ms) var(--ease) var(--delai, 0ms);
   }
 
-  .a-reveler:not(.est-revele)[data-revele="texte"] {
+  .a-reveler:not(.est-revele) {
     opacity: 0;
     transform: translateY(var(--revele-course));
   }
 
   .a-reveler:not(.est-revele)[data-revele="titre"] {
-    opacity: 0;
     transform: translateY(0.3em);
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .a-reveler[data-revele="image"] {
+    transition: none;
+  }
+
+  .a-reveler:not(.est-revele)[data-revele="image"] {
+    opacity: 1;
+    transform: none;
   }
 
   .a-reveler[data-revele="image"] > * {

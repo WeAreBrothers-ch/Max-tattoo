@@ -29,7 +29,8 @@ export function initVideos() {
         }
       });
     },
-    { rootMargin: "200px 0px", threshold: 0.01 }
+    // Téléphone : seulement les vidéos vraiment à l'écran (batterie, fluidité du défilement).
+    window.matchMedia("(max-width: 767px)").matches ? { rootMargin: "0px", threshold: 0.2 } : { rootMargin: "200px 0px", threshold: 0.01 }
   );
 
   videos.forEach((video) => observer.observe(video));

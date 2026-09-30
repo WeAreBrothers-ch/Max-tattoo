@@ -78,6 +78,8 @@
 
 html {
   background: var(--noir);
+  /* Pas d'attente de double tape : chaque toucher part tout de suite. */
+  touch-action: manipulation;
   color: var(--blanc);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -97,9 +99,16 @@ body {
   font-kerning: normal;
   font-variant-numeric: oldstyle-nums;
   text-rendering: optimizeLegibility;
-  /* Un voile d'ombre autour des lettres : le texte reste net quand la gravure rouge passe derrière. */
-  text-shadow: 0 0 0.9em rgba(0, 0, 0, 0.75), 0 0 0.2em rgba(0, 0, 0, 0.6);
+  /* Un voile d'ombre autour des lettres : le texte reste net quand la gravure rouge passe derrière.
+     Serré sur téléphone : une ombre large coûte cher à peindre pendant le défilement. */
+  text-shadow: 0 0 0.35em rgba(0, 0, 0, 0.8);
   overflow-x: clip;
+}
+
+@media (min-width: 1024px) {
+  body {
+    text-shadow: 0 0 0.9em rgba(0, 0, 0, 0.75), 0 0 0.2em rgba(0, 0, 0, 0.6);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -109,10 +118,6 @@ body {
   }
 }
 
-/* Passage d'une page à l'autre en fondu, là où le navigateur le permet. */
-@view-transition {
-  navigation: auto;
-}
 
 ::selection {
   background: var(--sang);

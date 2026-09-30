@@ -161,8 +161,33 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  height: 1.2rem;
   margin-top: 1.1rem;
   color: var(--blanc-doux);
+}
+
+/*
+ * La place du compteur est réservée avant que le script ne l'ajoute : rien
+ * ne descend sous la rangée quand il arrive.
+ */
+@media (max-width: 767px) {
+  .defileur {
+    margin-bottom: 2.3rem;
+  }
+
+  .defileur + .defileur-etat {
+    margin-top: -1.2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .planches.defileur {
+    margin-bottom: 2.3rem;
+  }
+
+  .planches.defileur + .defileur-etat {
+    margin-top: -1.2rem;
+  }
 }
 
 .defileur-etat[hidden] {
@@ -231,7 +256,6 @@
     margin: 0 0 2.5rem;
     padding-bottom: 0.35rem;
     background: var(--noir);
-    box-shadow: 0 -1.25rem 2.5rem rgba(0, 0, 0, 0.75);
     scale: calc(1 - var(--couvert, 0) * 0.06);
     transform-origin: 50% 0;
   }
@@ -275,11 +299,8 @@
   }
 
   /* Dans la pile, c'est le défilement qui montre les cartes : pas de dévoilement. */
-  .galerie--pile > .a-reveler > * {
-    clip-path: none !important;
-  }
-
-  .galerie--pile > .a-reveler .cadre > :is(img, video) {
+  .galerie--pile > .a-reveler {
+    opacity: 1 !important;
     transform: none !important;
   }
 }

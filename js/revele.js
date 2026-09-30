@@ -11,7 +11,7 @@
 
 const REVELE_PAS_MS = 90;
 const REVELE_PAS_MAX = 5;
-const REVELE_ATTENTE_MS = 1200;
+const REVELE_ATTENTE_MS = window.matchMedia("(max-width: 767px)").matches ? 700 : 1200;
 
 export function initRevele() {
   const elements = Array.from(document.querySelectorAll("[data-revele]"));
