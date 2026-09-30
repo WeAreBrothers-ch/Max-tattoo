@@ -35,8 +35,9 @@
   --gouttiere: clamp(1rem, 4.6vw, 1.5rem);
   --gap: 0.75rem;
   --entete-h: 3.5rem;
-  /* Marge du bas : la zone du geste d'accueil sur iPhone. */
-  --bas: env(safe-area-inset-bottom);
+  /* Barre de navigation du bas (téléphone et tablette) et la place qu'elle prend. */
+  --barre-h: 3.5rem;
+  --bas: calc(var(--barre-h) + env(safe-area-inset-bottom));
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-sortie: cubic-bezier(0.55, 0, 0.75, 0.2);
   --font-serif: "IM Fell English", Georgia, "Times New Roman", serif;
@@ -52,11 +53,19 @@
   }
 }
 
+/* Téléphone à l'horizontale : la barre du pouce se fait plus basse. */
+@media (orientation: landscape) and (max-height: 540px) {
+  :root {
+    --barre-h: 3rem;
+  }
+}
+
 @media (min-width: 1024px) {
   :root {
     --gouttiere: 2.5rem;
     --gap: 1.25rem;
     --entete-h: 4.5rem;
+    --bas: 0px;
   }
 }
 

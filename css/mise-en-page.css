@@ -43,13 +43,14 @@
 .section {
   --section-haut: 5.5rem;
   padding-top: var(--section-haut);
-  /* Une ancre place le filet du chapitre juste sous l'en-tête. */
-  scroll-margin-top: calc(var(--entete-h) + env(safe-area-inset-top) - var(--section-haut));
+  /* Une ancre place le filet du chapitre juste sous le haut de l'écran. */
+  scroll-margin-top: calc(1rem - var(--section-haut));
 }
 
 @media (min-width: 768px) {
   .section {
     --section-haut: clamp(7rem, 14vw, 13rem);
+    scroll-margin-top: calc(var(--entete-h) - var(--section-haut));
   }
 }
 

@@ -1,0 +1,110 @@
+/*
+ * Barre du bas (téléphone et tablette), sous le pouce : le menu à gauche,
+ * le chapitre en cours au milieu comme le titre courant d'un livre, la
+ * réservation à droite (js/barre.js).
+ */
+
+.barre {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 45;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  column-gap: 0.75rem;
+  height: var(--bas);
+  padding: 0 var(--gouttiere) env(safe-area-inset-bottom);
+  /* Fond plein, sans filet : rien ne passe au travers, rien ne ressemble à une barre de progression. */
+  background: #000;
+  contain: layout paint;
+}
+
+.barre-menu,
+.menu-barre-fermer {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 0.6rem;
+  min-height: 2.75rem;
+  padding-right: 0.4rem;
+}
+
+.barre-icone {
+  display: block;
+  width: 1.375rem;
+  height: 0.45rem;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+}
+
+/* Le titre reste au centre exact de l'écran, entre deux colonnes égales. */
+.barre-titre,
+.menu-barre-titre {
+  justify-self: center;
+  max-width: calc(100vw - 2 * var(--gouttiere) - 12rem - 1.5rem);
+  overflow: hidden;
+  color: var(--blanc-doux);
+  white-space: nowrap;
+}
+
+.barre-titre span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform 300ms var(--ease), opacity 220ms ease;
+}
+
+/* Changement de chapitre : l'ancien titre monte, le nouveau arrive d'en bas. */
+.barre-titre span.sort {
+  opacity: 0;
+  transform: translateY(-85%);
+}
+
+.barre-titre span.entre {
+  opacity: 0;
+  transform: translateY(85%);
+  transition: none;
+}
+
+.barre-rdv,
+.menu-barre-rdv {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  min-height: 2.25rem;
+  padding: 0 0.8rem;
+  border: 1px solid var(--blanc);
+  border-radius: 999px;
+}
+
+/* La pastille reste fine, la zone à toucher fait 44 px de haut. */
+.barre-rdv::after,
+.menu-barre-rdv::after {
+  content: "";
+  position: absolute;
+  inset: -0.3rem -0.25rem;
+}
+
+/* Très petit écran : les deux boutons d'abord. */
+@media (max-width: 339px) {
+  .barre-titre,
+  .menu-barre-titre {
+    visibility: hidden;
+  }
+}
+
+.barre-menu:active,
+.barre-rdv:active,
+.menu-barre-fermer:active,
+.menu-barre-rdv:active {
+  opacity: 0.55;
+}
+
+@media (min-width: 1024px) {
+  .barre {
+    display: none;
+  }
+}
