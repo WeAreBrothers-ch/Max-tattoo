@@ -1,8 +1,12 @@
 /**
  * Fond animé : brume et rayons de lumière en mouvement permanent, gravure
- * rouge sang révélée dans un halo qui suit la souris (ou le doigt), dessinés
- * en WebGL dans un canevas fixe derrière la page. Quand le menu s'ouvre
- * (classe menu-ouvert sur <html>), la gravure entière remonte de la brume.
+ * rouge sang révélée dans un halo qui suit la souris, dessinés en WebGL dans
+ * un canevas fixe derrière la page. Sur écran tactile, rien ne suit le doigt :
+ * des lueurs dérivent seules et la gravure affleure dans la brume.
+ * Quand le menu s'ouvre (classe menu-ouvert sur <html>), la gravure entière
+ * remonte de la brume.
+ * Le canevas garde sa taille quand la barre d'adresse du téléphone apparaît
+ * ou disparaît : il ne se redessine à neuf que si sa taille change vraiment.
  * Mouvement réduit demandé : une seule image fixe.
  * WebGL indisponible ou perdu : la gravure fixe en CSS prend le relais.
  */
@@ -18,6 +22,8 @@ const HALO_DESKTOP_PX = 380;
 const HALO_MOBILE_PX = 240;
 const MOBILE_MAX_WIDTH = 767;
 const DEVOILE_LERP = 0.05;
+// Le défilement fait dériver la brume ; lissé, il ne donne jamais d'à-coup.
+const SCROLL_LERP = 0.08;
 const GRAVURES = {
   paysage: "assets/img/fond-paysage-masque.webp",
   portrait: "assets/img/fond-portrait-masque.webp",
@@ -52,12 +58,22 @@ function start(canvas) {
   let frame = 0;
   let lastDraw = 0;
   let devoile = 0;
+  let scrollLisse = window.scrollY;
+  let taille = "";
   const startTime = performance.now();
   const html = document.documentElement;
+  const tactile = window.matchMedia("(hover: none)").matches;
+  gl.uniform1f(uniforms.u_autonome, tactile ? 1 : 0);
 
+  /** @returns {boolean} vrai si la taille a changé */
   function resize() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    // Taille du canevas lui-même (100lvh en CSS) : stable pendant le défilement.
+    const width = canvas.clientWidth || window.innerWidth;
+    const height = canvas.clientHeight || window.innerHeight;
+    if (`${width}x${height}` === taille) {
+      return false;
+    }
+    taille = `${width}x${height}`;
     const scale = Math.min(window.devicePixelRatio || 1, MAX_DPR, Math.sqrt(MAX_PIXELS / (width * height)));
     canvas.width = Math.round(width * scale);
     canvas.height = Math.round(height * scale);
@@ -66,6 +82,7 @@ function start(canvas) {
     const halo = width <= MOBILE_MAX_WIDTH ? HALO_MOBILE_PX : HALO_DESKTOP_PX;
     gl.uniform1f(uniforms.u_halo, halo * scale);
     swapGravure(width >= height ? "paysage" : "portrait");
+    return true;
   }
 
   /** @param {"paysage" | "portrait"} next */
@@ -92,7 +109,8 @@ function start(canvas) {
     devoile = reduceMotion ? devoileCible : devoile + (devoileCible - devoile) * DEVOILE_LERP;
     gl.uniform1f(uniforms.u_devoile, devoile);
     gl.uniform1f(uniforms.u_time, time);
-    gl.uniform1f(uniforms.u_scroll, window.scrollY * SCROLL_DRIFT);
+    scrollLisse = reduceMotion ? window.scrollY : scrollLisse + (window.scrollY - scrollLisse) * SCROLL_LERP;
+    gl.uniform1f(uniforms.u_scroll, scrollLisse * SCROLL_DRIFT);
     gl.uniform2f(uniforms.u_pointer, lantern.x, lantern.y);
     gl.uniform1f(uniforms.u_pointerForce, lantern.force);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -125,8 +143,9 @@ function start(canvas) {
   }
 
   window.addEventListener("resize", () => {
-    resize();
-    draw(performance.now());
+    if (resize()) {
+      draw(performance.now());
+    }
   });
   document.addEventListener("visibilitychange", () => (document.hidden ? pause() : play()));
   canvas.addEventListener("webglcontextlost", (event) => {

@@ -15,7 +15,7 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 
 ## Direction
 
-- **Fond** : brume, rayons et gravure rouge sang en WebGL (`js/fond*.js`), derrière toutes les pages. La gravure apparaît sous la souris, ou se promène seule sur téléphone. Quand le menu s'ouvre, la gravure entière remonte de la brume.
+- **Fond** : brume, rayons et gravure rouge sang en WebGL (`js/fond*.js`), derrière toutes les pages. La gravure apparaît sous la souris ; sur téléphone, rien ne suit le doigt : trois lueurs dérivent seules et la gravure affleure partout où la brume s'éclaircit. Quand le menu s'ouvre, la gravure entière remonte de la brume.
 - **Typographie** : IM Fell English (romain, italique) et IM Fell English SC (petites capitales), licence OFL. Grands titres qui prennent toute la largeur, chiffres romains, filets fins, lettrine rouge.
 - **Menu** : table des matières plein écran (`<dialog>`) ; les chapitres montent un à un, l'emblème blanc du chapitre apparaît (en haut sur téléphone, à droite sur ordinateur).
 
@@ -53,7 +53,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 │   └── pied.css
 ├── js/
 │   ├── main.js           point d'entrée (module)
-│   ├── fond.js · fond-gl.js · fond-shader.js · fond-pointeur.js · fond-balade.js   le fond animé
+│   ├── fond.js · fond-gl.js · fond-shader.js · fond-pointeur.js   le fond animé
 │   ├── menu.js           ouverture et fermeture du menu, emblèmes
 │   ├── couche.js         le « retour » du téléphone referme le menu ou la visionneuse
 │   ├── entete.js         en-tête qui se retire (ordinateur), petit nom de l'accueil
