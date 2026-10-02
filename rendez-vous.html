@@ -30,15 +30,18 @@
     <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
     <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
     <div class="entete-actions cap">
+      <button class="bouton-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance">Son <span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
       <a class="entete-rdv" href="rendez-vous.html" aria-current="page">Rendez-vous</a>
       <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
 
-  <nav class="barre" data-barre aria-label="Navigation">
-    <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal"><span class="barre-icone" aria-hidden="true"></span>Menu</button>
-    <p class="barre-titre cap" aria-hidden="true"><span data-barre-titre>Rendez-vous</span></p>
-    <a class="barre-rdv cap" href="#ecrire">Écrire</a>
+  <nav class="barre" aria-label="Navigation">
+    <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <div class="barre-actions">
+      <button class="barre-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
+      <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="barre-icone" aria-hidden="true"></span></button>
+    </div>
   </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
@@ -65,14 +68,13 @@
       <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
     </div>
     <div class="menu-barre">
-      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close"><span class="menu-fermer-icone" aria-hidden="true"></span>Fermer</button>
-      <span class="menu-barre-titre cap" aria-hidden="true">Sommaire</span>
-      <a class="menu-barre-rdv cap" href="rendez-vous.html">Réserver</a>
+      <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
     </div>
   </dialog>
 
   <main id="contenu">
-    <header class="page-tete contenu" data-titre="Rendez-vous">
+    <header class="page-tete contenu">
       <p class="page-surtitre cap"><span>IV — Rendez-vous</span><span>Réponse sous 48 heures</span></p>
       <h1 class="page-titre" style="--mots: 5.42">Rendez-vous</h1>
       <div class="page-intro">
@@ -81,8 +83,8 @@
       </div>
     </header>
 
-    <section class="section contenu" id="ecrire" aria-labelledby="titre-ecrire" data-num="I" data-titre="Écrire">
-      <div class="section-filet cap"><span>I</span><span>Écrire</span><span>Deux moyens</span></div>
+    <section class="section contenu" id="ecrire" aria-labelledby="titre-ecrire">
+      <div class="section-filet cap"><span>I</span><span>Écrire</span></div>
       <h2 class="masque" id="titre-ecrire">Écrire à Maxime</h2>
       <ul class="canaux">
         <li data-revele="texte"><a class="canal" href="#" data-a-completer="instagram"><span>Instagram<span class="canal-detail cap">Message privé</span></span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
@@ -90,8 +92,8 @@
       </ul>
     </section>
 
-    <section class="section contenu" id="message" aria-labelledby="titre-message" data-num="II" data-titre="Message">
-      <div class="section-filet cap"><span>II</span><span>Le message</span><span>Quatre choses</span></div>
+    <section class="section contenu" id="message" aria-labelledby="titre-message">
+      <div class="section-filet cap"><span>II</span><span>Le message</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-message" data-revele="titre">Ce qu'il faut écrire</h2>
         <p class="section-chapeau" data-revele="texte">Quelques lignes suffisent. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
@@ -104,8 +106,8 @@
       </ol>
     </section>
 
-    <section class="section contenu" id="deroulement" aria-labelledby="titre-deroulement" data-num="III" data-titre="Étapes">
-      <div class="section-filet cap"><span>III</span><span>Déroulement</span><span>Du message à la séance</span></div>
+    <section class="section contenu" id="deroulement" aria-labelledby="titre-deroulement">
+      <div class="section-filet cap"><span>III</span><span>Déroulement</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-deroulement" data-revele="titre">Déroulement</h2>
         <p class="section-chapeau" data-revele="texte">Du premier message à la séance, quatre étapes, sans surprise.</p>
@@ -118,8 +120,8 @@
       </ol>
     </section>
 
-    <section class="section contenu" id="studio" aria-labelledby="titre-studio" data-num="IV" data-titre="Studio">
-      <div class="section-filet cap"><span>IV</span><span>Le studio</span><span>Suisse romande</span></div>
+    <section class="section contenu" id="studio" aria-labelledby="titre-studio">
+      <div class="section-filet cap"><span>IV</span><span>Le studio</span></div>
       <div class="grille atelier">
         <figure class="oeuvre" style="--c: 1 / -1; --h: 2.5rem; --cd: 1 / span 5; --hd: 4rem" data-revele="image">
           <div class="cadre cadre--arche" style="--r: 2 / 3"><img class="photo" src="assets/img/st-1.jpg" alt="Maxime, les bras croisés sur le dossier d'un fauteuil" loading="lazy" decoding="async" width="600" height="900" /></div>
@@ -131,8 +133,8 @@
       </div>
     </section>
 
-    <section class="section contenu" id="soins" aria-labelledby="titre-soins" data-num="V" data-titre="Soins">
-      <div class="section-filet cap"><span>V</span><span>Soins</span><span>Trois semaines</span></div>
+    <section class="section contenu" id="soins" aria-labelledby="titre-soins">
+      <div class="section-filet cap"><span>V</span><span>Soins</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-soins" data-revele="titre">Après la séance</h2>
         <p class="section-chapeau" data-revele="texte">Une fiche de soins est remise après chaque séance. L'essentiel tient en quatre lignes.</p>
@@ -145,8 +147,8 @@
       </ul>
     </section>
 
-    <section class="section contenu" id="questions" aria-labelledby="titre-questions" data-num="VI" data-titre="Questions">
-      <div class="section-filet cap"><span>VI</span><span>Questions</span><span>Les plus fréquentes</span></div>
+    <section class="section contenu" id="questions" aria-labelledby="titre-questions">
+      <div class="section-filet cap"><span>VI</span><span>Questions</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-questions" data-revele="titre">Questions</h2>
       </div>
@@ -176,36 +178,9 @@
   </main>
 
   <footer class="pied contenu">
-    <div class="pied-colonnes">
-      <nav aria-label="Plan du site">
-        <p class="pied-titre cap">Chapitres</p>
-        <ul>
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="flashs.html">Flashs</a></li>
-          <li><a href="tatouages.html">Tatouages</a></li>
-          <li><a href="processus.html">Processus</a></li>
-          <li><a href="rendez-vous.html">Rendez-vous</a></li>
-        </ul>
-      </nav>
-      <div>
-        <p class="pied-titre cap">Écrire</p>
-        <ul>
-          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
-          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="pied-titre cap">Studio</p>
-        <p>Studio privé<br />Suisse romande</p>
-      </div>
-      <div>
-        <p class="pied-titre cap">Séances</p>
-        <p>Sur rendez-vous<br />en semaine</p>
-      </div>
-    </div>
     <div class="pied-bas cap">
       <span>© 2026 Maxime, tatoueur</span>
-      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <span class="pied-liens"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></span>
       <a href="#top">Haut de page ↑</a>
     </div>
   </footer>

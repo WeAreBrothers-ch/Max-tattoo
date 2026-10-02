@@ -1,7 +1,7 @@
-/* Pied de page : l'appel à écrire en très grand, puis le plan du site. */
+/* Pied de page : l'appel à écrire en très grand, puis une seule ligne. */
 
 .pied {
-  /* En bas sur téléphone, la barre du pouce ne cache jamais la dernière ligne. */
+  /* Sur téléphone, l'encoche du bas ne cache jamais la dernière ligne. */
   padding: clamp(6rem, 20vw, 15rem) var(--gouttiere) calc(var(--bas) + 1.5rem);
 }
 
@@ -49,44 +49,20 @@
   }
 }
 
-.pied-colonnes {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.25rem var(--gap);
-  padding-top: 1rem;
-  border-top: 1px solid var(--filet);
-}
-
-.pied-titre {
-  margin-bottom: 0.6rem;
-  color: var(--blanc-doux);
-}
-
-.pied-colonnes a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.5rem;
-}
-
-.pied-colonnes p {
-  padding-top: 0.45rem;
-}
-
 .pied-bas {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem 1.5rem;
-  margin-top: clamp(3.5rem, 9vw, 7rem);
+  padding-top: 1rem;
+  border-top: 1px solid var(--filet);
   color: var(--blanc-doux);
 }
 
-.pied-devise {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1.125rem;
-  letter-spacing: 0;
+.pied-liens {
+  display: flex;
+  gap: 1.5rem;
 }
 
 .pied-bas a {
@@ -97,10 +73,6 @@
 }
 
 @media (min-width: 1024px) {
-  .pied-colonnes {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
   .pied-bas {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -112,12 +84,10 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .pied-colonnes a,
   .pied-bas a {
     transition: opacity 400ms var(--ease);
   }
 
-  .pied-colonnes a:hover,
   .pied-bas a:hover {
     opacity: 0.6;
   }

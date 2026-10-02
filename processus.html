@@ -30,15 +30,18 @@
     <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
     <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
     <div class="entete-actions cap">
+      <button class="bouton-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance">Son <span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
       <a class="entete-rdv" href="rendez-vous.html">Rendez-vous</a>
       <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
 
-  <nav class="barre" data-barre aria-label="Navigation">
-    <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal"><span class="barre-icone" aria-hidden="true"></span>Menu</button>
-    <p class="barre-titre cap" aria-hidden="true"><span data-barre-titre>Processus</span></p>
-    <a class="barre-rdv cap" href="rendez-vous.html">Réserver</a>
+  <nav class="barre" aria-label="Navigation">
+    <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <div class="barre-actions">
+      <button class="barre-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
+      <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="barre-icone" aria-hidden="true"></span></button>
+    </div>
   </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
@@ -65,14 +68,13 @@
       <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
     </div>
     <div class="menu-barre">
-      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close"><span class="menu-fermer-icone" aria-hidden="true"></span>Fermer</button>
-      <span class="menu-barre-titre cap" aria-hidden="true">Sommaire</span>
-      <a class="menu-barre-rdv cap" href="rendez-vous.html">Réserver</a>
+      <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
     </div>
   </dialog>
 
   <main id="contenu">
-    <header class="page-tete contenu" data-titre="Processus">
+    <header class="page-tete contenu">
       <p class="page-surtitre cap"><span>III — Processus</span><span>Du carnet à la peau</span></p>
       <h1 class="page-titre" style="--mots: 3.86">Processus</h1>
       <div class="page-intro">
@@ -90,8 +92,8 @@
       </ol>
     </nav>
 
-    <section class="section contenu" id="carnet" aria-labelledby="titre-carnet" data-num="I" data-titre="Le carnet">
-      <div class="section-filet cap"><span>I</span><span>Le carnet</span><span>Crayon rouge</span></div>
+    <section class="section contenu" id="carnet" aria-labelledby="titre-carnet">
+      <div class="section-filet cap"><span>I</span><span>Le carnet</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-carnet" data-revele="titre">Le carnet</h2>
         <p class="section-chapeau" data-revele="texte">Tout commence au crayon rouge, une couleur qui ne se prend pas pour du définitif. Les pages sont montrées telles quelles, avec leurs hésitations. Les croquis deviennent des <a class="lien" href="flashs.html">flashs</a> ou la base d'un projet personnalisé.</p>
@@ -117,17 +119,17 @@
         </blockquote>
       </div>
       <div class="grille galerie galerie--suite galerie--defile defileur" data-visionneuse data-defileur="Pages du carnet">
-        <figure class="oeuvre" style="--cd: 1 / span 4" data-revele="image">
+        <figure class="oeuvre" data-revele="image">
           <div class="cadre" style="--r: 9 / 16"><video data-autoplay muted loop playsinline preload="none" poster="assets/video/v-carnet-deux-mains.jpg" aria-label="Maxime dessine deux mains, l'une à la dague, l'autre aux roses"><source src="assets/video/v-carnet-deux-mains.mp4" type="video/mp4" /></video></div>
           <figcaption class="legende"><span class="legende-titre">Deux mains</span><span class="legende-lieu cap">Carnet, vidéo</span></figcaption>
           <p class="pensee">«&nbsp;L'une avec la dague, l'autre avec les roses&nbsp;: ce qu'on garde et ce qu'on donne.&nbsp;»</p>
         </figure>
-        <figure class="oeuvre" style="--cd: 6 / span 3; --hd: 8rem" data-revele="image">
+        <figure class="oeuvre" data-revele="image">
           <div class="cadre"><img src="assets/img/cn-6.jpg" alt="Page de carnet, croquis rouge d'un nain à chapeau pointu" loading="lazy" decoding="async" width="675" height="900" /></div>
           <figcaption class="legende"><span class="legende-titre">Le nain</span><span class="legende-lieu cap">Carnet</span></figcaption>
           <p class="pensee">«&nbsp;J'aime ce qui a l'air d'avoir mille ans, même dessiné hier.&nbsp;»</p>
         </figure>
-        <figure class="oeuvre" style="--cd: 10 / span 3; --hd: 3rem" data-revele="image">
+        <figure class="oeuvre" data-revele="image">
           <div class="cadre"><img src="assets/img/cn-7.jpg" alt="Page de carnet, croquis rouge de crânes dans les nuages" loading="lazy" decoding="async" width="675" height="900" /></div>
           <figcaption class="legende"><span class="legende-titre">Crânes</span><span class="legende-lieu cap">Carnet</span></figcaption>
           <p class="pensee">«&nbsp;Rien de morbide. Des esprits dans la brume.&nbsp;»</p>
@@ -135,8 +137,8 @@
       </div>
     </section>
 
-    <section class="section contenu" id="encre" aria-labelledby="titre-encre" data-num="II" data-titre="L'encre">
-      <div class="section-filet cap"><span>II</span><span>L'encre</span><span>Taille réelle</span></div>
+    <section class="section contenu" id="encre" aria-labelledby="titre-encre">
+      <div class="section-filet cap"><span>II</span><span>L'encre</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-encre" data-revele="titre">L'encre</h2>
         <p class="section-chapeau" data-revele="texte">Quand le croquis tient, il est repris à l'encre noire, sur papier, à la taille réelle du tatouage. C'est le dessin du catalogue, et celui qui sera décalqué sur la peau.</p>
@@ -156,7 +158,7 @@
           </div>
           <p class="pensee">«&nbsp;Le crayon rouge cherche. Il a le droit de se tromper&nbsp;; l'encre, elle, décide.&nbsp;»</p>
         </div>
-        <div class="duo-bloc" style="--cd: 7 / span 6; --hd: 12rem" data-revele="image">
+        <div class="duo-bloc" style="--cd: 7 / span 6" data-revele="image">
           <div class="duo defileur" data-defileur="Serpent et main, du crayon à l'encre">
             <figure class="oeuvre">
               <div class="cadre"><img src="assets/img/cn-4.jpg" alt="Croquis rouge d'une main enlacée par un serpent" loading="lazy" decoding="async" width="675" height="900" /></div>
@@ -170,7 +172,7 @@
           </div>
           <p class="pensee">«&nbsp;Les bagues sont venues à l'encre, pas au crayon. Il faut laisser une place à ce qui arrive en dernier.&nbsp;»</p>
         </div>
-        <figure class="oeuvre" style="--c: 1 / -1; --cd: 2 / span 4; --hd: 3rem" data-revele="image">
+        <figure class="oeuvre" style="--c: 1 / -1; --cd: 2 / span 4" data-revele="image">
           <div class="cadre"><img src="assets/img/fl-masse.jpg" alt="Planche à l'encre : masse d'armes, cierge enchaîné, vase à l'œil, main à la rose" loading="lazy" decoding="async" width="660" height="880" /></div>
           <figcaption class="legende"><span class="legende-titre">Masse d'armes</span><span class="legende-lieu cap">Encre</span></figcaption>
           <p class="pensee">«&nbsp;L'arme, la lumière et ce qui reste. Trois choses qui vont ensemble depuis longtemps.&nbsp;»</p>
@@ -178,8 +180,8 @@
       </div>
     </section>
 
-    <section class="section contenu" id="seance" aria-labelledby="titre-seance" data-num="III" data-titre="La séance">
-      <div class="section-filet cap"><span>III</span><span>La séance</span><span>Une à trois heures</span></div>
+    <section class="section contenu" id="seance" aria-labelledby="titre-seance">
+      <div class="section-filet cap"><span>III</span><span>La séance</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-seance" data-revele="titre">La séance</h2>
         <p class="section-chapeau" data-revele="texte">Le dessin est décalqué, positionné, validé ensemble dans le miroir. Puis on commence. Une personne à la fois, dans le calme, avec des pauses quand il le faut.</p>
@@ -206,24 +208,24 @@
       </div>
     </section>
 
-    <section class="section contenu" id="apres" aria-labelledby="titre-apres" data-num="IV" data-titre="Après">
-      <div class="section-filet cap"><span>IV</span><span>Après</span><span>Six mois</span></div>
+    <section class="section contenu" id="apres" aria-labelledby="titre-apres">
+      <div class="section-filet cap"><span>IV</span><span>Après</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-apres" data-revele="titre">Après</h2>
         <p class="section-chapeau" data-revele="texte">Une pièce n'est finie qu'une fois cicatrisée&nbsp;: c'est à ce moment qu'on la photographie. Une fiche de soins est remise après chaque séance, et les retouches sont comprises dans les six mois.</p>
       </div>
       <div class="grille galerie galerie--defile defileur" data-visionneuse data-defileur="Pièces cicatrisées">
-        <figure class="oeuvre" style="--cd: 1 / span 4" data-revele="image">
-          <div class="cadre" data-parallaxe><img class="photo" src="assets/img/tt-serpent.jpg" alt="Le serpent et la main tatoués sur une cuisse, cicatrisés" loading="lazy" decoding="async" width="675" height="900" /></div>
+        <figure class="oeuvre" data-revele="image">
+          <div class="cadre"><img class="photo" src="assets/img/tt-serpent.jpg" alt="Le serpent et la main tatoués sur une cuisse, cicatrisés" loading="lazy" decoding="async" width="675" height="900" /></div>
           <figcaption class="legende"><span class="legende-titre">Serpent et main</span><span class="legende-lieu cap">Cicatrisé</span></figcaption>
           <p class="pensee">«&nbsp;Cicatrisé, le trait s'assoit un peu dans la peau. C'est là qu'on voit s'il tient.&nbsp;»</p>
         </figure>
-        <figure class="oeuvre" style="--cd: 6 / span 3; --hd: 10rem" data-revele="image">
+        <figure class="oeuvre" data-revele="image">
           <div class="cadre"><img class="photo" src="assets/img/tt-oeil.jpg" alt="Œil rayonnant tatoué à l'arrière du coude, cicatrisé" loading="lazy" decoding="async" width="675" height="900" /></div>
           <figcaption class="legende"><span class="legende-titre">Œil rayonnant</span><span class="legende-lieu cap">Cicatrisé</span></figcaption>
           <p class="pensee">«&nbsp;Le coude bouge tout le temps. Un dessin qui y survit survivra partout.&nbsp;»</p>
         </figure>
-        <figure class="oeuvre" style="--cd: 10 / span 3; --hd: 3rem" data-revele="image">
+        <figure class="oeuvre" data-revele="image">
           <div class="cadre"><img class="photo" src="assets/img/tt-roses.jpg" alt="Main aux roses tatouée sur une cuisse, cicatrisée" loading="lazy" decoding="async" width="675" height="900" /></div>
           <figcaption class="legende"><span class="legende-titre">Main aux roses</span><span class="legende-lieu cap">Cicatrisé</span></figcaption>
           <p class="pensee">«&nbsp;Dans dix ans, les roses seront encore là, un peu plus douces.&nbsp;»</p>
@@ -238,36 +240,9 @@
       <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
       <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
     </div>
-    <div class="pied-colonnes">
-      <nav aria-label="Plan du site">
-        <p class="pied-titre cap">Chapitres</p>
-        <ul>
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="flashs.html">Flashs</a></li>
-          <li><a href="tatouages.html">Tatouages</a></li>
-          <li><a href="processus.html">Processus</a></li>
-          <li><a href="rendez-vous.html">Rendez-vous</a></li>
-        </ul>
-      </nav>
-      <div>
-        <p class="pied-titre cap">Écrire</p>
-        <ul>
-          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
-          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="pied-titre cap">Studio</p>
-        <p>Studio privé<br />Suisse romande</p>
-      </div>
-      <div>
-        <p class="pied-titre cap">Séances</p>
-        <p>Sur rendez-vous<br />en semaine</p>
-      </div>
-    </div>
     <div class="pied-bas cap">
       <span>© 2026 Maxime, tatoueur</span>
-      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <span class="pied-liens"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></span>
       <a href="#top">Haut de page ↑</a>
     </div>
   </footer>

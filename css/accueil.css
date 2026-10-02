@@ -1,14 +1,14 @@
 /* Accueil : ouverture, manifeste, pièces, flashs, chemin d'un dessin, studio. */
 
 /*
- * Ouverture : le fond animé en entier, le nom en très grand posé en bas,
- * juste au-dessus de la barre du pouce. En haut, ce qu'on est et où.
+ * Ouverture : le fond animé en entier, le nom en très grand posé en bas de
+ * l'écran. En haut, sous la barre, ce qu'on est et où.
  */
 .ouverture {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
-  padding: calc(env(safe-area-inset-top) + 1.1rem) var(--gouttiere) calc(var(--bas) + 0.35rem);
+  padding: calc(var(--haut) + 1.1rem) var(--gouttiere) calc(var(--bas) + 1rem);
   container-type: inline-size;
 }
 
@@ -36,54 +36,6 @@
   line-height: 1.12;
   -webkit-hyphens: manual;
   hyphens: manual;
-}
-
-.ouverture-bas {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  animation: apparaitre 1200ms var(--ease) 800ms both;
-}
-
-.ouverture-defiler {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--blanc-doux);
-}
-
-/* Un filet vertical qui descend et recommence. */
-.ouverture-defiler::after {
-  content: "";
-  display: block;
-  width: 1px;
-  height: 1.6rem;
-  background: currentColor;
-  transform-origin: top;
-  animation: defiler 2.4s var(--ease) infinite;
-}
-
-@keyframes defiler {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-
-  45% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-
-  55% {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
 }
 
 .ouverture-nom {
@@ -128,7 +80,7 @@
 
 @media (min-width: 1024px) {
   .ouverture {
-    padding: calc(var(--entete-h) + env(safe-area-inset-top)) var(--gouttiere) 0;
+    padding: var(--haut) var(--gouttiere) 0;
   }
 
   /* L'en-tête dit déjà « Tatoueur — Suisse romande ». */
@@ -141,7 +93,7 @@
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap);
     align-content: end;
-    padding: 2rem 0 12vh;
+    padding: 2rem 0 8vh;
   }
 
   .ouverture-devise {
@@ -149,13 +101,9 @@
     justify-self: end;
     text-align: right;
   }
-
-  .ouverture-bas {
-    padding-bottom: 0.6rem;
-  }
 }
 
-/* Manifeste : une grande phrase, et Maxime qui dessine à la bougie. */
+/* Manifeste : une grande phrase. */
 .manifeste {
   padding-top: 4.5rem;
 }
@@ -179,20 +127,6 @@
   color: var(--sang-vif);
 }
 
-/* Sur téléphone, les deux suites sont des lignes pleine largeur. */
-.manifeste-suite {
-  display: grid;
-  margin-top: 1.75rem;
-  border-top: 1px solid var(--filet);
-}
-
-.manifeste-suite .lien-fleche {
-  display: flex;
-  justify-content: space-between;
-  min-height: 3.25rem;
-  border-bottom: 1px solid var(--filet);
-}
-
 @media (min-width: 768px) {
   .manifeste {
     padding-top: clamp(5rem, 14vw, 12rem);
@@ -200,21 +134,6 @@
 
   .manifeste-texte {
     line-height: 1.1;
-  }
-
-  .manifeste-suite {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 2.5rem;
-    margin-top: clamp(1.75rem, 5vw, 3rem);
-    border-top: 0;
-  }
-
-  .manifeste-suite .lien-fleche {
-    display: inline-flex;
-    justify-content: flex-start;
-    min-height: 2.75rem;
-    border-bottom: 0;
   }
 }
 
@@ -249,15 +168,11 @@
   .planches.defileur > * {
     flex: none;
   }
-
-  .planches > :nth-child(even) {
-    margin-top: 6rem;
-  }
 }
 
 /*
  * Du carnet à la peau. Téléphone : quatre lignes, l'image à gauche, le mot
- * à droite, le chiffre en rouge. Tablette et ordinateur : quatre marches.
+ * à droite, le chiffre en rouge. Tablette et ordinateur : quatre côte à côte.
  */
 .etapes {
   display: grid;
@@ -313,7 +228,6 @@
   }
 
   .etape {
-    margin-top: calc(var(--n, 0) * 4rem);
     border-bottom: 0;
   }
 
@@ -340,10 +254,6 @@
 }
 
 @media (min-width: 1024px) {
-  .etape {
-    margin-top: calc(var(--n, 0) * 6rem);
-  }
-
   .etape-titre {
     font-size: 1.875rem;
   }
@@ -373,12 +283,6 @@
   max-width: 28em;
 }
 
-.atelier-second {
-  justify-self: end;
-  width: min(58%, 20rem);
-  margin-top: 1rem;
-}
-
 @media (min-width: 768px) {
   .atelier-texte {
     gap: 1.5rem;
@@ -386,12 +290,5 @@
 
   .atelier-phrase {
     font-size: clamp(1.75rem, 4.2vw, 3.5rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .atelier-second {
-    width: 44%;
-    margin-top: 3rem;
   }
 }

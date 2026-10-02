@@ -1,7 +1,7 @@
 /**
- * Shaders du fond : brume qui dérive, rayons de lumière qui la traversent,
- * gravure rouge sang révélée seulement dans le halo qui suit la souris ou le doigt,
- * et dans toute la brume quand le menu est ouvert (u_devoile).
+ * Shaders du fond : brume qui dérive et gravure rouge sang qui affleure en
+ * permanence dans la fumée. Une lumière l'avive là où elle passe : elle suit
+ * la souris, et remonte pleinement quand le menu est ouvert (u_devoile).
  * Sur écran tactile, le halo est une lanterne qui se promène seule
  * (voir js/fond-pointeur.js) : il ne suit jamais le doigt. Sa lumière est
  * chaude (u_chaleur), son rayon respire (u_rayon).
@@ -35,6 +35,8 @@ uniform float u_chaleur;
 
 const vec3 SANG = vec3(0.66, 0.086, 0.106);
 const vec3 BRUME = vec3(0.78, 0.8, 0.84);
+// Part de la gravure visible hors de la lumière, menu fermé.
+const float GRAVURE_REPOS = 0.6;
 
 float hash(vec2 p) {
   p = fract(p * vec2(123.34, 456.21));
@@ -72,19 +74,6 @@ float brume(vec2 p, float t) {
   return smoothstep(0.34, 0.86, lointaine * 0.6 + proche * 0.5);
 }
 
-// Rayons qui tombent d'une source hors écran, en haut, et oscillent lentement.
-float rayons(vec2 uv, float aspect, float t) {
-  vec2 source = vec2(0.28 + 0.12 * sin(t * 0.045), 1.35);
-  vec2 d = vec2((uv.x - source.x) * aspect, uv.y - source.y);
-  float angle = atan(d.x, -d.y);
-  float bandes = noise(vec2(angle * 9.0 + t * 0.06, t * 0.02));
-  bandes *= noise(vec2(angle * 23.0 - t * 0.04, 3.0));
-  bandes = smoothstep(0.02, 0.6, bandes);
-  float cone = smoothstep(1.1, 0.1, abs(angle));
-  float chute = smoothstep(2.2, 0.2, length(d));
-  return bandes * cone * chute;
-}
-
 vec2 coverUv(vec2 uv, float aspect) {
   float ecran = u_res.x / u_res.y;
   vec2 echelle = ecran > aspect ? vec2(1.0, aspect / ecran) : vec2(ecran / aspect, 1.0);
@@ -98,7 +87,6 @@ void main() {
   vec2 p = vec2(uv.x * aspect, uv.y) * 1.6 + vec2(0.0, u_scroll);
 
   float b = brume(p, t);
-  float r = rayons(uv, aspect, t);
 
   // Halo en pixels : plein au centre, fondu jusqu'au bord. Le bord n'est pas
   // un cercle : la fumée le ronge, il ondule lentement comme une flamme dans la brume.
@@ -112,11 +100,13 @@ void main() {
   gUv.y = 1.0 - gUv.y;
   float encre = texture2D(u_gravure, gUv).a * u_gravureReady;
   // La brume passe devant la gravure : le dessin respire dans la fumée.
-  // Menu ouvert : la gravure entière remonte, portée par la brume.
-  float revele = max(halo * (0.8 + b * 0.35), u_devoile * (0.2 + b * 0.55));
+  // Hors de la lumière, il affleure à moitié ; menu ouvert, il remonte en entier.
+  // Sous la lumière, il s'avive sans jamais couvrir le texte posé dessus.
+  float affleure = (0.2 + b * 0.55) * mix(GRAVURE_REPOS, 1.0, u_devoile);
+  float revele = max(halo * (0.5 + b * 0.2), affleure);
 
   float vignette = smoothstep(1.25, 0.35, length((uv - 0.5) * vec2(aspect, 1.0)));
-  vec3 couleur = BRUME * (b * 0.17 + r * 0.1 + halo * 0.03) * mix(0.6, 1.0, vignette);
+  vec3 couleur = BRUME * (b * 0.17 + halo * 0.03) * mix(0.6, 1.0, vignette);
   // Lanterne : une lumière chaude, ambrée, qui éclaire la fumée autour d'elle.
   couleur += vec3(0.62, 0.3, 0.16) * halo * halo * (0.35 + b) * 0.07 * u_chaleur;
   // Rouge plus lumineux que la couleur de base : le dessin doit se lire sur téléphone.

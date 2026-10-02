@@ -96,31 +96,6 @@
   }
 }
 
-/* Parallaxe douce des photos (tablette et ordinateur), calculée par le navigateur. */
-@supports (animation-timeline: view()) {
-  @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
-    .cadre[data-parallaxe] > :is(img, video) {
-      position: absolute;
-      top: -8%;
-      left: 0;
-      height: 116%;
-      animation: parallaxe linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
-    }
-  }
-}
-
-@keyframes parallaxe {
-  from {
-    translate: 0 -6%;
-  }
-
-  to {
-    translate: 0 6%;
-  }
-}
-
 /*
  * Défilé : une rangée qu'on fait glisser au pouce, une œuvre par geste.
  * La carte suivante dépasse de 1,75 rem pour inviter à glisser ; un compteur
@@ -217,7 +192,7 @@
   transition: transform 120ms linear;
 }
 
-/* Galerie en défilé sur téléphone, grille éditoriale dès 768 px. */
+/* Galerie en rangée à glisser sur téléphone, grille régulière dès 768 px. */
 @media (max-width: 767px) {
   .galerie--defile .cadre {
     aspect-ratio: 3 / 4;
@@ -235,73 +210,33 @@
 
   .galerie--defile.defileur > * {
     flex: none;
-    margin-top: var(--hd, 0);
   }
 }
 
 /*
- * Pile de tirages (accueil, téléphone) : chaque carte s'arrête en haut de
- * l'écran et la suivante vient la recouvrir ; la carte recouverte recule et
- * s'assombrit (--couvert, calculé par js/pile.js). Le défilement fait tout :
- * aucune animation ne tourne seule.
+ * Galeries de photos dès 768 px : toutes les œuvres au même format, en
+ * rangées alignées (3 colonnes, puis 4 sur ordinateur). Les vidéos verticales
+ * sont recadrées en 3 / 4 pour ne jamais casser une rangée.
  */
-@media (max-width: 767px) {
-  .galerie--pile {
-    display: block;
+@media (min-width: 768px) {
+  .grille.galerie--defile {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    row-gap: clamp(2.5rem, 4vw, 3.5rem);
   }
 
-  .galerie--pile > .oeuvre {
-    position: sticky;
-    top: calc(env(safe-area-inset-top) + 1rem + var(--n, 0) * 0.45rem);
-    margin: 0 0 2.5rem;
-    padding-bottom: 0.35rem;
-    background: var(--noir);
-    scale: calc(1 - var(--couvert, 0) * 0.06);
-    transform-origin: 50% 0;
+  .grille.galerie--defile > * {
+    grid-column: auto;
+    margin-top: 0;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .galerie--pile > .oeuvre {
-      scale: none;
-    }
-  }
-
-  .galerie--pile > .oeuvre:first-child {
-    box-shadow: none;
-  }
-
-  .galerie--pile > .oeuvre:last-child {
-    margin-bottom: 0;
-  }
-
-  .galerie--pile .cadre {
+  .galerie--defile .cadre {
     aspect-ratio: 3 / 4;
   }
+}
 
-  .galerie--pile .cadre::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: #000;
-    opacity: calc(var(--couvert, 0) * 0.65);
-    pointer-events: none;
-  }
-
-  .galerie--pile .legende {
-    flex-wrap: nowrap;
-  }
-
-  .galerie--pile .legende-titre {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  /* Dans la pile, c'est le défilement qui montre les cartes : pas de dévoilement. */
-  .galerie--pile > .a-reveler {
-    opacity: 1 !important;
-    transform: none !important;
+@media (min-width: 1024px) {
+  .grille.galerie--defile {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

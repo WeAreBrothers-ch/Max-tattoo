@@ -1,6 +1,6 @@
 /**
- * Fond animé : brume et rayons de lumière en mouvement permanent, gravure
- * rouge sang révélée dans un halo qui suit la souris, dessinés en WebGL dans
+ * Fond animé : brume en mouvement permanent, gravure rouge sang qui y
+ * affleure et s'avive dans un halo qui suit la souris, dessinés en WebGL dans
  * un canevas fixe derrière la page. Sur écran tactile, rien ne suit le doigt :
  * une lanterne toujours allumée se promène seule un peu partout
  * (js/fond-pointeur.js) et révèle la gravure dès l'arrivée.
@@ -25,9 +25,9 @@ const MAX_DPR_TACTILE = 1;
 const FRAME_MS = 1000 / 30;
 const CLE_TEMPS = "fond-temps";
 const SCROLL_DRIFT = 0.00035;
-const HALO_DESKTOP_PX = 380;
-// Sur téléphone, la lanterne éclaire environ un cinquième de moins qu'avant (0,8 → 0,71 de large).
-const HALO_TACTILE_LARGEUR = 0.71;
+const HALO_DESKTOP_PX = 180;
+// Sur téléphone, la lanterne éclaire un peu moins d'un tiers de la largeur de l'écran.
+const HALO_TACTILE_LARGEUR = 0.3;
 const DEVOILE_LERP = 0.05;
 const GRAVURE_LERP = 0.12;
 // Le défilement fait dériver la brume ; lissé, il ne donne jamais d'à-coup.

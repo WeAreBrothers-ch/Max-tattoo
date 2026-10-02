@@ -27,10 +27,6 @@
   margin-top: 1.25rem;
 }
 
-.flashs-libres > :nth-child(2) {
-  --h: 1rem;
-}
-
 @media (min-width: 768px) {
   .planche--grande .planche-lien.bouton {
     display: inline-flex;
@@ -43,7 +39,6 @@
 
   .flashs-libres > :nth-child(2) {
     --cd: 8 / span 5;
-    --hd: 14rem;
   }
 }
 
@@ -188,7 +183,7 @@
 
   .vis-a-vis .cadre {
     width: 100%;
-    max-height: calc(100svh - var(--bas) - 1.5rem);
+    max-height: calc(100svh - var(--haut) - var(--bas) - 1.5rem);
   }
 
   /* La légende en haut de l'image, sur un voile léger. */
@@ -444,7 +439,7 @@
   justify-content: center;
   gap: 1.5rem;
   min-height: 100svh;
-  padding: calc(var(--entete-h) + env(safe-area-inset-top)) 0 var(--bas);
+  padding: var(--haut) 0 var(--bas);
   container-type: inline-size;
 }
 

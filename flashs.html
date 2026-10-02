@@ -30,15 +30,18 @@
     <a class="entete-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
     <p class="entete-milieu cap">Tatoueur — Suisse romande</p>
     <div class="entete-actions cap">
+      <button class="bouton-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance">Son <span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
       <a class="entete-rdv" href="rendez-vous.html">Rendez-vous</a>
       <button class="bouton-menu" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="bouton-menu-icone" aria-hidden="true"></span></button>
     </div>
   </header>
 
-  <nav class="barre" data-barre aria-label="Navigation">
-    <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal"><span class="barre-icone" aria-hidden="true"></span>Menu</button>
-    <p class="barre-titre cap" aria-hidden="true"><span data-barre-titre>Flashs</span></p>
-    <a class="barre-rdv cap" href="rendez-vous.html">Réserver</a>
+  <nav class="barre" aria-label="Navigation">
+    <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+    <div class="barre-actions">
+      <button class="barre-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
+      <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="barre-icone" aria-hidden="true"></span></button>
+    </div>
   </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
@@ -65,14 +68,13 @@
       <img src="assets/img/em-dague.webp" alt="" loading="lazy" decoding="async" width="646" height="900" />
     </div>
     <div class="menu-barre">
-      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close"><span class="menu-fermer-icone" aria-hidden="true"></span>Fermer</button>
-      <span class="menu-barre-titre cap" aria-hidden="true">Sommaire</span>
-      <a class="menu-barre-rdv cap" href="rendez-vous.html">Réserver</a>
+      <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
+      <button class="menu-barre-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
     </div>
   </dialog>
 
   <main id="contenu">
-    <header class="page-tete contenu" data-titre="Flashs">
+    <header class="page-tete contenu">
       <p class="page-surtitre cap"><span>I — Flashs</span><span>Automne 2026</span></p>
       <h1 class="page-titre" style="--mots: 2.62">Flashs</h1>
       <div class="page-intro">
@@ -81,8 +83,8 @@
       </div>
     </header>
 
-    <section class="section contenu" id="disponibles" aria-labelledby="titre-disponibles" data-num="I" data-titre="Disponibles">
-      <div class="section-filet cap"><span>I</span><span>Disponibles</span><span>Deux dessins</span></div>
+    <section class="section contenu" id="disponibles" aria-labelledby="titre-disponibles">
+      <div class="section-filet cap"><span>I</span><span>Disponibles</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-disponibles" data-revele="titre">Disponibles</h2>
         <p class="section-chapeau" data-revele="texte">Lames, mains et cierges&nbsp;: ce qu'on garde quand la lumière baisse. Des pièces verticales, pensées pour l'avant-bras et la cuisse. Chaque dessin part dans l'ordre des demandes.</p>
@@ -107,8 +109,8 @@
       </div>
     </section>
 
-    <section class="section contenu" id="tatoues" aria-labelledby="titre-tatoues" data-num="II" data-titre="Tatoués">
-      <div class="section-filet cap"><span>II</span><span>Déjà tatoués</span><span>Deux dessins</span></div>
+    <section class="section contenu" id="tatoues" aria-labelledby="titre-tatoues">
+      <div class="section-filet cap"><span>II</span><span>Déjà tatoués</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-tatoues" data-revele="titre">Déjà tatoués</h2>
         <p class="section-chapeau" data-revele="texte">Rayés jusqu'à la saison suivante, ils ne seront pas refaits. Leurs photos, une fois cicatrisés, sont parmi les <a class="lien" href="tatouages.html">pièces portées</a>.</p>
@@ -122,7 +124,7 @@
             <a class="lien-fleche cap planche-lien" href="tatouages.html#mains">La pièce portée <span class="fleche" aria-hidden="true">→</span></a>
           </figcaption>
         </figure>
-        <figure class="planche oeuvre est-tatoue" style="--c: 4 / span 3; --cd: 8 / span 4; --hd: 8rem" data-revele="image">
+        <figure class="planche oeuvre est-tatoue" style="--c: 4 / span 3; --cd: 8 / span 4" data-revele="image">
           <div class="cadre"><img src="assets/img/fl-oeil.jpg" alt="Dessin d'un œil rayonnant" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></div>
           <figcaption>
             <span class="planche-titre">Œil rayonnant</span>
@@ -133,8 +135,8 @@
       </div>
     </section>
 
-    <section class="section contenu" id="saisons" aria-labelledby="titre-saisons" data-num="III" data-titre="Saisons">
-      <div class="section-filet cap"><span>III</span><span>Saisons passées</span><span>Archivées</span></div>
+    <section class="section contenu" id="saisons" aria-labelledby="titre-saisons">
+      <div class="section-filet cap"><span>III</span><span>Saisons passées</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-saisons" data-revele="titre">Saisons passées</h2>
         <p class="section-chapeau" data-revele="texte">Chaque saison a eu son thème et sa dizaine de dessins. Certains motifs reviennent d'une saison à l'autre, jamais à l'identique&nbsp;; aucun dessin passé n'est plus disponible.</p>
@@ -146,8 +148,8 @@
       </ol>
     </section>
 
-    <section class="section contenu" id="reserver" aria-labelledby="titre-reserver" data-num="IV" data-titre="Réserver">
-      <div class="section-filet cap"><span>IV</span><span>Réserver</span><span>Réponse sous 48 h</span></div>
+    <section class="section contenu" id="reserver" aria-labelledby="titre-reserver">
+      <div class="section-filet cap"><span>IV</span><span>Réserver</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-reserver" data-revele="titre">Réserver un flash</h2>
         <p class="section-chapeau" data-revele="texte">Un dessin vous plaît mais vous le voulez ailleurs, ou un peu plus grand&nbsp;? Dites-le&nbsp;: la plupart s'adaptent. Un dessin qui n'existe pas encore, c'est un <a class="lien" href="rendez-vous.html#questions">projet personnalisé</a>.</p>
@@ -167,36 +169,9 @@
       <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
       <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
     </div>
-    <div class="pied-colonnes">
-      <nav aria-label="Plan du site">
-        <p class="pied-titre cap">Chapitres</p>
-        <ul>
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="flashs.html">Flashs</a></li>
-          <li><a href="tatouages.html">Tatouages</a></li>
-          <li><a href="processus.html">Processus</a></li>
-          <li><a href="rendez-vous.html">Rendez-vous</a></li>
-        </ul>
-      </nav>
-      <div>
-        <p class="pied-titre cap">Écrire</p>
-        <ul>
-          <li><a href="#" data-a-completer="instagram">Instagram</a></li>
-          <li><a href="#" data-a-completer="e-mail">E-mail</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="pied-titre cap">Studio</p>
-        <p>Studio privé<br />Suisse romande</p>
-      </div>
-      <div>
-        <p class="pied-titre cap">Séances</p>
-        <p>Sur rendez-vous<br />en semaine</p>
-      </div>
-    </div>
     <div class="pied-bas cap">
       <span>© 2026 Maxime, tatoueur</span>
-      <span class="pied-devise">«&nbsp;entre l'ombre et la lumière&nbsp;»</span>
+      <span class="pied-liens"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></span>
       <a href="#top">Haut de page ↑</a>
     </div>
   </footer>

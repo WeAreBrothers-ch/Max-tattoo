@@ -1,8 +1,8 @@
 /*
- * En-tête. Téléphone et tablette : le nom seul en haut de page, qui part
- * avec le défilement ; la navigation est sous le pouce, dans la barre du bas.
- * Ordinateur : bandeau fixe, en différence (blanc sur le noir, noir sur le
- * papier des dessins), qui se retire en descendant et revient en remontant.
+ * En-tête, sur ordinateur seulement. Téléphone et tablette : la barre du haut
+ * (css/barre.css) en tient lieu.
+ * Ordinateur : bandeau fixe sur fond noir (rien ne passe sous ses mots),
+ * qui se retire en descendant et revient en remontant.
  */
 
 .entete {
@@ -40,9 +40,10 @@
   display: none;
 }
 
-/* Accueil sur téléphone : le grand nom de l'ouverture suffit. */
-.page-accueil .entete {
-  display: none;
+@media (max-width: 1023px) {
+  .entete {
+    display: none;
+  }
 }
 
 .bouton-menu {
@@ -70,7 +71,15 @@
     position: fixed;
     display: grid;
     grid-template-columns: 1fr auto 1fr;
+    /* Noir plein sous les mots, fondu seulement au bord bas : pas de bande nette sur la gravure. */
+    background: linear-gradient(to bottom, var(--noir) 72%, rgb(0 0 0 / 0) 100%);
+    mix-blend-mode: normal;
     transition: transform 700ms var(--ease), opacity 500ms var(--ease);
+  }
+
+  /* Accueil, tout en haut : le grand nom est seul, pas de bandeau. */
+  .au-sommet .page-accueil .entete {
+    background: none;
   }
 
   .entete.est-cache {

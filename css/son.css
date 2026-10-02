@@ -1,0 +1,90 @@
+/*
+ * Bouton « Son » (js/musique.js) : dans l'en-tête sur ordinateur, à côté du
+ * menu dans la barre du haut sur téléphone. Trois filets verticaux, au repos
+ * quand la musique est coupée, qui ondulent lentement quand elle joue.
+ */
+
+.bouton-son,
+.barre-son {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+
+.bouton-son {
+  gap: 0.6rem;
+}
+
+/* Icône seule sous le pouce : la zone à toucher reste de 44 px. */
+.barre-son {
+  justify-content: center;
+  min-width: 2.75rem;
+}
+
+.barre-son:active {
+  opacity: 0.55;
+}
+
+.son-icone {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 0.85rem;
+}
+
+.son-icone > span {
+  display: block;
+  width: 1px;
+  height: 100%;
+  background: currentColor;
+  transform: scaleY(0.3);
+  transform-origin: bottom;
+  transition: transform 500ms var(--ease);
+}
+
+/* Coupée : les filets restent bas et pâles. */
+[data-musique][aria-pressed="false"] .son-icone {
+  opacity: 0.64;
+}
+
+[data-musique].est-joue .son-icone > span {
+  animation: son-onde 1.6s ease-in-out infinite alternate;
+}
+
+[data-musique].est-joue .son-icone > span:nth-child(2) {
+  animation-duration: 1.15s;
+  animation-delay: -0.4s;
+}
+
+[data-musique].est-joue .son-icone > span:nth-child(3) {
+  animation-duration: 1.9s;
+  animation-delay: -0.9s;
+}
+
+@keyframes son-onde {
+  from {
+    transform: scaleY(0.25);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Mouvement réduit : la musique joue, les filets restent levés sans bouger. */
+@media (prefers-reduced-motion: reduce) {
+  [data-musique].est-joue .son-icone > span {
+    animation: none;
+    transform: scaleY(0.8);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bouton-son {
+    transition: opacity 400ms var(--ease);
+  }
+
+  .bouton-son:hover {
+    opacity: 0.6;
+  }
+}
