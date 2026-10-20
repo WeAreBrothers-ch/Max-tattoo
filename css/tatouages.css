@@ -360,8 +360,8 @@
  * Ordinateur : tout le chapitre tient sur une seule grille de douze colonnes
  * (en-tête et corps se fondent dans .chapitre). Le dessin et le titre à
  * gauche, le texte à droite ; dessous, quatre images à la file : croquis et
- * peau, puis les films ; puis les autres pièces (une rangée incomplète se
- * centre), et les boutons de thème dessous. Un chapitre à un seul film y pose
+ * peau, puis les films ; puis les autres pièces (une rangée incomplète reste
+ * à gauche), et les boutons de thème dessous. Un chapitre à un seul film y pose
  * la phrase de Maxime à côté : aucune case vide.
  */
 @media (min-width: 1024px) {
@@ -466,11 +466,11 @@
     margin-bottom: 0;
   }
 
-  /* Quatre cases au plus par rangée ; une rangée incomplète se centre. */
+  /* Quatre cases au plus par rangée ; une rangée incomplète reste à gauche. */
   .pieces--chapitre {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 2.75rem var(--gap);
     margin-top: 1.25rem;
   }
@@ -485,6 +485,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--gap);
     max-width: 44rem;
-    margin: var(--avant-bloc) auto 0;
+    margin: var(--avant-bloc) 0 0;
   }
 }
