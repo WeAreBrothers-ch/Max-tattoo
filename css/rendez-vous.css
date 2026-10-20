@@ -85,6 +85,30 @@
   hyphens: manual;
 }
 
+.lettre-idee label {
+  display: block;
+}
+
+.lettre-facultatif {
+  margin-left: 0.4em;
+  color: rgb(26 23 20 / 0.55);
+  font-style: normal;
+  font-size: 0.7em;
+}
+
+/* La signature : le prénom, écrit à la main sous le remerciement. */
+.lettre-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.lettre-champ--signature {
+  width: min(16rem, 100%);
+  margin-top: 0.4rem;
+  font-size: 1.35em;
+}
+
 .lettre-corps > * + * {
   margin-top: 0.9em;
 }
@@ -176,6 +200,36 @@
 .lettre-champ--ligne {
   width: 10em;
   max-width: 100%;
+}
+
+/* Quand on écrit soi-même l'endroit ou la taille : la ligne remplace le champ rouge. */
+.champ-libre {
+  display: inline-flex;
+  align-items: baseline;
+  max-width: 100%;
+}
+
+.champ-libre .lettre-champ--ligne {
+  min-width: 6em;
+  max-width: calc(100vw - 7rem);
+}
+
+.champ-retour {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-left: 0.3rem;
+  border: 1px solid rgb(168 22 27 / 0.55);
+  color: var(--sang);
+  font-style: normal;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.champ-retour:active {
+  background: rgb(168 22 27 / 0.2);
 }
 
 /* L'idée s'écrit sur des lignes fines, comme sur une feuille réglée. */
@@ -285,22 +339,26 @@ textarea.lettre-champ:focus {
   .lettre-corps {
     font-size: 1.3125rem;
   }
+
+  .composeur-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap);
+  }
 }
 
 /*
- * Ordinateur : la carte reste une vraie carte, étroite et haute, posée à
- * gauche ; à droite, un court texte puis les deux façons de l'envoyer.
+ * Ordinateur : la carte, posée au milieu comme une lettre sur la table, avec
+ * les deux façons de l'envoyer juste dessous, sur la même largeur.
  */
 @media (min-width: 1024px) {
   .composeur {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-    align-items: center;
+    max-width: 52rem;
+    margin-inline: auto;
+    gap: 2.5rem;
   }
 
   .lettre {
-    grid-column: 1 / span 5;
-    padding: 3rem 3rem 3.25rem;
+    padding: 3.5rem 4.5rem 4rem;
   }
 
   .lettre-embleme {
@@ -308,16 +366,17 @@ textarea.lettre-champ:focus {
   }
 
   .lettre-corps {
-    margin-top: 1.75rem;
+    margin-top: 2rem;
     font-size: 1.5rem;
     line-height: 2;
   }
 
   .jours {
-    max-width: 26rem;
+    max-width: 30rem;
   }
 
-  .composeur-suite {
-    grid-column: 7 / span 5;
+  .composeur-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap);
   }
 }

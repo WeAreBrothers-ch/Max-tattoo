@@ -6,74 +6,89 @@
  */
 
 /*
- * Onglets : deux gros boutons carrés, comme les choix du formulaire ; celui
- * où l'on est passe au blanc plein. Collés tant qu'on parcourt le catalogue
- * (.flashs-catalogue), ils remontent sous le fondu de la barre du haut :
- * noir plein, sans jour.
+ * Les deux parties, comme une table des matières : une ligne fine au-dessus
+ * et sous chacune, le chiffre en rouge, le nom, le nombre de dessins. Celle
+ * où l'on est passe au blanc, avec un losange rouge ; l'autre s'éteint.
+ * Rien de collé, rien d'encadré : la gravure du fond reste visible.
  */
 .onglets-flashs {
-  --sous-barre: 0.8rem;
-  position: sticky;
-  top: calc(var(--haut) - var(--sous-barre));
-  z-index: 5;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.5rem;
-  padding-top: calc(var(--sous-barre) + 0.35rem);
-  padding-bottom: 0.75rem;
-  background: var(--noir);
+  margin-top: 1.75rem;
+  border-top: 1px solid var(--filet);
+  counter-reset: onglet;
 }
 
 .onglet-flashs {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
   align-items: baseline;
-  gap: 0.5rem;
-  min-height: 3.25rem;
-  padding: 0.85rem 0.5rem 0.7rem;
-  border: 1px solid var(--filet);
-  color: var(--blanc);
-  font-size: 1.25rem;
+  column-gap: 0.25rem;
+  min-height: 3.5rem;
+  padding: 1rem 0 0.9rem;
+  border-bottom: 1px solid var(--filet);
+  color: var(--blanc-doux);
+  font-size: 1.5rem;
   line-height: 1.1;
-  text-align: center;
-  transition: background-color 300ms var(--ease), color 300ms var(--ease), border-color 300ms var(--ease);
+  counter-increment: onglet;
+  transition: color 400ms var(--ease);
+}
+
+.onglet-flashs::before {
+  content: counter(onglet, upper-roman);
+  color: var(--sang-vif);
+  font-family: var(--font-capitales);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
 }
 
 .onglet-flashs[aria-current="true"] {
-  border-color: var(--blanc);
-  background: var(--blanc);
-  color: var(--noir);
-  text-shadow: none;
+  color: var(--blanc);
+}
+
+.onglet-flashs[aria-current="true"]::after {
+  content: "";
+  position: absolute;
+  right: 0.15rem;
+  top: 50%;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin-top: -0.2rem;
+  background: var(--sang-vif);
+  rotate: 45deg;
 }
 
 .onglet-flashs-compte {
-  color: inherit;
-  opacity: 0.6;
+  margin-right: 1.5rem;
+  color: var(--blanc-doux);
+  font-size: 0.875rem;
+}
+
+.onglet-flashs-compte::after {
+  content: " dessins";
 }
 
 .onglet-flashs:active {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 @media (min-width: 1024px) {
   .onglets-flashs {
-    position: static;
-    display: flex;
-    gap: 0.75rem;
-    padding-top: clamp(1.5rem, 4vw, 3rem);
-    padding-bottom: 0;
-    background: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--gap);
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+    border-top: 0;
   }
 
   .onglet-flashs {
-    min-width: 14rem;
-    font-size: 1.375rem;
+    border-top: 1px solid var(--filet);
+    font-size: 1.75rem;
   }
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .onglet-flashs:not([aria-current="true"]):hover {
-    border-color: rgb(244 241 235 / 0.6);
+  .onglet-flashs:hover {
+    color: var(--blanc);
   }
 }
 
