@@ -2,6 +2,7 @@
  * Processus : un seul cadre pour les quatre temps d'un dessin. Toucher un
  * temps (ou glisser l'image du doigt) découvre son image de bas en haut et
  * n'affiche que sa documentation ; le temps vit dans l'adresse (#encre…).
+ * Deux flèches sur l'image et les touches ← → font de même.
  * Les vidéos du cadre ne tournent que si le cadre est à l'écran.
  * Sans script, les quatre temps se suivent et le cadre montre le carnet.
  */
@@ -20,6 +21,8 @@ export function initProcessus() {
   const navigation = Array.from(racine.querySelectorAll(".scene-etape"));
   const compteur = racine.querySelector("[data-scene-compteur]");
   const aide = racine.querySelector(".scene-aide");
+  const precedente = racine.querySelector("[data-scene-prec]");
+  const suivante = racine.querySelector("[data-scene-suiv]");
   const noms = etapes.map((etape) => etape.id);
   if (etapes.length === 0 || medias.length !== etapes.length) {
     return;
@@ -81,6 +84,14 @@ export function initProcessus() {
         lien.removeAttribute("aria-current");
       }
     });
+    if (precedente instanceof HTMLButtonElement) {
+      precedente.hidden = false;
+      precedente.disabled = index === 0;
+    }
+    if (suivante instanceof HTMLButtonElement) {
+      suivante.hidden = false;
+      suivante.disabled = index === etapes.length - 1;
+    }
     if (compteur) {
       compteur.textContent = `${ROMAINS[index]} / ${ROMAINS[etapes.length - 1]}`;
     }
@@ -103,6 +114,20 @@ export function initProcessus() {
       event.preventDefault();
       montrer(index, { remonter: !lien.classList.contains("scene-etape") });
     });
+  });
+
+  precedente?.addEventListener("click", () => montrer(courant - 1));
+  suivante?.addEventListener("click", () => montrer(courant + 1));
+  // Flèches du clavier, tant qu'on n'écrit pas dans un champ.
+  document.addEventListener("keydown", (event) => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) {
+      return;
+    }
+    const cible = event.target;
+    if (cible instanceof HTMLElement && cible.closest("input, textarea, select, dialog[open], [contenteditable]")) {
+      return;
+    }
+    montrer(courant + (event.key === "ArrowRight" ? 1 : -1));
   });
 
   // Glisser l'image : vers la gauche, le temps suivant ; vers la droite, le précédent.

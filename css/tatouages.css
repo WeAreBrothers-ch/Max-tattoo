@@ -274,6 +274,7 @@
 .chapitre-suite {
   display: grid;
   gap: 0.6rem;
+  margin-top: 3.5rem;
 }
 
 /* Le chapitre qu'on vient d'ouvrir : le dessin sort du flou, le reste le suit. */
@@ -351,26 +352,32 @@
   .chapitre-suite {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--gap);
+    margin-top: clamp(3rem, 7vw, 4.5rem);
   }
 }
 
 /*
- * Ordinateur, comme avant la refonte : le dessin de Maxime et le grand titre
- * à gauche, le texte à droite ; dessous, les images vont par quatre (croquis
- * et peau, puis les deux films), et les autres pièces sur une rangée.
+ * Ordinateur : tout le chapitre tient sur une seule grille de douze colonnes
+ * (en-tête et corps se fondent dans .chapitre). Le dessin et le titre à
+ * gauche, le texte à droite ; dessous, quatre images à la file : croquis et
+ * peau, puis les films ; puis les autres pièces, avec les boutons de thème
+ * dans la case laissée libre. Un chapitre à un seul film y pose la phrase de
+ * Maxime à côté : aucune case vide.
  */
 @media (min-width: 1024px) {
   .chapitre {
-    padding-top: clamp(2.5rem, 5vw, 4rem);
-    padding-bottom: 0;
-  }
-
-  .chapitre-tete {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap);
     align-items: start;
-    text-align: left;
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+    padding-bottom: 0;
+    --avant-bloc: clamp(3.5rem, 6vw, 5rem);
+  }
+
+  .chapitre-tete,
+  .chapitre-corps {
+    display: contents;
   }
 
   .chapitre-embleme {
@@ -384,6 +391,7 @@
   .chapitre-titre,
   .chapitre-compte {
     grid-column: 3 / span 5;
+    text-align: left;
   }
 
   .chapitre-num {
@@ -405,6 +413,7 @@
     grid-column: 8 / -1;
     align-self: start;
     max-width: none;
+    text-align: left;
   }
 
   .chapitre-texte {
@@ -418,28 +427,65 @@
     margin-top: 1.75rem;
   }
 
-  .chapitre-corps {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(4rem, 6vw, 5.5rem) var(--gap);
-    align-items: start;
-    margin-top: clamp(3.5rem, 6vw, 5rem);
+  .paire,
+  .bloc-films {
+    grid-row: 5;
+    margin-top: var(--avant-bloc);
   }
 
-  .chapitre-corps > * + * {
-    margin-top: 0;
+  .paire {
+    grid-column: 1 / span 6;
   }
 
-  .chapitre-corps > .bloc-pieces,
-  .chapitre-corps > .chapitre-suite {
+  .bloc-films {
+    grid-column: 7 / -1;
+  }
+
+  /* Un seul film : il tient une case, la phrase de Maxime prend la suivante. */
+  .chapitre--un-film .bloc-films {
+    grid-column: 7 / span 3;
+  }
+
+  .chapitre--un-film .films {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chapitre--un-film .chapitre-pensee {
+    grid-column: 10 / -1;
+    grid-row: 5;
+    margin-top: calc(var(--avant-bloc) + 3.3rem);
+  }
+
+  .bloc-pieces {
     grid-column: 1 / -1;
-  }
-
-  .chapitre-suite {
+    grid-row: 6;
+    display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--gap);
+    row-gap: 2.75rem;
+    align-items: start;
+    margin-top: var(--avant-bloc);
   }
 
-  .chapitre-suite > :first-child {
+  .bloc-pieces > .bloc-titre {
+    grid-column: 1 / -1;
+    margin-bottom: -1.5rem;
+  }
+
+  /* Les images deviennent des cases de la grille du bloc. */
+  .pieces--chapitre {
+    display: contents;
+  }
+
+  .bloc-pieces .chapitre-suite {
     grid-column: span 2;
+    margin-top: 0;
+    grid-template-columns: minmax(0, 1fr);
+    align-self: start;
+  }
+
+  /* Trois pièces : les boutons tiennent dans la dernière case. */
+  .bloc-pieces:has(.pieces > :nth-child(3):last-child) .chapitre-suite {
+    grid-column: span 1;
   }
 }

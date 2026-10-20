@@ -77,6 +77,49 @@
   font-variant-numeric: lining-nums;
 }
 
+/* Deux flèches carrées sur l'image : le temps précédent, le suivant. */
+.scene-fleche {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-top: -1.375rem;
+  border: 1px solid rgb(244 241 235 / 0.5);
+  background: rgb(0 0 0 / 0.55);
+  color: var(--blanc);
+  font-size: 1.25rem;
+  transition: background-color 300ms var(--ease), color 300ms var(--ease), opacity 300ms var(--ease);
+}
+
+.scene-fleche--prec {
+  left: 0.75rem;
+}
+
+.scene-fleche--suiv {
+  right: 0.75rem;
+}
+
+.scene-fleche:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scene-fleche:active {
+  background: var(--blanc);
+  color: var(--noir);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scene-fleche:hover {
+    background: var(--blanc);
+    color: var(--noir);
+  }
+}
+
 /* Les quatre temps : un trait qui se remplit, le chiffre, le mot. */
 .scene-etapes {
   display: grid;
@@ -315,10 +358,17 @@
     padding-top: clamp(1.5rem, 4vw, 3.5rem);
   }
 
+  /* Le cadre reste à gauche, sous les yeux, pendant qu'on lit la documentation. */
   .scene {
+    position: sticky;
+    top: calc(var(--entete-h) + 1.25rem);
     grid-column: 1 / span 4;
     max-width: none;
     margin-inline: 0;
+  }
+
+  .scene-cadre {
+    max-height: calc(100svh - var(--entete-h) - 9rem);
   }
 
   .doc {

@@ -179,29 +179,32 @@
 }
 
 /*
- * Ordinateur : une planche par rangée, le dessin sur trois colonnes à
- * gauche (la taille des pièces de l'accueil), son nom et le reste à droite.
+ * Ordinateur : deux planches côte à côte ; dans chacune, le dessin à gauche
+ * (la taille des pièces de l'accueil), son nom, ses mesures et le bouton à
+ * droite. Toute la largeur sert, sans colonne vide.
  */
 @media (min-width: 1024px) {
   .planches-grandes {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 4vw, 4rem);
     row-gap: clamp(3.5rem, 6vw, 5rem);
+    align-items: start;
   }
 
   .planche-grande {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(5, auto) 1fr;
     column-gap: var(--gap);
     align-items: start;
   }
 
   .planche-grande > * {
-    grid-column: 5 / span 6;
+    grid-column: 2;
   }
 
   .planche-grande .cadre {
-    grid-column: 1 / span 3;
+    grid-column: 1;
     grid-row: 1 / -1;
     width: 100%;
     margin: 0;
@@ -209,7 +212,7 @@
 
   .planche-grande .planche-titre {
     margin-top: 1.5rem;
-    font-size: clamp(2.5rem, 3.6vw, 3.5rem);
+    font-size: clamp(2.25rem, 3.2vw, 3.5rem);
   }
 
   .planche-grande .bouton {
@@ -323,8 +326,8 @@
 
 @media (min-width: 768px) {
   .retournes {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 3rem var(--gap);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem clamp(1.5rem, 4vw, 4rem);
   }
 
   .retourne-carte .planche-titre {
@@ -342,8 +345,24 @@
   }
 }
 
+/* Ordinateur : chaque carte à gauche, sa légende à côté, comme les planches. */
 @media (min-width: 1024px) {
-  .retournes {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .retourne-carte {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: start;
+  }
+
+  .retourne-carte figcaption {
+    padding-top: 0.25rem;
+  }
+
+  .retourne-carte .planche-titre {
+    font-size: clamp(1.75rem, 2.4vw, 2.5rem);
+  }
+
+  .retourne-carte .planche-infos {
+    flex-direction: column;
   }
 }
