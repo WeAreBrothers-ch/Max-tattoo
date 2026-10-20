@@ -1,45 +1,11 @@
 /*
- * Rendez-vous : l'emblème de la main au serpent, les deux canaux, puis le
+ * Rendez-vous : les deux canaux, puis le
  * message, déjà écrit sur une carte de papier (js/composeur.js) : on touche
  * les mots soulignés pour les changer (le sélecteur du téléphone s'ouvre),
  * on coche ses jours sur la carte même, et elle part par e-mail ou se copie
  * pour Instagram. Sans script, la liste de ce qu'il faut écrire reste à sa
  * place.
  */
-
-/* Tête : l'emblème au-dessus du titre, centré au téléphone, à droite au-delà. */
-.tete-rdv {
-  position: relative;
-}
-
-.tete-rdv-embleme {
-  align-self: center;
-  width: auto;
-  height: clamp(9.5rem, 42vw, 12.5rem);
-  margin-bottom: 1.75rem;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .tete-rdv-embleme {
-    animation: embleme-arrive 1300ms ease-out 150ms both;
-  }
-}
-
-@keyframes embleme-arrive {
-  from {
-    opacity: 0;
-    filter: blur(12px);
-    transform: scale(0.94);
-  }
-}
-
-@media (min-width: 768px) {
-  .tete-rdv-embleme {
-    align-self: flex-end;
-    height: clamp(11rem, 19vw, 17rem);
-    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  }
-}
 
 /* Le message : la carte, puis ce qu'on en fait. */
 .composeur {
@@ -321,19 +287,37 @@ textarea.lettre-champ:focus {
   }
 }
 
-/* Ordinateur : la carte à gauche, les deux façons de l'envoyer à droite. */
+/*
+ * Ordinateur : la carte reste une vraie carte, étroite et haute, posée à
+ * gauche ; à droite, un court texte puis les deux façons de l'envoyer.
+ */
 @media (min-width: 1024px) {
   .composeur {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap);
-    align-items: end;
+    align-items: center;
   }
 
   .lettre {
-    grid-column: 1 / span 7;
+    grid-column: 1 / span 5;
+    padding: 3rem 3rem 3.25rem;
+  }
+
+  .lettre-embleme {
+    height: 6.5rem;
+  }
+
+  .lettre-corps {
+    margin-top: 1.75rem;
+    font-size: 1.5rem;
+    line-height: 2;
+  }
+
+  .jours {
+    max-width: 26rem;
   }
 
   .composeur-suite {
-    grid-column: 9 / -1;
+    grid-column: 7 / span 5;
   }
 }

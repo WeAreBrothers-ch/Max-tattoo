@@ -32,7 +32,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 - **Tatouages** : un thème à la fois (`js/themes.js`) ; l'adresse garde le thème (`tatouages.html#cranes`), le « retour » ramène au précédent puis aux quatre dessins. Les quatre emblèmes restent en onglets collés sous la barre, sur un noir plein qui passe sous son fondu : aucun jour entre les deux. Même chose pour les onglets des Flashs, deux gros boutons carrés (blanc plein sur celui qui est ouvert), collés seulement le temps du catalogue.
 - **Processus** : un cadre unique (`js/processus.js`) ; on touche un temps, on glisse l'image, on touche les flèches posées sur l'image ou les touches ← →, la nouvelle se découvre de bas en haut ; seule la documentation de ce temps s'affiche (`processus.html#encre`).
 - **Flashs** : onglets « Disponibles » / « Déjà tatoués » (`js/onglets.js`) ; un dessin tatoué se retourne sur la pièce portée (`js/retourne.js`). « Réserver ce dessin » ouvre le formulaire avec ce flash déjà choisi (`rendez-vous.html?flash=dague-et-roses#ecrire`).
-- **Rendez-vous** : le message est déjà écrit sur une carte de papier (`js/composeur.js`) : papier crème au grain léger, double filet rouge, l'œil de Maxime imprimé à l'encre en tête. Les choix (flash ou projet, l'endroit, la taille) sont des champs encadrés de rouge, avec leur flèche, posés dans la phrase ; chacun cache un vrai sélecteur : le toucher ouvre la liste du téléphone. « ailleurs… » ouvre une ligne pour préciser l'endroit, un projet ouvre des lignes réglées pour l'idée, et les jours se cochent sur la carte (carrés pleins d'encre une fois cochés). Le message part par e-mail (sujet et texte déjà remplis) ou se copie pour Instagram.
+- **Rendez-vous** (en-tête sobre comme les autres pages, sans dessin sur le côté ; sur ordinateur la carte est étroite et haute, posée à gauche, les boutons d'envoi à droite) : le message est déjà écrit sur une carte de papier (`js/composeur.js`) : papier crème au grain léger, double filet rouge, l'œil de Maxime imprimé à l'encre en tête. Les choix (flash ou projet, l'endroit, la taille) sont des champs encadrés de rouge, avec leur flèche, posés dans la phrase ; chacun cache un vrai sélecteur : le toucher ouvre la liste du téléphone. « ailleurs… » ouvre une ligne pour préciser l'endroit, un projet ouvre des lignes réglées pour l'idée, et les jours se cochent sur la carte (carrés pleins d'encre une fois cochés). Le message part par e-mail (sujet et texte déjà remplis) ou se copie pour Instagram.
 - **Visionneuse** : l'œuvre grandit depuis sa vignette ; on glisse de l'une à l'autre, on la tire vers le bas pour la reposer, et elle retourne à sa place.
 - **Retour du téléphone** : le bouton ou le geste « retour » referme le menu ou la visionneuse au lieu de quitter la page.
 - **Animations** : courtes sur téléphone (on y fait défiler vite), aucune ne fait attendre le pouce. D'une page à l'autre, la barre du haut ne bouge pas. Zones tactiles de 44 px, marges de sécurité (encoche).
@@ -59,7 +59,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 │   ├── tatouages.css     quatre dessins à choisir, onglets d'emblèmes, chapitres
 │   ├── processus.css     cadre des quatre temps, documentation
 │   ├── flashs.css        onglets, planches en grand, cartes qui se retournent
-│   ├── rendez-vous.css   emblème, carte du message à compléter
+│   ├── rendez-vous.css   carte du message à compléter
 │   ├── visionneuse.css   œuvres en grand
 │   └── pied.css
 ├── js/
