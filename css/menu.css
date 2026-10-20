@@ -1,7 +1,11 @@
 /*
- * Menu : une table des matières plein écran. À l'ouverture, la page s'efface,
- * la brume reste et la gravure rouge remonte du fond (voir js/fond.js) ;
- * les chapitres montent un à un, chacun sous son filet.
+ * Menu : une table des matières plein écran. À l'ouverture, un rideau noir
+ * descend et couvre toute la page avant que rien n'apparaisse : la page ne
+ * se voit jamais sous les chapitres. Puis le rideau s'éclaircit, la brume
+ * reste et la gravure rouge remonte du fond (voir js/fond.js) ; les
+ * chapitres montent un à un, chacun sous son filet. À la fermeture, le
+ * rideau revient, la page reprend sa place dessous et il continue sa
+ * descente pour la découvrir.
  * Téléphone : la barre en haut, où « Fermer » prend la place exacte du bouton
  * « Menu » ; l'emblème du chapitre au-dessous, la liste en bas sous le pouce.
  * Ordinateur : la liste à gauche, l'emblème à droite.
@@ -43,14 +47,81 @@ html.menu-ouvert {
   overflow: hidden;
 }
 
-main,
-.pied {
-  transition: opacity 700ms var(--ease);
+/*
+ * La page disparaît d'un coup, une fois le rideau tiré (--rideau-ferme) ;
+ * à la fermeture, elle revient d'un coup, derrière le rideau.
+ */
+html.menu-ouvert :is(main, .pied, .entete, .barre) {
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear var(--rideau-couvre);
 }
 
-html.menu-ouvert :is(main, .pied, .entete, .barre) {
-  opacity: 0;
+:root {
+  --rideau-couvre: 420ms;
+}
+
+/* Le rideau : un noir plein qui descend, puis s'éclaircit sur la gravure. */
+.menu-rideau {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--noir);
   pointer-events: none;
+  opacity: 0;
+}
+
+/* Le rideau part dès l'ouverture, sans attendre l'image suivante. */
+.menu.anime[open]:not(.se-ferme) .menu-rideau {
+  animation: rideau-ouvre 1000ms both;
+}
+
+.menu.anime.se-ferme .menu-rideau {
+  animation: rideau-ferme 900ms both;
+}
+
+@keyframes rideau-ouvre {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  42% {
+    clip-path: inset(0);
+    opacity: 1;
+    animation-timing-function: ease;
+  }
+
+  100% {
+    clip-path: inset(0);
+    opacity: 0;
+  }
+}
+
+@keyframes rideau-ferme {
+  0% {
+    clip-path: inset(0);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+
+  34% {
+    clip-path: inset(0);
+    opacity: 1;
+    animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  100% {
+    clip-path: inset(100% 0 0 0);
+    opacity: 1;
+  }
+}
+
+/* Tout ce qui est écrit passe devant le rideau (sans peser sur les placements qui suivent). */
+.menu > :where(:not(.menu-rideau)) {
+  position: relative;
+  z-index: 1;
 }
 
 /* Haut : le nom, qui ramène à l'accueil. */
@@ -104,12 +175,15 @@ html.menu-ouvert :is(main, .pied, .entete, .barre) {
   transform: rotate(-45deg);
 }
 
-/* Emblème du chapitre (gravure blanche) : tout le haut de l'écran sur téléphone. */
+/*
+ * Emblème du chapitre (gravure blanche) : tout le haut de l'écran sur
+ * téléphone, jamais plus petit qu'un timbre, même sur un petit écran.
+ */
 .menu-emblemes {
   position: relative;
   flex: 1 1 0;
   order: 1;
-  min-height: 0;
+  min-height: 8.5rem;
   margin: 0.5rem var(--gouttiere) 1.25rem;
   pointer-events: none;
 }
@@ -206,8 +280,20 @@ html.menu-ouvert :is(main, .pied, .entete, .barre) {
   color: var(--blanc-doux);
 }
 
-.menu-lien[aria-current="page"] .menu-num {
+/* La page où l'on est : chiffre et folio à l'encre rouge, un losange devant le folio. */
+.menu-lien[aria-current="page"] :is(.menu-num, .menu-folio) {
   color: var(--sang-vif);
+}
+
+.menu-lien[aria-current="page"] .menu-folio::before {
+  content: "";
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  margin-right: 0.6em;
+  background: currentColor;
+  rotate: 45deg;
+  translate: 0 -0.15em;
 }
 
 .menu-pied {
@@ -218,7 +304,7 @@ html.menu-ouvert :is(main, .pied, .entete, .barre) {
   align-items: center;
   order: 3;
   gap: 0 1.5rem;
-  padding: 0.5rem var(--gouttiere) 0.75rem;
+  padding: 0.5rem var(--gouttiere) calc(0.75rem + var(--bas));
 }
 
 .menu-contacts {
@@ -232,8 +318,26 @@ html.menu-ouvert :is(main, .pied, .entete, .barre) {
   min-height: 2.75rem;
 }
 
-.menu-lieu {
+/* Le son, avec son nom : « Son coupé » ou « Son allumé ». */
+.menu-son {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 2.75rem;
   color: var(--blanc-doux);
+}
+
+.menu-son[aria-pressed="true"] {
+  color: var(--blanc);
+}
+
+.menu-son[aria-pressed="true"] .son-coupe,
+.menu-son:not([aria-pressed="true"]) .son-allume {
+  display: none;
+}
+
+.menu-son:active {
+  opacity: 0.55;
 }
 
 /* Barre du menu, en haut : « Fermer » à l'endroit exact de « Menu », toujours visible. */
@@ -397,21 +501,24 @@ html.menu-ouvert :is(main, .pied, .entete, .barre) {
   outline-offset: -1px;
 }
 
-/* Animations, seulement quand le script pilote l'ouverture. */
+/*
+ * Animations, seulement quand le script pilote l'ouverture. Rien n'apparaît
+ * avant que le rideau ait couvert la page (--rideau-couvre).
+ */
 .menu.anime .menu-item::before,
 .menu.anime .menu-item:last-child::after {
   transform: scaleX(0);
-  transition: transform 1000ms var(--ease) calc(var(--i, 0) * 70ms + 60ms);
+  transition: transform 1000ms var(--ease) calc(var(--i, 0) * 70ms + var(--rideau-couvre) - 60ms);
 }
 
 .menu.anime .menu-titre {
   transform: translateY(110%);
-  transition: transform 900ms var(--ease) calc(var(--i, 0) * 70ms + 140ms), translate 700ms var(--ease);
+  transition: transform 900ms var(--ease) calc(var(--i, 0) * 70ms + var(--rideau-couvre)), translate 700ms var(--ease);
 }
 
 .menu.anime :is(.menu-num, .menu-folio, .menu-pied, .menu-tete) {
   opacity: 0;
-  transition: opacity 700ms var(--ease) calc(var(--i, 0) * 70ms + 360ms), color 400ms var(--ease);
+  transition: opacity 700ms var(--ease) calc(var(--i, 0) * 70ms + var(--rideau-couvre) + 200ms), color 400ms var(--ease);
 }
 
 .menu.anime .menu-tete {
@@ -422,7 +529,7 @@ html.menu-ouvert :is(main, .pied, .entete, .barre) {
 .menu.anime .menu-emblemes {
   opacity: 0;
   translate: 0 1rem;
-  transition: opacity 900ms var(--ease) 200ms, translate 1200ms var(--ease) 200ms;
+  transition: opacity 900ms var(--ease) var(--rideau-couvre), translate 1200ms var(--ease) var(--rideau-couvre);
 }
 
 .menu.anime.est-ouvert .menu-item::before,
@@ -443,20 +550,28 @@ html.menu-ouvert :is(main, .pied, .entete, .barre) {
   translate: 0 0;
 }
 
-/* Fermeture : tout remonte et s'éteint d'un coup. */
+/*
+ * Fermeture : tout remonte et s'éteint pendant que le rideau revient ; la
+ * barre du menu s'efface juste avant que la page reprenne sa place.
+ */
 .menu.anime.se-ferme .menu-titre {
   transform: translateY(-110%);
-  transition: transform 420ms var(--ease-sortie) calc(var(--i, 0) * 30ms);
+  transition: transform 320ms var(--ease-sortie) calc(var(--i, 0) * 25ms);
 }
 
 .menu.anime.se-ferme :is(.menu-num, .menu-folio, .menu-pied, .menu-tete, .menu-emblemes) {
   opacity: 0;
-  transition: opacity 280ms ease 0ms;
+  transition: opacity 220ms ease 0ms;
+}
+
+.menu.anime.se-ferme .menu-barre {
+  opacity: 0;
+  transition: opacity 180ms ease 120ms;
 }
 
 .menu.anime.se-ferme .menu-item::before,
 .menu.anime.se-ferme .menu-item:last-child::after {
   transform: scaleX(0);
   transform-origin: right center;
-  transition: transform 420ms var(--ease-sortie);
+  transition: transform 320ms var(--ease-sortie);
 }

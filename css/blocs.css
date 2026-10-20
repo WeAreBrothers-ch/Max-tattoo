@@ -1,0 +1,203 @@
+/*
+ * Blocs partagés par les pages : titre de bloc, tirage sur papier, du croquis
+ * à la peau, films, fiche, grille de pièces, pensée sous filet rouge.
+ */
+
+/* Titre de bloc : petites capitales, un filet dessous. */
+.bloc-titre {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid var(--filet);
+  color: var(--blanc-doux);
+}
+
+.bloc-titre > :last-child:not(:first-child) {
+  text-align: right;
+}
+
+/* Tirage sur papier : un dessin posé de travers sur la table, avec son ombre. */
+.cadre.papier {
+  background: #e9e2d4;
+  box-shadow: 0 0.9rem 2rem rgb(0 0 0 / 0.6);
+  rotate: var(--penche, -1.6deg);
+}
+
+/*
+ * Du croquis à la peau : deux images côte à côte, la seconde plus bas, comme
+ * deux tirages posés l'un après l'autre.
+ */
+.paire-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: start;
+  margin-top: 1.25rem;
+}
+
+.paire-grille > :last-child {
+  margin-top: 3rem;
+}
+
+.paire .legende {
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-top: 0.9rem;
+}
+
+.paire .legende-titre::before {
+  content: attr(data-num);
+  margin-right: 0.6em;
+  font-family: var(--font-capitales);
+  font-size: 0.8em;
+  letter-spacing: 0.08em;
+  color: var(--sang-vif);
+}
+
+@media (min-width: 768px) {
+  .paire-grille {
+    column-gap: clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .paire-grille > :last-child {
+    margin-top: clamp(3rem, 8vw, 6rem);
+  }
+}
+
+/* Films : une ou deux vidéos qui tournent seules, un mot « Pause » dessous. */
+.films {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: 1.25rem;
+}
+
+.films--un {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.film .cadre {
+  aspect-ratio: 9 / 16;
+}
+
+.films--un .film .cadre {
+  aspect-ratio: 4 / 5;
+}
+
+.film-legende {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  padding-top: 0.35rem;
+}
+
+.film-titre {
+  font-size: 1.0625rem;
+  line-height: 1.15;
+}
+
+.film-pause {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  min-height: 2.75rem;
+  padding-left: 0.5rem;
+  color: var(--blanc-doux);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+}
+
+.film-pause:active {
+  opacity: 0.55;
+}
+
+@media (min-width: 768px) {
+  .films--un {
+    grid-template-columns: minmax(0, 32rem);
+  }
+
+  .film-titre {
+    font-size: 1.1875rem;
+  }
+}
+
+/* Fiche : quatre repères en deux colonnes, le libellé à l'encre rouge. */
+.fiche {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--filet);
+}
+
+.fiche > div {
+  padding: 0.8rem 0.9rem 0.9rem 0;
+  border-bottom: 1px solid var(--filet);
+}
+
+.fiche > div:nth-child(even) {
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--filet);
+}
+
+.fiche dt {
+  color: var(--sang-vif);
+}
+
+.fiche dd {
+  margin-top: 0.3rem;
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 1024px) {
+  .fiche dd {
+    font-size: 1.3125rem;
+  }
+}
+
+/*
+ * Grille de pièces : deux colonnes au pouce, trois sur tablette, quatre sur
+ * ordinateur (ou --colonnes) ; toutes au format 3 / 4, la légende dessous.
+ */
+.pieces {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem var(--gap);
+  align-items: start;
+}
+
+.pieces .cadre {
+  aspect-ratio: 3 / 4;
+}
+
+.pieces .legende {
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-top: 0.65rem;
+}
+
+@media (min-width: 768px) {
+  .pieces {
+    grid-template-columns: repeat(var(--colonnes-tablette, 3), minmax(0, 1fr));
+    row-gap: 2.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pieces {
+    grid-template-columns: repeat(var(--colonnes, 4), minmax(0, 1fr));
+  }
+}
+
+/* Pensée sous un court filet rouge. */
+.pensee--filet::before {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  margin-bottom: 1rem;
+  border-top: 1px solid var(--sang-vif);
+}

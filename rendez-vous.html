@@ -39,12 +39,12 @@
   <nav class="barre" aria-label="Navigation">
     <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
     <div class="barre-actions">
-      <button class="barre-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
       <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="barre-icone" aria-hidden="true"></span></button>
     </div>
   </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-rideau" aria-hidden="true"></div>
     <div class="menu-tete">
       <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
       <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
@@ -59,7 +59,7 @@
     </nav>
     <div class="menu-pied cap">
       <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
-      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+      <button class="menu-son" type="button" data-musique aria-pressed="false"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span><span class="son-coupe">Son coupé</span><span class="son-allume">Son allumé</span></button>
     </div>
     <div class="menu-emblemes" aria-hidden="true">
       <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
@@ -74,16 +74,17 @@
   </dialog>
 
   <main id="contenu">
-    <header class="page-tete contenu">
+    <header class="page-tete tete-rdv contenu">
+      <img class="tete-rdv-embleme" src="assets/img/em-serpent.webp" alt="" decoding="async" width="605" height="900" />
       <p class="page-surtitre cap"><span>IV — Rendez-vous</span><span>Réponse sous 48 heures</span></p>
       <h1 class="page-titre" style="--mots: 5.42">Rendez-vous</h1>
       <div class="page-intro">
-        <p class="page-intro-texte">Pour réserver un flash ou proposer un projet, écrire à Maxime avec le dessin choisi ou l'idée, l'emplacement et la taille. Une date et un devis suivent sous 48 heures.</p>
+        <p class="page-intro-texte">Pour un flash ou un projet, quelques lignes suffisent&nbsp;: le dessin choisi ou l'idée, l'emplacement et la taille. Une date et un devis suivent sous 48 heures.</p>
         <p class="page-meta cap"><span>Studio privé, Suisse romande</span><span>Sur rendez-vous, en semaine</span></p>
       </div>
     </header>
 
-    <section class="section contenu" id="ecrire" aria-labelledby="titre-ecrire">
+    <section class="section contenu voile" id="ecrire" aria-labelledby="titre-ecrire">
       <div class="section-filet cap"><span>I</span><span>Écrire</span></div>
       <h2 class="masque" id="titre-ecrire">Écrire à Maxime</h2>
       <ul class="canaux">
@@ -92,21 +93,86 @@
       </ul>
     </section>
 
-    <section class="section contenu" id="message" aria-labelledby="titre-message">
+    <section class="section contenu voile" id="message" aria-labelledby="titre-message">
       <div class="section-filet cap"><span>II</span><span>Le message</span></div>
       <div class="section-tete">
-        <h2 class="section-titre" id="titre-message" data-revele="titre">Ce qu'il faut écrire</h2>
-        <p class="section-chapeau" data-revele="texte">Quelques lignes suffisent. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
+        <h2 class="section-titre" id="titre-message" data-revele="titre">Préparer le message</h2>
+        <p class="section-chapeau" data-revele="texte">Quelques choix, et le message s'écrit tout seul sur la carte. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
       </div>
-      <ol class="message-liste">
+      <ol class="message-liste" data-message-liste>
         <li data-revele="texte">Le nom du flash choisi, ou l'idée du projet</li>
         <li data-revele="texte">L'emplacement sur le corps</li>
         <li data-revele="texte">La taille approximative</li>
         <li data-revele="texte">Vos disponibilités en semaine</li>
       </ol>
+      <form class="composeur" data-composeur hidden>
+        <div class="composeur-choix">
+          <fieldset class="groupe">
+            <legend class="groupe-titre cap"><span class="groupe-num">1</span>Pour</legend>
+            <div class="etiquettes">
+              <label class="etiquette"><input type="radio" name="pour" value="flash" checked /><span>Un flash</span></label>
+              <label class="etiquette"><input type="radio" name="pour" value="projet" /><span>Un projet personnel</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="groupe" data-si="flash">
+            <legend class="groupe-titre cap"><span class="groupe-num">2</span>Quel flash</legend>
+            <div class="etiquettes">
+              <label class="etiquette"><input type="radio" name="flash" value="Dague et roses" data-cle="dague-et-roses" checked /><span>Dague et roses</span></label>
+              <label class="etiquette"><input type="radio" name="flash" value="Masse d'armes" data-cle="masse-d-armes" /><span>Masse d'armes</span></label>
+            </div>
+          </fieldset>
+          <div class="groupe" data-si="projet" hidden>
+            <label class="groupe-titre cap" for="idee"><span class="groupe-num">2</span>L'idée</label>
+            <textarea class="champ" id="idee" name="idee" rows="3" placeholder="Une main qui tient une clé, avec des roses…"></textarea>
+          </div>
+          <fieldset class="groupe">
+            <legend class="groupe-titre cap"><span class="groupe-num">3</span>Où, sur le corps</legend>
+            <div class="etiquettes">
+              <label class="etiquette"><input type="radio" name="ou" value="l'avant-bras" checked /><span>Avant-bras</span></label>
+              <label class="etiquette"><input type="radio" name="ou" value="le bras" /><span>Bras</span></label>
+              <label class="etiquette"><input type="radio" name="ou" value="la cuisse" /><span>Cuisse</span></label>
+              <label class="etiquette"><input type="radio" name="ou" value="le mollet" /><span>Mollet</span></label>
+              <label class="etiquette"><input type="radio" name="ou" value="ailleurs" /><span>Ailleurs</span></label>
+            </div>
+            <div class="groupe-precis" data-si-ailleurs hidden>
+              <label class="masque" for="ailleurs">Préciser l'endroit</label>
+              <input class="champ" id="ailleurs" name="ailleurs" type="text" placeholder="Précisez : l'épaule, le flanc, le dos…" autocomplete="off" />
+            </div>
+          </fieldset>
+          <fieldset class="groupe">
+            <legend class="groupe-titre cap"><span class="groupe-num">4</span>Taille</legend>
+            <div class="etiquettes">
+              <label class="etiquette"><input type="radio" name="taille" value="en petit, moins de 10 cm" /><span>Moins de 10 cm</span></label>
+              <label class="etiquette"><input type="radio" name="taille" value="entre 10 et 20 cm" checked /><span>10 à 20 cm</span></label>
+              <label class="etiquette"><input type="radio" name="taille" value="en grand, plus de 20 cm" /><span>Plus de 20 cm</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="groupe">
+            <legend class="groupe-titre cap"><span class="groupe-num">5</span>Disponible en semaine, plusieurs choix possibles</legend>
+            <div class="etiquettes">
+              <label class="etiquette"><input type="checkbox" name="jours" value="lundi" /><span>Lundi</span></label>
+              <label class="etiquette"><input type="checkbox" name="jours" value="mardi" /><span>Mardi</span></label>
+              <label class="etiquette"><input type="checkbox" name="jours" value="mercredi" /><span>Mercredi</span></label>
+              <label class="etiquette"><input type="checkbox" name="jours" value="jeudi" /><span>Jeudi</span></label>
+              <label class="etiquette"><input type="checkbox" name="jours" value="vendredi" /><span>Vendredi</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="composeur-carte">
+          <div class="lettre">
+            <p class="lettre-tete cap"><span>Votre message</span><span>À Maxime</span></p>
+            <p class="lettre-texte" data-lettre aria-live="polite"></p>
+          </div>
+          <div class="composeur-actions">
+            <a class="bouton bouton--plein bouton--large cap" href="#" data-envoyer><span>Envoyer par e-mail</span><span class="fleche" aria-hidden="true">→</span></a>
+            <button class="bouton bouton--large cap" type="button" data-copier><span data-copier-libelle>Copier pour Instagram</span><span class="fleche" aria-hidden="true">→</span></button>
+          </div>
+          <p class="composeur-note">L'e-mail s'ouvre dans votre messagerie, le message déjà écrit. Pour Instagram, collez-le dans un message privé. Joignez une photo de l'emplacement si vous en avez une.</p>
+        </div>
+      </form>
     </section>
 
-    <section class="section contenu" id="deroulement" aria-labelledby="titre-deroulement">
+    <section class="section contenu voile" id="deroulement" aria-labelledby="titre-deroulement">
       <div class="section-filet cap"><span>III</span><span>Déroulement</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-deroulement" data-revele="titre">Déroulement</h2>
@@ -120,7 +186,7 @@
       </ol>
     </section>
 
-    <section class="section contenu" id="studio" aria-labelledby="titre-studio">
+    <section class="section contenu voile" id="studio" aria-labelledby="titre-studio">
       <div class="section-filet cap"><span>IV</span><span>Le studio</span></div>
       <div class="grille atelier">
         <figure class="oeuvre" style="--c: 1 / -1; --h: 2.5rem; --cd: 1 / span 5; --hd: 4rem" data-revele="image">
@@ -133,7 +199,7 @@
       </div>
     </section>
 
-    <section class="section contenu" id="soins" aria-labelledby="titre-soins">
+    <section class="section contenu voile" id="soins" aria-labelledby="titre-soins">
       <div class="section-filet cap"><span>V</span><span>Soins</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-soins" data-revele="titre">Après la séance</h2>
@@ -147,7 +213,7 @@
       </ul>
     </section>
 
-    <section class="section contenu" id="questions" aria-labelledby="titre-questions">
+    <section class="section contenu voile" id="questions" aria-labelledby="titre-questions">
       <div class="section-filet cap"><span>VI</span><span>Questions</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-questions" data-revele="titre">Questions</h2>
@@ -177,7 +243,7 @@
     </section>
   </main>
 
-  <footer class="pied contenu">
+  <footer class="pied contenu voile">
     <div class="pied-bas cap">
       <span>© 2026 Maxime, tatoueur</span>
       <span class="pied-liens"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></span>

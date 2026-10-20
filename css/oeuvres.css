@@ -30,13 +30,6 @@
   filter: brightness(1.08) saturate(82%) contrast(108%);
 }
 
-/* Pleine largeur sur téléphone : l'image touche les deux bords. */
-@media (max-width: 767px) {
-  .oeuvre--plein .cadre {
-    margin-inline: calc(var(--gouttiere) * -1);
-  }
-}
-
 .legende {
   display: flex;
   justify-content: space-between;
@@ -96,150 +89,6 @@
   }
 }
 
-/*
- * Défilé : une rangée qu'on fait glisser au pouce, une œuvre par geste.
- * La carte suivante dépasse de 1,75 rem pour inviter à glisser ; un compteur
- * et un filet (js/defileur.js) disent où l'on en est. Chaque galerie décide
- * à partir de quelle largeur elle redevient une grille.
- */
-.defileur {
-  position: relative;
-  display: flex;
-  gap: var(--gap);
-  margin-inline: calc(var(--gouttiere) * -1);
-  padding-inline: var(--gouttiere);
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: var(--gouttiere);
-  scrollbar-width: none;
-}
-
-.defileur::-webkit-scrollbar {
-  display: none;
-}
-
-/* Un geste, une œuvre : l'aimant arrête chaque carte, comme un album. */
-.defileur > * {
-  flex: 0 0 var(--carte, calc(100vw - 2 * var(--gouttiere) - 2.5rem));
-  margin-top: 0;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
-.defileur:focus-visible {
-  outline-offset: -1px;
-}
-
-.defileur-etat {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  height: 1.2rem;
-  margin-top: 1.1rem;
-  color: var(--blanc-doux);
-}
-
-/*
- * La place du compteur est réservée avant que le script ne l'ajoute : rien
- * ne descend sous la rangée quand il arrive.
- */
-@media (max-width: 767px) {
-  .defileur {
-    margin-bottom: 2.3rem;
-  }
-
-  .defileur + .defileur-etat {
-    margin-top: -1.2rem;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1023px) {
-  .planches.defileur {
-    margin-bottom: 2.3rem;
-  }
-
-  .planches.defileur + .defileur-etat {
-    margin-top: -1.2rem;
-  }
-}
-
-.defileur-etat[hidden] {
-  display: none;
-}
-
-.defileur-compteur {
-  flex: none;
-  min-width: 3.25em;
-  font-variant-numeric: lining-nums tabular-nums;
-}
-
-.defileur-piste {
-  position: relative;
-  flex: 1;
-  height: 1px;
-  overflow: hidden;
-  background: var(--filet);
-}
-
-.defileur-curseur {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 1px;
-  background: var(--blanc);
-  transition: transform 120ms linear;
-}
-
-/* Galerie en rangée à glisser sur téléphone, grille régulière dès 768 px. */
-@media (max-width: 767px) {
-  .galerie--defile .cadre {
-    aspect-ratio: 3 / 4;
-  }
-}
-
-@media (min-width: 768px) {
-  .galerie--defile.defileur {
-    display: grid;
-    margin-inline: 0;
-    padding-inline: 0;
-    overflow: visible;
-    scroll-snap-type: none;
-  }
-
-  .galerie--defile.defileur > * {
-    flex: none;
-  }
-}
-
-/*
- * Galeries de photos dès 768 px : toutes les œuvres au même format, en
- * rangées alignées (3 colonnes, puis 4 sur ordinateur). Les vidéos verticales
- * sont recadrées en 3 / 4 pour ne jamais casser une rangée.
- */
-@media (min-width: 768px) {
-  .grille.galerie--defile {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    row-gap: clamp(2.5rem, 4vw, 3.5rem);
-  }
-
-  .grille.galerie--defile > * {
-    grid-column: auto;
-    margin-top: 0;
-  }
-
-  .galerie--defile .cadre {
-    aspect-ratio: 3 / 4;
-  }
-}
-
-@media (min-width: 1024px) {
-  .grille.galerie--defile {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
 /* Planches de flashs : dessin sur papier, état de réservation. */
 .planche {
   position: relative;
@@ -269,15 +118,40 @@
   color: var(--blanc-doux);
 }
 
+/* Un losange d'encre devant l'état, comme la page en cours dans le menu. */
 .planche-etat::before {
   content: "";
   display: inline-block;
-  width: 0.45em;
-  height: 0.45em;
-  margin-right: 0.5em;
-  border-radius: 50%;
+  width: 0.4em;
+  height: 0.4em;
+  margin-right: 0.55em;
   background: currentColor;
-  transform: translateY(-0.12em);
+  rotate: 45deg;
+  translate: 0 -0.15em;
+}
+
+.planche.est-libre .planche-etat::before {
+  background: var(--sang-vif);
+}
+
+/* Dans une grille de pièces : le titre à la mesure de la colonne. */
+.pieces .planche-titre {
+  font-size: 1.1875rem;
+}
+
+.pieces .planche-infos {
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+@media (min-width: 1024px) {
+  .pieces .planche-titre {
+    font-size: 1.5rem;
+  }
+
+  .pieces .planche-infos {
+    flex-direction: row;
+  }
 }
 
 .planche.est-libre .planche-etat {
@@ -337,19 +211,5 @@
 @media (min-width: 1024px) {
   .pensee {
     font-size: 1.5rem;
-  }
-}
-
-/* Grande pensée posée à côté de son image (sur l'image, sur téléphone). */
-.pensee--grande {
-  font-size: clamp(1.375rem, 6vw, 1.875rem);
-  line-height: 1.16;
-  text-wrap: balance;
-}
-
-@media (min-width: 768px) {
-  .pensee--grande {
-    font-size: clamp(1.75rem, 4.2vw, 3.25rem);
-    line-height: 1.12;
   }
 }

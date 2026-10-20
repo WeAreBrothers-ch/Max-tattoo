@@ -39,12 +39,12 @@
   <nav class="barre" aria-label="Navigation">
     <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
     <div class="barre-actions">
-      <button class="barre-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
       <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="barre-icone" aria-hidden="true"></span></button>
     </div>
   </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-rideau" aria-hidden="true"></div>
     <div class="menu-tete">
       <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
       <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
@@ -59,7 +59,7 @@
     </nav>
     <div class="menu-pied cap">
       <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
-      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+      <button class="menu-son" type="button" data-musique aria-pressed="false"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span><span class="son-coupe">Son coupé</span><span class="son-allume">Son allumé</span></button>
     </div>
     <div class="menu-emblemes" aria-hidden="true">
       <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
@@ -74,68 +74,93 @@
   </dialog>
 
   <main id="contenu">
-    <header class="page-tete contenu">
+    <header class="page-tete page-tete--courte contenu">
       <p class="page-surtitre cap"><span>I — Flashs</span><span>Automne 2026</span></p>
       <h1 class="page-titre" style="--mots: 2.62">Flashs</h1>
       <div class="page-intro">
         <p class="page-intro-texte">Un flash est un dessin préparé à l'avance, tatoué une seule fois, puis rayé du catalogue. Il peut être légèrement adapté à l'endroit du corps, jamais redessiné pour quelqu'un d'autre.</p>
-        <p class="page-meta cap"><span>Deux dessins disponibles sur quatre</span><span>Mis à jour le 21 septembre 2026</span></p>
+        <dl class="releve">
+          <div><dt class="cap">Dessins</dt><dd>Quatre</dd></div>
+          <div><dt class="cap">Disponibles</dt><dd>Deux</dd></div>
+          <div><dt class="cap">Mis à jour</dt><dd>21 septembre</dd></div>
+        </dl>
       </div>
     </header>
 
-    <section class="section contenu" id="disponibles" aria-labelledby="titre-disponibles">
-      <div class="section-filet cap"><span>I</span><span>Disponibles</span></div>
-      <div class="section-tete">
-        <h2 class="section-titre" id="titre-disponibles" data-revele="titre">Disponibles</h2>
-        <p class="section-chapeau" data-revele="texte">Lames, mains et cierges&nbsp;: ce qu'on garde quand la lumière baisse. Des pièces verticales, pensées pour l'avant-bras et la cuisse. Chaque dessin part dans l'ordre des demandes.</p>
-      </div>
-      <div class="grille galerie flashs-libres" data-visionneuse data-melange>
-        <figure class="planche planche--grande oeuvre est-libre" data-revele="image">
-          <div class="cadre"><img src="assets/img/fl-dague-roses.jpg" alt="Dessin de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy" decoding="async" width="660" height="880" /></div>
-          <figcaption>
-            <span class="planche-titre">Dague et roses</span>
-            <span class="planche-infos cap"><span>14 × 20 cm — avant-bras, cuisse</span><span class="planche-etat">Disponible</span></span>
-            <a class="bouton cap planche-lien" href="rendez-vous.html#ecrire">Réserver ce dessin <span class="fleche" aria-hidden="true">→</span></a>
-          </figcaption>
-        </figure>
-        <figure class="planche planche--grande oeuvre est-libre" data-revele="image">
-          <div class="cadre"><img src="assets/img/fl-masse.jpg" alt="Planche de dessins : masse d'armes, cierge enchaîné, vase à l'œil, main à la rose" loading="lazy" decoding="async" width="660" height="880" /></div>
-          <figcaption>
-            <span class="planche-titre">Masse d'armes</span>
-            <span class="planche-infos cap"><span>12 × 18 cm — bras, mollet</span><span class="planche-etat">Disponible</span></span>
-            <a class="bouton cap planche-lien" href="rendez-vous.html#ecrire">Réserver ce dessin <span class="fleche" aria-hidden="true">→</span></a>
-          </figcaption>
-        </figure>
+    <nav class="onglets-flashs contenu" aria-label="Catalogue" data-onglets hidden>
+      <a class="onglet-flashs" href="#disponibles">Disponibles <span class="onglet-flashs-compte cap">2</span></a>
+      <a class="onglet-flashs" href="#tatoues">Déjà tatoués <span class="onglet-flashs-compte cap">2</span></a>
+    </nav>
+
+    <section class="catalogue contenu voile" id="disponibles" aria-labelledby="titre-disponibles" data-onglet-panneau>
+      <h2 class="catalogue-titre" id="titre-disponibles">Disponibles</h2>
+      <p class="catalogue-chapeau">Lames, mains et cierges&nbsp;: ce qu'on garde quand la lumière baisse. Des pièces verticales, pensées pour l'avant-bras et la cuisse. Chaque dessin part dans l'ordre des demandes.</p>
+      <div class="planches-grandes" data-melange data-visionneuse>
+        <article class="planche-grande oeuvre est-libre">
+          <p class="planche-grande-haut cap"><span class="planche-grande-num">Planche</span><span class="planche-etat">Disponible</span></p>
+          <div class="cadre papier" style="--penche: -1.4deg" data-revele="image"><img src="assets/img/fl-dague-roses.jpg" alt="Dessin à l'encre de deux mains, l'une tenant une dague, l'autre des roses" loading="lazy" decoding="async" width="660" height="880" /></div>
+          <h3 class="planche-titre">Dague et roses</h3>
+          <p class="pensee planche-grande-pensee">«&nbsp;L'une avec la dague, l'autre avec les roses&nbsp;: ce qu'on garde et ce qu'on donne.&nbsp;»</p>
+          <dl class="fiche">
+            <div><dt class="cap">Taille</dt><dd>14 × 20 cm</dd></div>
+            <div><dt class="cap">Pour</dt><dd>Avant-bras, cuisse</dd></div>
+            <div><dt class="cap">Exemplaire</dt><dd>Un seul</dd></div>
+            <div><dt class="cap">Adaptable</dt><dd>Légèrement</dd></div>
+          </dl>
+          <a class="bouton bouton--plein bouton--large cap" href="rendez-vous.html?flash=dague-et-roses#ecrire"><span>Réserver ce dessin</span><span class="fleche" aria-hidden="true">→</span></a>
+        </article>
+        <article class="planche-grande oeuvre est-libre">
+          <p class="planche-grande-haut cap"><span class="planche-grande-num">Planche</span><span class="planche-etat">Disponible</span></p>
+          <div class="cadre papier" style="--penche: 1.2deg" data-revele="image"><img src="assets/img/fl-masse.jpg" alt="Planche à l'encre : masse d'armes, cierge enchaîné, vase à l'œil, main à la rose" loading="lazy" decoding="async" width="660" height="880" /></div>
+          <h3 class="planche-titre">Masse d'armes</h3>
+          <p class="pensee planche-grande-pensee">«&nbsp;L'arme, la lumière et ce qui reste. Trois choses qui vont ensemble depuis longtemps.&nbsp;»</p>
+          <dl class="fiche">
+            <div><dt class="cap">Taille</dt><dd>12 × 18 cm</dd></div>
+            <div><dt class="cap">Pour</dt><dd>Bras, mollet</dd></div>
+            <div><dt class="cap">Exemplaire</dt><dd>Un seul</dd></div>
+            <div><dt class="cap">Adaptable</dt><dd>Légèrement</dd></div>
+          </dl>
+          <a class="bouton bouton--plein bouton--large cap" href="rendez-vous.html?flash=masse-d-armes#ecrire"><span>Réserver ce dessin</span><span class="fleche" aria-hidden="true">→</span></a>
+        </article>
       </div>
     </section>
 
-    <section class="section contenu" id="tatoues" aria-labelledby="titre-tatoues">
-      <div class="section-filet cap"><span>II</span><span>Déjà tatoués</span></div>
-      <div class="section-tete">
-        <h2 class="section-titre" id="titre-tatoues" data-revele="titre">Déjà tatoués</h2>
-        <p class="section-chapeau" data-revele="texte">Rayés jusqu'à la saison suivante, ils ne seront pas refaits. Leurs photos, une fois cicatrisés, sont parmi les <a class="lien" href="tatouages.html">pièces portées</a>.</p>
-      </div>
-      <div class="grille galerie" data-visionneuse>
-        <figure class="planche oeuvre est-tatoue" style="--c: 1 / span 3; --cd: 2 / span 4" data-revele="image">
-          <div class="cadre"><img src="assets/img/fl-serpent.jpg" alt="Dessin d'une main baguée enlacée par un serpent" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></div>
+    <section class="catalogue contenu voile" id="tatoues" aria-labelledby="titre-tatoues" data-onglet-panneau>
+      <h2 class="catalogue-titre" id="titre-tatoues">Déjà tatoués</h2>
+      <p class="catalogue-chapeau">Rayés jusqu'à la saison suivante, ils ne seront pas refaits. Touchez un dessin pour le retourner et voir la pièce portée.</p>
+      <div class="retournes">
+        <figure class="retourne-carte">
+          <button class="retourne" type="button" aria-pressed="false" aria-label="Serpent et main : voir le dessin ou la pièce portée" data-retourne>
+            <span class="retourne-interieur">
+              <span class="retourne-face retourne-face--dessin"><img src="assets/img/fl-serpent.jpg" alt="" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></span>
+              <span class="retourne-face retourne-face--peau"><img class="photo" src="assets/img/tt-serpent.jpg" alt="" loading="lazy" decoding="async" width="675" height="900" /></span>
+            </span>
+            <span class="retourne-indice cap" aria-hidden="true" hidden><span class="retourne-vers-peau">Voir la peau</span><span class="retourne-vers-dessin">Revoir le dessin</span></span>
+          </button>
           <figcaption>
             <span class="planche-titre">Serpent et main</span>
             <span class="planche-infos cap"><span>15 × 22 cm, cuisse</span><span class="planche-etat">Tatoué</span></span>
-            <a class="lien-fleche cap planche-lien" href="tatouages.html#mains">La pièce portée <span class="fleche" aria-hidden="true">→</span></a>
+            <a class="lien-fleche cap" href="tatouages.html#mains">La pièce portée, en grand <span class="fleche" aria-hidden="true">→</span></a>
           </figcaption>
         </figure>
-        <figure class="planche oeuvre est-tatoue" style="--c: 4 / span 3; --cd: 8 / span 4" data-revele="image">
-          <div class="cadre"><img src="assets/img/fl-oeil.jpg" alt="Dessin d'un œil rayonnant" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></div>
+        <figure class="retourne-carte">
+          <button class="retourne" type="button" aria-pressed="false" aria-label="Œil rayonnant : voir le dessin ou la pièce portée" data-retourne>
+            <span class="retourne-interieur">
+              <span class="retourne-face retourne-face--dessin"><img src="assets/img/fl-oeil.jpg" alt="" loading="lazy" decoding="async" width="660" height="880" /><span class="tampon" aria-hidden="true">Tatoué</span></span>
+              <span class="retourne-face retourne-face--peau"><img class="photo" src="assets/img/tt-oeil.jpg" alt="" loading="lazy" decoding="async" width="675" height="900" /></span>
+            </span>
+            <span class="retourne-indice cap" aria-hidden="true" hidden><span class="retourne-vers-peau">Voir la peau</span><span class="retourne-vers-dessin">Revoir le dessin</span></span>
+          </button>
           <figcaption>
             <span class="planche-titre">Œil rayonnant</span>
             <span class="planche-infos cap"><span>8 × 10 cm, coude</span><span class="planche-etat">Tatoué</span></span>
-            <a class="lien-fleche cap planche-lien" href="tatouages.html#yeux">La pièce portée <span class="fleche" aria-hidden="true">→</span></a>
+            <a class="lien-fleche cap" href="tatouages.html#yeux">La pièce portée, en grand <span class="fleche" aria-hidden="true">→</span></a>
           </figcaption>
         </figure>
       </div>
     </section>
 
-    <section class="section contenu" id="saisons" aria-labelledby="titre-saisons">
+    <section class="section contenu voile" id="saisons" aria-labelledby="titre-saisons">
       <div class="section-filet cap"><span>III</span><span>Saisons passées</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-saisons" data-revele="titre">Saisons passées</h2>
@@ -148,7 +173,7 @@
       </ol>
     </section>
 
-    <section class="section contenu" id="reserver" aria-labelledby="titre-reserver">
+    <section class="section contenu voile" id="reserver" aria-labelledby="titre-reserver">
       <div class="section-filet cap"><span>IV</span><span>Réserver</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-reserver" data-revele="titre">Réserver un flash</h2>
@@ -160,14 +185,14 @@
         <li data-revele="texte"><span class="deroule-num cap">III</span><h3 class="deroule-titre">Bloquer</h3><p>L'acompte réserve le dessin&nbsp;; il est déduit du prix final.</p></li>
         <li data-revele="texte"><span class="deroule-num cap">IV</span><h3 class="deroule-titre">Porter</h3><p>Le jour de la séance, le dessin est placé et validé ensemble dans le miroir.</p></li>
       </ol>
-      <p class="section-suite"><a class="bouton cap" href="rendez-vous.html#ecrire">Écrire à Maxime <span class="fleche" aria-hidden="true">→</span></a></p>
+      <p class="section-suite"><a class="bouton bouton--plein cap" href="rendez-vous.html#ecrire">Préparer mon message <span class="fleche" aria-hidden="true">→</span></a></p>
     </section>
   </main>
 
-  <footer class="pied contenu">
+  <footer class="pied contenu voile">
     <div class="pied-appel">
       <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
-      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
+      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous&nbsp;<span class="fleche" aria-hidden="true">→</span></span></a>
     </div>
     <div class="pied-bas cap">
       <span>© 2026 Maxime, tatoueur</span>

@@ -40,12 +40,12 @@
   <nav class="barre" aria-label="Navigation">
     <a class="barre-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
     <div class="barre-actions">
-      <button class="barre-son" type="button" data-musique aria-pressed="false" aria-label="Musique d'ambiance"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span></button>
       <button class="barre-menu cap" type="button" data-ouvrir-menu aria-haspopup="dialog" aria-controls="menu" aria-expanded="false" commandfor="menu" command="show-modal">Menu <span class="barre-icone" aria-hidden="true"></span></button>
     </div>
   </nav>
 
   <dialog class="menu" id="menu" aria-label="Menu">
+    <div class="menu-rideau" aria-hidden="true"></div>
     <div class="menu-tete">
       <a class="menu-nom" href="index.html" aria-label="Maxime, accueil">Maxime</a>
       <button class="menu-fermer cap" type="button" data-fermer-menu commandfor="menu" command="close">Fermer <span class="menu-fermer-icone" aria-hidden="true"></span></button>
@@ -60,7 +60,7 @@
     </nav>
     <div class="menu-pied cap">
       <div class="menu-contacts"><a href="#" data-a-completer="instagram">Instagram</a><a href="#" data-a-completer="e-mail">E-mail</a></div>
-      <span class="menu-lieu">Suisse romande, sur rendez-vous</span>
+      <button class="menu-son" type="button" data-musique aria-pressed="false"><span class="son-icone" aria-hidden="true"><span></span><span></span><span></span></span><span class="son-coupe">Son coupé</span><span class="son-allume">Son allumé</span></button>
     </div>
     <div class="menu-emblemes" aria-hidden="true">
       <img src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
@@ -84,10 +84,10 @@
     </section>
   </main>
 
-  <footer class="pied contenu">
+  <footer class="pied contenu voile">
     <div class="pied-appel">
       <p class="cap">Un dessin vous attend&nbsp;? Réponse sous 48 heures</p>
-      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous</span> <span class="fleche" aria-hidden="true">→</span></a>
+      <a class="pied-geant" href="rendez-vous.html">Prendre <span class="insecable">rendez-vous&nbsp;<span class="fleche" aria-hidden="true">→</span></span></a>
     </div>
     <div class="pied-bas cap">
       <span>© 2026 Maxime, tatoueur</span>

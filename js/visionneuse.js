@@ -151,7 +151,6 @@ export function initVisionneuse() {
       return;
     }
     couche.fermee();
-    ramenerVignette(courant);
     const media = mediaDe(courant);
     if (media && !reduit) {
       let animation = glisse ? null : envol(media, cadreDe(courant), "sortie");
@@ -168,23 +167,6 @@ export function initVisionneuse() {
     }
     dialog.classList.add("se-ferme");
     minuteur = window.setTimeout(() => dialog.close(), reduit ? 0 : VISIONNEUSE_SORTIE_MS + 60);
-  }
-
-  /**
-   * Dans une rangée qui défile, l'œuvre qu'on vient de regarder revient en vue :
-   * en fermant, on la retrouve là où on l'a laissée.
-   * @param {number} index
-   */
-  function ramenerVignette(index) {
-    const oeuvre = oeuvres[index];
-    const defileur = oeuvre?.closest("[data-defileur]");
-    if (!(oeuvre instanceof HTMLElement) || !(defileur instanceof HTMLElement) || defileur.scrollWidth <= defileur.clientWidth + 2) {
-      return;
-    }
-    const premiere = defileur.querySelector(":scope > .oeuvre");
-    if (premiere instanceof HTMLElement) {
-      defileur.scrollLeft = oeuvre.offsetLeft - premiere.offsetLeft;
-    }
   }
 
   oeuvres.forEach((oeuvre, index) => {

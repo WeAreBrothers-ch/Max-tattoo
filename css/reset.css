@@ -53,6 +53,20 @@ dialog {
   color: inherit;
 }
 
+fieldset {
+  min-width: 0;
+  border: 0;
+}
+
+legend {
+  padding: 0;
+}
+
 summary {
   cursor: pointer;
+}
+
+/* Ce que le script cache reste caché, quelle que soit sa mise en page. */
+[hidden] {
+  display: none !important;
 }

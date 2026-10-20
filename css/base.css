@@ -242,7 +242,10 @@ p {
   }
 }
 
-/* Bouton cerné : réservation d'un flash, envoi d'un message. */
+/*
+ * Bouton cerné, à angles droits comme un cartouche de gravure : réservation
+ * d'un flash, envoi d'un message. Plein : l'action principale de la page.
+ */
 .bouton {
   display: inline-flex;
   align-items: center;
@@ -251,13 +254,32 @@ p {
   min-height: 3.25rem;
   padding: 0 1.5rem;
   border: 1px solid currentColor;
-  border-radius: 999px;
-  transition: background-color 400ms var(--ease), color 400ms var(--ease);
+  transition: background-color 400ms var(--ease), color 400ms var(--ease), border-color 400ms var(--ease);
 }
 
 .bouton:active {
   background: rgba(244, 241, 235, 0.14);
   transition-duration: 80ms;
+}
+
+.bouton--plein {
+  border-color: var(--blanc);
+  background: var(--blanc);
+  color: var(--noir);
+  text-shadow: none;
+}
+
+.bouton--plein:active {
+  background: rgba(244, 241, 235, 0.8);
+}
+
+/* Bouton large comme le pouce : le libellé à gauche, la flèche à droite. */
+.bouton--large {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0 1.25rem;
 }
 
 @media (max-width: 767px) {
@@ -271,6 +293,28 @@ p {
     background: var(--blanc);
     color: var(--noir);
     text-shadow: none;
+  }
+
+  .bouton--plein:hover {
+    background: transparent;
+    color: var(--blanc);
+  }
+}
+
+/*
+ * Voile : sur téléphone et tablette, un noir dense passe sous le texte et les
+ * images, fondu en haut et en bas ; la gravure reste entière entre les blocs,
+ * sur la couverture et dans le menu. Sur ordinateur, le fond reste libre :
+ * la lumière qui suit la souris fait le travail.
+ */
+@media (max-width: 1023px) {
+  .voile {
+    background: linear-gradient(
+      rgb(0 0 0 / 0),
+      rgb(0 0 0 / 0.8) 4.5rem,
+      rgb(0 0 0 / 0.8) calc(100% - 4.5rem),
+      rgb(0 0 0 / 0)
+    );
   }
 }
 

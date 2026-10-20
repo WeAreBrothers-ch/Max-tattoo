@@ -1,0 +1,250 @@
+/*
+ * Rendez-vous : l'emblème de la main au serpent, les deux canaux, puis le
+ * message préparé en quelques choix (js/composeur.js) : il s'écrit à mesure
+ * sur une carte de papier, prête à partir par e-mail ou à copier pour
+ * Instagram. Sans script, la liste de ce qu'il faut écrire reste à sa place.
+ */
+
+/* Tête : l'emblème au-dessus du titre, centré au téléphone, à droite au-delà. */
+.tete-rdv {
+  position: relative;
+}
+
+.tete-rdv-embleme {
+  align-self: center;
+  width: auto;
+  height: clamp(9.5rem, 42vw, 12.5rem);
+  margin-bottom: 1.75rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tete-rdv-embleme {
+    animation: embleme-arrive 1300ms ease-out 150ms both;
+  }
+}
+
+@keyframes embleme-arrive {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(0.94);
+  }
+}
+
+@media (min-width: 768px) {
+  .tete-rdv-embleme {
+    align-self: flex-end;
+    height: clamp(11rem, 19vw, 17rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+}
+
+/* Le message préparé : les choix, puis la carte. */
+.composeur {
+  display: grid;
+  gap: 3rem;
+}
+
+.groupe + .groupe {
+  margin-top: 2rem;
+}
+
+.groupe-titre {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--filet);
+  color: var(--blanc-doux);
+}
+
+.groupe-num {
+  min-width: 0.75rem;
+  color: var(--sang-vif);
+}
+
+/*
+ * Étiquettes à choisir : un cadre droit et un losange vide ; choisie, le
+ * cadre passe au rouge, le losange se remplit d'encre et un voile rouge
+ * teinte le fond. Le vrai bouton (radio ou case) reste dessous, invisible :
+ * clavier et lecteurs d'écran s'en servent comme d'habitude.
+ */
+.etiquettes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.etiquette {
+  position: relative;
+  display: inline-flex;
+}
+
+.etiquette input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.etiquette span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 2.875rem;
+  padding: 0 1rem;
+  border: 1px solid var(--filet);
+  color: var(--blanc-doux);
+  font-size: 1.0625rem;
+  line-height: 1.1;
+  transition: border-color 300ms var(--ease), color 300ms var(--ease), background-color 300ms var(--ease);
+}
+
+.etiquette span::before {
+  content: "";
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  border: 1px solid currentColor;
+  rotate: 45deg;
+  transition: background-color 300ms var(--ease), border-color 300ms var(--ease);
+}
+
+.etiquette input:checked + span {
+  border-color: var(--sang-vif);
+  background: rgb(168 22 27 / 0.18);
+  color: var(--blanc);
+}
+
+.etiquette input:checked + span::before {
+  border-color: var(--sang-vif);
+  background: var(--sang-vif);
+}
+
+.etiquette input:focus-visible + span {
+  outline: 1px solid var(--blanc);
+  outline-offset: 3px;
+}
+
+.etiquette input:active + span {
+  background: rgb(244 241 235 / 0.08);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .etiquette:hover input:not(:checked) + span {
+    border-color: rgb(244 241 235 / 0.5);
+    color: var(--blanc);
+  }
+}
+
+/* Champs à écrire soi-même : l'idée du projet, l'endroit « ailleurs ». */
+.champ {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--filet);
+  border-radius: 0;
+  background: rgb(0 0 0 / 0.55);
+  color: var(--blanc);
+  font: inherit;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  text-shadow: none;
+  transition: border-color 300ms var(--ease);
+}
+
+textarea.champ {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.champ::placeholder {
+  color: rgb(244 241 235 / 0.45);
+}
+
+.champ:focus {
+  border-color: var(--blanc);
+  outline: none;
+}
+
+.groupe-precis {
+  margin-top: 0.75rem;
+}
+
+/* La carte : le message sur papier, posée de travers sur la table. */
+.lettre {
+  padding: 1.4rem 1.25rem 1.5rem;
+  background: #e9e2d4;
+  color: #1a1714;
+  box-shadow: 0 1.1rem 2.25rem rgb(0 0 0 / 0.6);
+  rotate: -0.6deg;
+  text-shadow: none;
+}
+
+.lettre-tete {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--sang);
+}
+
+.lettre-texte {
+  min-height: 9em;
+  margin-top: 0.9rem;
+  font-style: italic;
+  font-size: 1.1875rem;
+  line-height: 1.38;
+  white-space: pre-line;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+.composeur-actions {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+
+.composeur-note {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 768px) {
+  .etiquette span {
+    font-size: 1.125rem;
+  }
+
+  .lettre {
+    padding: 1.75rem 1.75rem 2rem;
+  }
+}
+
+/* Ordinateur : les choix à gauche, la carte reste à droite pendant qu'on coche. */
+@media (min-width: 1024px) {
+  .composeur {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: start;
+  }
+
+  .composeur-choix {
+    grid-column: 1 / span 6;
+  }
+
+  .composeur-carte {
+    position: sticky;
+    top: calc(var(--entete-h) + 2rem);
+    grid-column: 8 / -1;
+  }
+
+  .lettre-texte {
+    font-size: 1.3125rem;
+  }
+}

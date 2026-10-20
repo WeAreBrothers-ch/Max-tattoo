@@ -23,7 +23,8 @@
 
 .pied-geant {
   display: inline-block;
-  font-size: clamp(3.25rem, 15vw, 6rem);
+  /* « rendez-vous → » tient sur une ligne, même sur un écran de 320 px. */
+  font-size: clamp(2.75rem, 14vw, 6rem);
   line-height: 0.95;
   letter-spacing: -0.02em;
   -webkit-hyphens: manual;

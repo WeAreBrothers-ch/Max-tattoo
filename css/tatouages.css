@@ -1,0 +1,426 @@
+/*
+ * Tatouages : quatre thèmes, un à la fois. On arrive sur quatre cases portant
+ * chacune un dessin de Maxime ; on en touche une et seul ce thème s'affiche
+ * (js/themes.js), l'adresse garde le thème (#mains, #betes…). Sans script,
+ * les quatre chapitres se suivent et les cases mènent à leur ancre.
+ */
+
+/* Les quatre cases : un emblème blanc, le chiffre, le nom, le compte. */
+.themes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--gap);
+  margin-top: 2.25rem;
+}
+
+.theme-case {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  height: 15.5rem;
+  padding: 1.1rem 0.6rem 1rem;
+  border: 1px solid var(--filet);
+  background: rgb(0 0 0 / 0.55);
+  text-align: center;
+  transition: border-color 400ms var(--ease);
+}
+
+.theme-case:active {
+  border-color: var(--blanc);
+}
+
+.theme-case-image {
+  display: flex;
+  flex: 1 1 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 0;
+}
+
+.theme-case-image img {
+  width: auto;
+  height: 100%;
+  max-height: 9.5rem;
+  object-fit: contain;
+  transition: scale 900ms var(--ease);
+}
+
+.theme-case-num {
+  margin-top: 0.7rem;
+  color: var(--sang-vif);
+}
+
+.theme-case-nom {
+  font-size: 1.375rem;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.theme-case-compte {
+  color: var(--blanc-doux);
+}
+
+/* Le compte ne tient pas sous un nom sur deux lignes : on le garde pour la tablette. */
+@media (max-width: 767px) {
+  .theme-case-compte {
+    display: none;
+  }
+}
+
+.themes-consigne {
+  margin-top: 1.25rem;
+  color: var(--blanc-doux);
+  text-align: center;
+}
+
+/* Les cases arrivent l'une après l'autre, à chaque retour sur les thèmes. */
+@media (prefers-reduced-motion: no-preference) {
+  .themes > li {
+    animation: case-arrive 900ms var(--ease) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 150ms);
+  }
+}
+
+@keyframes case-arrive {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(1rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .themes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .theme-case {
+    height: clamp(21rem, 30vw, 27rem);
+    padding: 1.5rem 1rem 1.25rem;
+  }
+
+  .theme-case-image img {
+    max-height: clamp(11rem, 17vw, 16.5rem);
+  }
+
+  .theme-case-nom {
+    font-size: clamp(1.375rem, 2.2vw, 2rem);
+  }
+
+  .themes-consigne {
+    margin-top: 1.75rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-case:hover {
+    border-color: var(--blanc);
+  }
+
+  .theme-case:hover .theme-case-image img {
+    scale: 1.05;
+  }
+}
+
+/*
+ * Un thème choisi : les quatre emblèmes en onglets, collés sous la barre du
+ * haut sur téléphone et tablette, en ligne en tête de page sur ordinateur.
+ */
+.themes-vue {
+  padding-top: var(--haut);
+}
+
+.onglets-themes {
+  position: sticky;
+  top: var(--haut);
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding-top: 0.25rem;
+  background: linear-gradient(var(--noir) 80%, rgb(0 0 0 / 0));
+}
+
+.onglet-theme {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 4.75rem;
+  padding: 0.35rem 0.2rem 0.85rem;
+  opacity: 0.45;
+  transition: opacity 400ms var(--ease);
+}
+
+.onglet-theme img {
+  width: auto;
+  height: 2.4rem;
+}
+
+.onglet-theme::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 0.35rem;
+  border-top: 1px solid var(--sang-vif);
+  transform: scaleX(0);
+  transition: transform 600ms var(--ease);
+}
+
+.onglet-theme[aria-current="true"] {
+  opacity: 1;
+}
+
+.onglet-theme[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.onglet-theme:active {
+  opacity: 0.8;
+}
+
+@media (min-width: 1024px) {
+  .themes-vue {
+    padding-top: calc(var(--entete-h) + 1.5rem);
+  }
+
+  .onglets-themes {
+    position: static;
+    display: flex;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    padding-top: 0;
+    background: none;
+  }
+
+  .onglet-theme {
+    flex-direction: row;
+    gap: 0.75rem;
+    min-height: 3.5rem;
+    padding: 0.4rem 0 0.75rem;
+  }
+
+  .onglet-theme img {
+    height: 2.75rem;
+  }
+
+  .onglet-theme::after {
+    left: 0;
+    right: 0;
+    bottom: 0.2rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .onglet-theme:hover {
+    opacity: 1;
+  }
+}
+
+/*
+ * Un chapitre. Téléphone : le dessin de Maxime en frontispice, centré, puis
+ * le texte, la pensée, le croquis et la peau, les films, les autres pièces.
+ * Ordinateur : le frontispice reste à gauche pendant qu'on parcourt le reste.
+ */
+.chapitre {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  scroll-margin-top: var(--haut);
+}
+
+.chapitre-tete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.chapitre-embleme {
+  width: auto;
+  height: clamp(12.5rem, 58vw, 16rem);
+}
+
+.chapitre-num {
+  margin-top: 1.6rem;
+  color: var(--sang-vif);
+}
+
+.chapitre-titre {
+  margin-top: 0.55rem;
+  font-size: clamp(2.75rem, 13vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+.chapitre-compte {
+  margin-top: 0.7rem;
+  color: var(--blanc-doux);
+}
+
+.chapitre-texte {
+  align-self: stretch;
+  margin-top: 2rem;
+  font-size: 1.1875rem;
+  line-height: 1.36;
+  text-align: left;
+}
+
+.chapitre-pensee {
+  align-self: stretch;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.chapitre-corps {
+  margin-top: 3.25rem;
+}
+
+.chapitre-corps > * + * {
+  margin-top: 3.5rem;
+}
+
+.chapitre-suite {
+  display: grid;
+  gap: 0.6rem;
+}
+
+/* Le chapitre qu'on vient d'ouvrir : le dessin sort du flou, le reste le suit. */
+@media (prefers-reduced-motion: no-preference) {
+  .themes-actifs .chapitre-tete > * {
+    animation: chapitre-arrive 1000ms var(--ease) both;
+    animation-delay: calc(var(--rang, 0) * 80ms);
+  }
+
+  .themes-actifs .chapitre-embleme {
+    animation-name: sortir-du-flou-embleme;
+    animation-duration: 1200ms;
+  }
+
+  .themes-actifs .chapitre-tete > :nth-child(2) {
+    --rang: 2;
+  }
+
+  .themes-actifs .chapitre-tete > :nth-child(3) {
+    --rang: 3;
+  }
+
+  .themes-actifs .chapitre-tete > :nth-child(n + 4) {
+    --rang: 4;
+  }
+
+  .themes-actifs .chapitre-corps {
+    animation: chapitre-arrive 1000ms var(--ease) 420ms both;
+  }
+}
+
+@keyframes chapitre-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+@keyframes sortir-du-flou-embleme {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: scale(0.94);
+  }
+}
+
+@media (min-width: 768px) {
+  .chapitre {
+    padding-top: 3rem;
+  }
+
+  .chapitre-embleme {
+    height: clamp(16rem, 34vw, 20rem);
+  }
+
+  .chapitre-texte {
+    max-width: 32em;
+    align-self: center;
+    font-size: 1.3125rem;
+  }
+
+  .chapitre-pensee {
+    max-width: 24em;
+    align-self: center;
+  }
+
+  .chapitre-corps {
+    margin-top: 4.5rem;
+  }
+
+  .chapitre-corps > * + * {
+    margin-top: clamp(4rem, 9vw, 6rem);
+  }
+
+  .chapitre-suite {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gap);
+  }
+}
+
+@media (min-width: 1024px) {
+  .chapitre {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: start;
+    padding-top: clamp(2.5rem, 5vw, 4.5rem);
+    padding-bottom: 0;
+  }
+
+  .chapitre-tete {
+    position: sticky;
+    top: calc(var(--entete-h) + 1.5rem);
+    grid-column: 1 / span 5;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .chapitre-embleme {
+    height: clamp(14rem, 21vw, 20rem);
+  }
+
+  .chapitre-num {
+    margin-top: 2rem;
+  }
+
+  .chapitre-titre {
+    font-size: clamp(3.5rem, 5.6vw, 6.5rem);
+  }
+
+  .chapitre-texte,
+  .chapitre-pensee {
+    align-self: stretch;
+    max-width: 26em;
+  }
+
+  .chapitre-texte {
+    margin-top: 2.25rem;
+    font-size: 1.3125rem;
+  }
+
+  .chapitre-corps {
+    grid-column: 7 / -1;
+    margin-top: 0;
+  }
+
+  .pieces--chapitre {
+    --colonnes: 2;
+  }
+}
+
+@media (min-width: 1600px) {
+  .pieces--chapitre {
+    --colonnes: 3;
+  }
+}

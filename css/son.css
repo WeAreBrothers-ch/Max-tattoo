@@ -1,28 +1,14 @@
 /*
- * Bouton « Son » (js/musique.js) : dans l'en-tête sur ordinateur, à côté du
- * menu dans la barre du haut sur téléphone. Trois filets verticaux, au repos
- * quand la musique est coupée, qui ondulent lentement quand elle joue.
+ * Bouton « Son » (js/musique.js) : dans l'en-tête sur ordinateur, et dans le
+ * pied du menu partout, avec son nom (css/menu.css). Trois filets verticaux,
+ * au repos quand la musique est coupée, qui ondulent lentement quand elle joue.
  */
 
-.bouton-son,
-.barre-son {
+.bouton-son {
   display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
-}
-
-.bouton-son {
   gap: 0.6rem;
-}
-
-/* Icône seule sous le pouce : la zone à toucher reste de 44 px. */
-.barre-son {
-  justify-content: center;
-  min-width: 2.75rem;
-}
-
-.barre-son:active {
-  opacity: 0.55;
+  min-height: 2.75rem;
 }
 
 .son-icone {

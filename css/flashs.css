@@ -1,0 +1,340 @@
+/*
+ * Flashs : le relevé de la saison, deux onglets (disponibles, déjà tatoués,
+ * js/onglets.js), chaque dessin disponible en grand avec sa fiche, les
+ * dessins tatoués qui se retournent pour montrer la peau (js/retourne.js).
+ * Sans script, les deux parties se suivent, chacune sous son titre.
+ */
+
+/* Relevé de la saison : trois repères sous l'introduction. */
+.releve {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--filet);
+  border-bottom: 1px solid var(--filet);
+}
+
+.releve > div {
+  padding: 0.7rem 0.75rem 0.8rem 0;
+}
+
+.releve > div + div {
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--filet);
+}
+
+.releve dt {
+  color: var(--sang-vif);
+}
+
+.releve dd {
+  margin-top: 0.3rem;
+  font-size: 1.1875rem;
+  line-height: 1.1;
+}
+
+@media (min-width: 1024px) {
+  .releve {
+    grid-column: 8 / -1;
+    align-self: end;
+  }
+
+  .releve dd {
+    font-size: 1.5rem;
+  }
+}
+
+/* Onglets : deux mots, le choisi souligné à l'encre rouge. */
+.onglets-flashs {
+  position: sticky;
+  top: var(--haut);
+  z-index: 5;
+  display: flex;
+  gap: 1.75rem;
+  padding-top: 0.75rem;
+  background: linear-gradient(var(--noir) 78%, rgb(0 0 0 / 0));
+}
+
+.onglet-flashs {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.5rem 0 0.9rem;
+  font-size: 1.375rem;
+  color: var(--blanc-doux);
+  transition: color 400ms var(--ease);
+}
+
+.onglet-flashs::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.55rem;
+  border-top: 1px solid var(--sang-vif);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 600ms var(--ease);
+}
+
+.onglet-flashs[aria-current="true"] {
+  color: var(--blanc);
+}
+
+.onglet-flashs[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.onglet-flashs-compte {
+  color: var(--blanc-doux);
+}
+
+.onglet-flashs:active {
+  opacity: 0.6;
+}
+
+@media (min-width: 1024px) {
+  .onglets-flashs {
+    position: static;
+    gap: 3rem;
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+    background: none;
+  }
+
+  .onglet-flashs {
+    font-size: 1.75rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .onglet-flashs:hover {
+    color: var(--blanc);
+  }
+}
+
+/* Une partie du catalogue. */
+.catalogue {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  scroll-margin-top: calc(var(--haut) + 4rem);
+}
+
+.catalogue-titre {
+  margin-bottom: 1rem;
+  font-size: clamp(2.5rem, 12vw, 3.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+/* Les onglets disent déjà où l'on est. */
+.onglets-actifs .catalogue-titre {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.catalogue-chapeau {
+  max-width: 30em;
+  color: var(--blanc-doux);
+}
+
+@media (min-width: 1024px) {
+  .catalogue {
+    padding-top: 1.5rem;
+  }
+
+  .catalogue-chapeau {
+    font-size: 1.3125rem;
+  }
+}
+
+/* Chaque dessin disponible en grand : la planche, son nom, sa fiche. */
+.planches-grandes {
+  display: grid;
+  gap: 4.5rem;
+  margin-top: 2.5rem;
+  counter-reset: planche;
+}
+
+.planche-grande {
+  counter-increment: planche;
+}
+
+.planche-grande-haut {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--blanc-doux);
+}
+
+.planche-grande-num::after {
+  content: " n° " counter(planche);
+}
+
+.planche-grande .planche-etat {
+  color: var(--blanc);
+}
+
+.planche-grande .cadre {
+  width: 88%;
+  margin: 1.75rem auto 0;
+}
+
+.planche-grande .planche-titre {
+  margin-top: 2.25rem;
+  font-size: clamp(2.25rem, 10vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.planche-grande-pensee {
+  margin-top: 0.75rem;
+}
+
+.planche-grande .fiche {
+  margin-top: 1.5rem;
+}
+
+.planche-grande .bouton {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .planches-grandes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(2rem, 6vw, 6rem);
+  }
+
+  .planche-grande .cadre {
+    width: 92%;
+  }
+}
+
+/*
+ * Déjà tatoués : la carte montre le dessin rayé ; touchée, elle se retourne
+ * sur la pièce portée, cicatrisée.
+ */
+.retournes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem var(--gap);
+  margin-top: 2rem;
+}
+
+.retourne {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  perspective: 1200px;
+}
+
+.retourne-interieur {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 900ms var(--ease);
+}
+
+.retourne[aria-pressed="true"] .retourne-interieur {
+  transform: rotateY(180deg);
+}
+
+.retourne-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  container-type: inline-size;
+}
+
+.retourne-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.retourne-face--dessin {
+  background: #e9e2d4;
+}
+
+.retourne-face--dessin img {
+  opacity: 0.5;
+  filter: grayscale(0.3);
+}
+
+.retourne-face--peau {
+  background: #0e0d0c;
+  transform: rotateY(180deg);
+}
+
+/* « Voir la peau » / « Revoir le dessin », posé dans le coin. */
+.retourne-indice {
+  position: absolute;
+  left: 0.5rem;
+  bottom: 0.5rem;
+  z-index: 2;
+  padding: 0.45rem 0.6rem 0.35rem;
+  background: rgb(0 0 0 / 0.72);
+  color: var(--blanc);
+  font-size: 0.75rem;
+  text-shadow: none;
+}
+
+.retourne[aria-pressed="true"] .retourne-vers-peau,
+.retourne:not([aria-pressed="true"]) .retourne-vers-dessin {
+  display: none;
+}
+
+.retourne:active .retourne-interieur {
+  scale: 0.985;
+}
+
+.retourne-carte figcaption {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 0.85rem;
+}
+
+.retourne-carte .planche-titre {
+  font-size: 1.25rem;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--sang-vif);
+}
+
+.retourne-carte .planche-infos {
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 0;
+}
+
+.retourne-carte .lien-fleche {
+  justify-content: flex-start;
+}
+
+@media (min-width: 768px) {
+  .retournes {
+    max-width: 58rem;
+    gap: 3rem clamp(1.5rem, 5vw, 4.5rem);
+  }
+
+  .retourne-carte .planche-titre {
+    font-size: 1.625rem;
+  }
+
+  .retourne-carte .planche-infos {
+    flex-direction: row;
+  }
+
+  .retourne-indice {
+    left: 0.75rem;
+    bottom: 0.75rem;
+    font-size: 0.875rem;
+  }
+}
