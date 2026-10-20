@@ -1,10 +1,10 @@
 /**
- * Tatouages, un thème à la fois. La page s'ouvre sur quatre cases ; toucher
- * l'une d'elles montre son chapitre seul, avec les quatre emblèmes en onglets
- * pour passer d'un thème à l'autre. Le thème vit dans l'adresse (#mains,
- * #betes, #cranes, #yeux) : on peut le partager, et le « retour » du
- * téléphone ramène au thème précédent puis aux quatre cases.
- * Sans script, rien n'est caché : les chapitres se suivent sous les cases.
+ * Tatouages, un thème à la fois. La page s'ouvre sur les quatre dessins des
+ * thèmes ; toucher l'un d'eux montre son chapitre seul, avec les quatre
+ * emblèmes en onglets pour passer d'un thème à l'autre. Le thème vit dans
+ * l'adresse (#mains, #betes, #cranes, #yeux) : on peut le partager, et le
+ * « retour » du téléphone ramène au thème précédent puis aux quatre dessins.
+ * Sans script, rien n'est caché : les chapitres se suivent sous les dessins.
  */
 
 const TITRE_PAGE = document.title;

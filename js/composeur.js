@@ -1,9 +1,10 @@
 /**
- * Rendez-vous : préparer le message. Chaque choix (flash ou projet,
- * l'endroit, la taille, les jours) réécrit aussitôt la carte ; « Ailleurs »
- * ouvre un champ pour préciser l'endroit soi-même. La carte part par e-mail
- * (le lien s'ouvre dans la messagerie, sujet et message déjà écrits) ou se
- * copie pour un message privé sur Instagram.
+ * Rendez-vous : le message est déjà écrit sur la carte. Chaque mot souligné
+ * cache un vrai <select> (flash ou projet, l'endroit, la taille) ; le choisir
+ * réécrit le mot sur la carte. « ailleurs… » ouvre une ligne pour préciser
+ * l'endroit, un projet ouvre la ligne de l'idée, et les jours se cochent sur
+ * la carte même. Le message part par e-mail (le lien s'ouvre dans la
+ * messagerie, sujet et texte déjà écrits) ou se copie pour Instagram.
  * Arrivée depuis la page Flashs (?flash=dague-et-roses) : ce flash est déjà
  * choisi. L'adresse e-mail est celle du lien « E-mail » de la page, une fois
  * complété (voir le README) ; sans elle, la messagerie s'ouvre sans destinataire.
@@ -11,7 +12,7 @@
  * le remplace.
  */
 
-const ESPACE = " ";
+const ESPACE = "\u00a0";
 const COPIE_MS = 4000;
 
 export function initComposeur() {
@@ -19,12 +20,16 @@ export function initComposeur() {
   if (!(form instanceof HTMLFormElement)) {
     return;
   }
-  const lettre = form.querySelector("[data-lettre]");
+  const objet = form.querySelector("[data-objet]");
+  const ou = form.querySelector("[data-ou]");
   const envoyer = form.querySelector("[data-envoyer]");
   const copier = form.querySelector("[data-copier]");
   const libelleCopier = form.querySelector("[data-copier-libelle]");
   const precis = form.querySelector("[data-si-ailleurs]");
-  if (!(lettre instanceof HTMLElement) || !(envoyer instanceof HTMLAnchorElement)) {
+  const idee = form.querySelector("[data-si-projet]");
+  const ailleurs = form.querySelector("#ailleurs");
+  const champIdee = form.querySelector("#idee");
+  if (!(objet instanceof HTMLSelectElement) || !(ou instanceof HTMLSelectElement) || !(envoyer instanceof HTMLAnchorElement)) {
     return;
   }
 
@@ -32,52 +37,67 @@ export function initComposeur() {
   document.querySelector("[data-message-liste]")?.setAttribute("hidden", "");
 
   const demande = new URLSearchParams(window.location.search).get("flash");
-  if (demande) {
-    form.querySelectorAll('input[name="flash"]').forEach((radio) => {
-      if (radio instanceof HTMLInputElement && radio.dataset.cle === demande) {
-        radio.checked = true;
-      }
-    });
+  const choisi = Array.from(objet.options).findIndex((option) => option.dataset.cle === demande);
+  if (choisi >= 0) {
+    objet.selectedIndex = choisi;
   }
 
   let message = "";
   let minuteur = 0;
 
   function composer() {
-    const donnees = new FormData(form);
-    const pour = String(donnees.get("pour") || "flash");
-    form.querySelectorAll("[data-si]").forEach((bloc) => {
-      if (bloc instanceof HTMLElement) {
-        bloc.hidden = bloc.dataset.si !== pour;
+    // Chaque mot souligné reprend l'option choisie.
+    form.querySelectorAll(".blanc").forEach((blanc) => {
+      const select = blanc.querySelector("select");
+      const texte = blanc.querySelector(".blanc-texte");
+      if (select instanceof HTMLSelectElement && texte instanceof HTMLElement) {
+        texte.textContent = select.selectedOptions[0]?.textContent ?? "";
       }
     });
 
-    const ou = String(donnees.get("ou") || "");
+    const option = objet.selectedOptions[0];
+    const flash = option?.dataset.flash ?? "";
+    const donnees = new FormData(form);
     if (precis instanceof HTMLElement) {
-      precis.hidden = ou !== "ailleurs";
+      precis.hidden = ou.value !== "ailleurs";
     }
-    const lieu = ou === "ailleurs" ? String(donnees.get("ailleurs") || "").trim() || "[l'endroit, à préciser]" : ou;
+    if (idee instanceof HTMLElement) {
+      idee.hidden = Boolean(flash);
+    }
+
+    if (ailleurs instanceof HTMLInputElement) {
+      // La ligne prend la longueur de ce qu'on écrit, sans trou avant la virgule.
+      ailleurs.style.width = `${largeurTexte(ailleurs, ailleurs.value || ailleurs.placeholder) + 2}px`;
+    }
+    if (champIdee instanceof HTMLTextAreaElement) {
+      // L'idée gagne des lignes à mesure qu'on écrit.
+      champIdee.style.height = "auto";
+      champIdee.style.height = `${champIdee.scrollHeight}px`;
+    }
+    const lieu = ou.value === "ailleurs" ? String(donnees.get("ailleurs") || "").trim() || "[l'endroit, à préciser]" : ou.value;
     const taille = String(donnees.get("taille") || "");
-    const flash = String(donnees.get("flash") || "");
-    const idee = String(donnees.get("idee") || "").trim() || "[votre idée en quelques mots]";
+    const texteIdee = String(donnees.get("idee") || "").trim() || "[votre idée en quelques mots]";
     const jours = donnees.getAll("jours").map((jour) => `le ${jour}`);
 
-    const objet = pour === "projet" ? `Je voudrais vous proposer un projet${ESPACE}: ${idee}` : `Je voudrais réserver le flash «${ESPACE}${flash}${ESPACE}»`;
-    const dispo =
-      jours.length === 0 ? `Mes disponibilités${ESPACE}: à préciser.` : `Je suis disponible ${enumerer(jours)}.`;
-    message = `Bonjour Maxime,\n\n${objet}, sur ${lieu}, ${taille}.\n${dispo}\n\nMerci, à bientôt.`;
-    lettre.textContent = message;
+    const lignes = [`Je voudrais ${objet.value}, sur ${lieu}, ${taille}.`];
+    if (!flash) {
+      lignes.push(`L'idée${ESPACE}: ${/[.!?…»]$/.test(texteIdee) ? texteIdee : `${texteIdee}.`}`);
+    }
+    lignes.push(jours.length === 0 ? `Mes disponibilités${ESPACE}: à préciser.` : `Je suis disponible ${enumerer(jours)}.`);
+    message = `Bonjour Maxime,\n\n${lignes.join("\n")}\n\nMerci, à bientôt.`;
 
-    const sujet = pour === "projet" ? "Rendez-vous — projet personnel" : `Rendez-vous — flash «${ESPACE}${flash}${ESPACE}»`;
+    const sujet = flash ? `Rendez-vous — flash «${ESPACE}${flash}${ESPACE}»` : "Rendez-vous — projet personnel";
     envoyer.href = `mailto:${adresseEmail()}?subject=${encodeURIComponent(sujet)}&body=${encodeURIComponent(message)}`;
   }
 
   form.addEventListener("input", composer);
   form.addEventListener("change", (event) => {
     composer();
-    // « Ailleurs » choisi : on écrit tout de suite où.
-    if (event.target instanceof HTMLInputElement && event.target.name === "ou" && event.target.value === "ailleurs") {
-      form.querySelector("#ailleurs")?.focus();
+    // « ailleurs… » choisi : on écrit tout de suite où ; un projet : on écrit l'idée.
+    if (event.target === ou && ou.value === "ailleurs") {
+      ailleurs?.focus();
+    } else if (event.target === objet && !objet.selectedOptions[0]?.dataset.flash) {
+      champIdee?.focus();
     }
   });
   form.addEventListener("submit", (event) => event.preventDefault());
@@ -105,6 +125,23 @@ export function initComposeur() {
  */
 function enumerer(mots) {
   return mots.length < 2 ? mots.join("") : `${mots.slice(0, -1).join(", ")} et ${mots[mots.length - 1]}`;
+}
+
+const regle = document.createElement("canvas").getContext("2d");
+
+/**
+ * Largeur d'un texte écrit dans la police du champ.
+ * @param {HTMLInputElement} champ
+ * @param {string} texte
+ * @returns {number}
+ */
+function largeurTexte(champ, texte) {
+  if (!regle) {
+    return texte.length * 10;
+  }
+  const style = getComputedStyle(champ);
+  regle.font = `${style.fontStyle} ${style.fontSize} ${style.fontFamily}`;
+  return Math.ceil(regle.measureText(texte).width);
 }
 
 /** @returns {string} l'adresse du lien « E-mail » de la page, une fois complété */

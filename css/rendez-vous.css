@@ -1,8 +1,10 @@
 /*
  * Rendez-vous : l'emblème de la main au serpent, les deux canaux, puis le
- * message préparé en quelques choix (js/composeur.js) : il s'écrit à mesure
- * sur une carte de papier, prête à partir par e-mail ou à copier pour
- * Instagram. Sans script, la liste de ce qu'il faut écrire reste à sa place.
+ * message, déjà écrit sur une carte de papier (js/composeur.js) : on touche
+ * les mots soulignés pour les changer (le sélecteur du téléphone s'ouvre),
+ * on coche ses jours sur la carte même, et elle part par e-mail ou se copie
+ * pour Instagram. Sans script, la liste de ce qu'il faut écrire reste à sa
+ * place.
  */
 
 /* Tête : l'emblème au-dessus du titre, centré au téléphone, à droite au-delà. */
@@ -39,49 +41,212 @@
   }
 }
 
-/* Le message préparé : les choix, puis la carte. */
+/* Le message : la carte, puis ce qu'on en fait. */
 .composeur {
   display: grid;
-  gap: 3rem;
-}
-
-.groupe + .groupe {
-  margin-top: 2rem;
-}
-
-.groupe-titre {
-  display: flex;
-  gap: 0.75rem;
-  width: 100%;
-  margin-bottom: 0.9rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 1px solid var(--filet);
-  color: var(--blanc-doux);
-}
-
-.groupe-num {
-  min-width: 0.75rem;
-  color: var(--sang-vif);
+  gap: 2rem;
 }
 
 /*
- * Étiquettes à choisir : un carré droit au filet fin ; choisie, elle passe
- * au blanc plein, le mot en noir. Le vrai bouton (radio ou case) reste
- * dessous, invisible : clavier et lecteurs d'écran s'en servent comme
- * d'habitude.
+ * La carte : papier crème au grain léger, double filet rouge comme une carte
+ * gravée, l'œil de Maxime imprimé en tête. Posée droite.
  */
-.etiquettes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.etiquette {
+.lettre {
+  --encre: #1a1714;
   position: relative;
-  display: inline-flex;
+  padding: 2rem 1.5rem 2.25rem;
+  background-color: #e9e2d4;
+  background-image:
+    radial-gradient(ellipse at 50% 35%, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0) 60%),
+    radial-gradient(ellipse at 50% 50%, rgb(120 90 50 / 0) 55%, rgb(120 90 50 / 0.16) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.27 0 0 0 0 0.17 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  color: var(--encre);
+  box-shadow: 0 1.1rem 2.25rem rgb(0 0 0 / 0.6);
+  text-shadow: none;
 }
 
-.etiquette input {
+.lettre::before,
+.lettre::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.lettre::before {
+  inset: 0.5rem;
+  border: 1px solid rgb(168 22 27 / 0.55);
+}
+
+.lettre::after {
+  inset: 0.75rem;
+  border: 1px solid rgb(168 22 27 / 0.22);
+}
+
+.lettre-tete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* L'emblème blanc de Maxime, passé à l'encre sur le papier. */
+.lettre-embleme {
+  width: auto;
+  height: 5.25rem;
+  filter: invert(0.9) sepia(0.35);
+  opacity: 0.88;
+}
+
+.lettre-a {
+  margin-top: 0.75rem;
+  color: var(--sang);
+}
+
+.lettre-a::after {
+  content: "";
+  display: block;
+  width: 1.75rem;
+  margin: 0.75rem auto 0;
+  border-top: 1px solid var(--sang);
+}
+
+.lettre-corps {
+  margin-top: 1.25rem;
+  font-style: italic;
+  font-size: 1.1875rem;
+  line-height: 1.55;
+  -webkit-hyphens: manual;
+  hyphens: manual;
+}
+
+.lettre-corps > * + * {
+  margin-top: 0.9em;
+}
+
+/*
+ * Les mots à choisir : soulignés à l'encre rouge, un petit triangle après.
+ * Le vrai sélecteur est posé dessus, invisible : le toucher ouvre la liste
+ * du téléphone, le clavier et les lecteurs d'écran s'en servent tel quel.
+ */
+/* Dans .insecable, le mot garde sa ponctuation ; seul le mot lui-même peut passer à la ligne. */
+.blanc {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  white-space: normal;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Le sélecteur déborde un peu du mot : une zone assez haute pour le pouce. */
+.blanc select {
+  position: absolute;
+  inset: -0.45rem -0.15rem;
+  width: calc(100% + 0.3rem);
+  height: calc(100% + 0.9rem);
+  margin: 0;
+  opacity: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.blanc-texte {
+  color: var(--sang);
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: rgb(168 22 27 / 0.7);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+
+.blanc-texte::after {
+  content: "▾";
+  display: inline-block;
+  margin-left: 0.2em;
+  font-style: normal;
+  font-size: 0.65em;
+  vertical-align: 0.15em;
+}
+
+.blanc select:focus-visible + .blanc-texte {
+  outline: 1px solid var(--sang);
+  outline-offset: 2px;
+}
+
+.blanc:active .blanc-texte {
+  opacity: 0.6;
+}
+
+/* Ce qu'on écrit soi-même : l'endroit « ailleurs », l'idée du projet. */
+.lettre-champ {
+  padding: 0.1rem 0;
+  border: 0;
+  border-bottom: 1px dashed rgb(168 22 27 / 0.7);
+  border-radius: 0;
+  background: transparent;
+  color: var(--sang);
+  font: inherit;
+  font-style: italic;
+  transition: border-color 300ms var(--ease);
+}
+
+.lettre-champ::placeholder {
+  color: rgb(26 23 20 / 0.45);
+}
+
+.lettre-champ:focus {
+  border-bottom-style: solid;
+  border-bottom-color: var(--sang);
+  outline: none;
+}
+
+/* La ligne « ailleurs » prend la longueur de ce qu'on écrit (js/composeur.js). */
+.lettre-champ--ligne {
+  width: 10em;
+  max-width: 100%;
+}
+
+/* L'idée s'écrit sur des lignes fines, comme sur une feuille réglée. */
+textarea.lettre-champ {
+  display: block;
+  width: 100%;
+  min-height: 3.1em;
+  margin-top: 0.25rem;
+  padding: 0;
+  border-bottom: 0;
+  background-image: linear-gradient(to bottom, rgb(168 22 27 / 0) calc(100% - 1px), rgb(168 22 27 / 0.45) calc(100% - 1px));
+  background-size: 100% 1.55em;
+  background-attachment: local;
+  line-height: 1.55;
+  overflow: hidden;
+  resize: none;
+}
+
+textarea.lettre-champ:focus {
+  background-image: linear-gradient(to bottom, rgb(168 22 27 / 0) calc(100% - 1px), rgb(168 22 27 / 0.8) calc(100% - 1px));
+}
+
+/* Les jours : cinq carrés à cocher sur la carte, pleins d'encre une fois cochés. */
+.lettre-jours legend {
+  margin-bottom: 0.5rem;
+}
+
+.jours {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.35rem;
+  max-width: 21rem;
+  font-style: normal;
+}
+
+.jour {
+  position: relative;
+  display: flex;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.jour input {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -91,106 +256,43 @@
   cursor: pointer;
 }
 
-.etiquette span {
-  display: inline-flex;
+.jour span {
+  display: flex;
+  flex: 1;
+  justify-content: center;
   align-items: center;
-  min-height: 2.875rem;
-  padding: 0 1rem;
-  border: 1px solid var(--filet);
-  background: rgb(0 0 0 / 0.55);
-  color: var(--blanc);
-  font-size: 1.0625rem;
-  line-height: 1.1;
-  transition: border-color 300ms var(--ease), color 300ms var(--ease), background-color 300ms var(--ease);
+  min-height: 2.75rem;
+  border: 1px solid rgb(26 23 20 / 0.45);
+  font-family: var(--font-capitales);
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  transition: background-color 300ms var(--ease), color 300ms var(--ease), border-color 300ms var(--ease);
 }
 
-.etiquette input:checked + span {
-  border-color: var(--blanc);
-  background: var(--blanc);
-  color: var(--noir);
-  text-shadow: none;
+.jour input:checked + span {
+  border-color: var(--encre);
+  background: var(--encre);
+  color: #e9e2d4;
 }
 
-.etiquette input:focus-visible + span {
-  outline: 1px solid var(--blanc);
-  outline-offset: 3px;
-}
-
-.etiquette input:active + span {
-  background: rgb(244 241 235 / 0.08);
+.jour input:focus-visible + span {
+  outline: 1px solid var(--sang);
+  outline-offset: 2px;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .etiquette:hover input:not(:checked) + span {
-    border-color: rgb(244 241 235 / 0.6);
+  .jour:hover input:not(:checked) + span {
+    border-color: var(--encre);
   }
-}
 
-/* Champs à écrire soi-même : l'idée du projet, l'endroit « ailleurs ». */
-.champ {
-  display: block;
-  width: 100%;
-  padding: 0.8rem 0.9rem;
-  border: 1px solid var(--filet);
-  border-radius: 0;
-  background: rgb(0 0 0 / 0.55);
-  color: var(--blanc);
-  font: inherit;
-  font-size: 1.0625rem;
-  line-height: 1.35;
-  text-shadow: none;
-  transition: border-color 300ms var(--ease);
-}
-
-textarea.champ {
-  min-height: 6rem;
-  resize: vertical;
-}
-
-.champ::placeholder {
-  color: rgb(244 241 235 / 0.45);
-}
-
-.champ:focus {
-  border-color: var(--blanc);
-  outline: none;
-}
-
-.groupe-precis {
-  margin-top: 0.75rem;
-}
-
-/* La carte : le message sur papier crème, posée droite. */
-.lettre {
-  padding: 1.4rem 1.25rem 1.5rem;
-  background: #e9e2d4;
-  color: #1a1714;
-  box-shadow: 0 1.1rem 2.25rem rgb(0 0 0 / 0.6);
-  text-shadow: none;
-}
-
-.lettre-tete {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  color: var(--sang);
-}
-
-.lettre-texte {
-  min-height: 9em;
-  margin-top: 0.9rem;
-  font-style: italic;
-  font-size: 1.1875rem;
-  line-height: 1.38;
-  white-space: pre-line;
-  -webkit-hyphens: manual;
-  hyphens: manual;
+  .blanc:hover .blanc-texte {
+    text-decoration-style: solid;
+  }
 }
 
 .composeur-actions {
   display: grid;
   gap: 0.6rem;
-  margin-top: 2rem;
 }
 
 .composeur-note {
@@ -201,32 +303,32 @@ textarea.champ {
 }
 
 @media (min-width: 768px) {
-  .etiquette span {
-    font-size: 1.125rem;
+  .lettre {
+    padding: 2.5rem 2.5rem 2.75rem;
   }
 
-  .lettre {
-    padding: 1.75rem 1.75rem 2rem;
+  .lettre-embleme {
+    height: 6rem;
+  }
+
+  .lettre-corps {
+    font-size: 1.3125rem;
   }
 }
 
-/* Ordinateur : les choix à gauche, la carte à droite. */
+/* Ordinateur : la carte à gauche, les deux façons de l'envoyer à droite. */
 @media (min-width: 1024px) {
   .composeur {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     column-gap: var(--gap);
-    align-items: start;
+    align-items: end;
   }
 
-  .composeur-choix {
-    grid-column: 1 / span 6;
+  .lettre {
+    grid-column: 1 / span 7;
   }
 
-  .composeur-carte {
-    grid-column: 8 / -1;
-  }
-
-  .lettre-texte {
-    font-size: 1.3125rem;
+  .composeur-suite {
+    grid-column: 9 / -1;
   }
 }

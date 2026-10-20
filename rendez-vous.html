@@ -97,7 +97,7 @@
       <div class="section-filet cap"><span>II</span><span>Le message</span></div>
       <div class="section-tete">
         <h2 class="section-titre" id="titre-message" data-revele="titre">Préparer le message</h2>
-        <p class="section-chapeau" data-revele="texte">Quelques choix, et le message s'écrit tout seul sur la carte. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
+        <p class="section-chapeau" data-revele="texte">Le message est déjà sur la carte&nbsp;: il reste à choisir les mots soulignés. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
       </div>
       <ol class="message-liste" data-message-liste>
         <li data-revele="texte">Le nom du flash choisi, ou l'idée du projet</li>
@@ -106,63 +106,46 @@
         <li data-revele="texte">Vos disponibilités en semaine</li>
       </ol>
       <form class="composeur" data-composeur hidden>
-        <div class="composeur-choix">
-          <fieldset class="groupe">
-            <legend class="groupe-titre cap"><span class="groupe-num">1</span>Pour</legend>
-            <div class="etiquettes">
-              <label class="etiquette"><input type="radio" name="pour" value="flash" checked /><span>Un flash</span></label>
-              <label class="etiquette"><input type="radio" name="pour" value="projet" /><span>Un projet personnel</span></label>
-            </div>
-          </fieldset>
-          <fieldset class="groupe" data-si="flash">
-            <legend class="groupe-titre cap"><span class="groupe-num">2</span>Quel flash</legend>
-            <div class="etiquettes">
-              <label class="etiquette"><input type="radio" name="flash" value="Dague et roses" data-cle="dague-et-roses" checked /><span>Dague et roses</span></label>
-              <label class="etiquette"><input type="radio" name="flash" value="Masse d'armes" data-cle="masse-d-armes" /><span>Masse d'armes</span></label>
-            </div>
-          </fieldset>
-          <div class="groupe" data-si="projet" hidden>
-            <label class="groupe-titre cap" for="idee"><span class="groupe-num">2</span>L'idée</label>
-            <textarea class="champ" id="idee" name="idee" rows="3" placeholder="Une main qui tient une clé, avec des roses…"></textarea>
+        <div class="lettre">
+          <div class="lettre-tete">
+            <img class="lettre-embleme" src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
+            <p class="lettre-a cap">À Maxime, tatoueur</p>
           </div>
-          <fieldset class="groupe">
-            <legend class="groupe-titre cap"><span class="groupe-num">3</span>Où, sur le corps</legend>
-            <div class="etiquettes">
-              <label class="etiquette"><input type="radio" name="ou" value="l'avant-bras" checked /><span>Avant-bras</span></label>
-              <label class="etiquette"><input type="radio" name="ou" value="le bras" /><span>Bras</span></label>
-              <label class="etiquette"><input type="radio" name="ou" value="la cuisse" /><span>Cuisse</span></label>
-              <label class="etiquette"><input type="radio" name="ou" value="le mollet" /><span>Mollet</span></label>
-              <label class="etiquette"><input type="radio" name="ou" value="ailleurs" /><span>Ailleurs</span></label>
-            </div>
-            <div class="groupe-precis" data-si-ailleurs hidden>
-              <label class="masque" for="ailleurs">Préciser l'endroit</label>
-              <input class="champ" id="ailleurs" name="ailleurs" type="text" placeholder="Précisez : l'épaule, le flanc, le dos…" autocomplete="off" />
-            </div>
-          </fieldset>
-          <fieldset class="groupe">
-            <legend class="groupe-titre cap"><span class="groupe-num">4</span>Taille</legend>
-            <div class="etiquettes">
-              <label class="etiquette"><input type="radio" name="taille" value="en petit, moins de 10 cm" /><span>Moins de 10 cm</span></label>
-              <label class="etiquette"><input type="radio" name="taille" value="entre 10 et 20 cm" checked /><span>10 à 20 cm</span></label>
-              <label class="etiquette"><input type="radio" name="taille" value="en grand, plus de 20 cm" /><span>Plus de 20 cm</span></label>
-            </div>
-          </fieldset>
-          <fieldset class="groupe">
-            <legend class="groupe-titre cap"><span class="groupe-num">5</span>Disponible en semaine, plusieurs choix possibles</legend>
-            <div class="etiquettes">
-              <label class="etiquette"><input type="checkbox" name="jours" value="lundi" /><span>Lundi</span></label>
-              <label class="etiquette"><input type="checkbox" name="jours" value="mardi" /><span>Mardi</span></label>
-              <label class="etiquette"><input type="checkbox" name="jours" value="mercredi" /><span>Mercredi</span></label>
-              <label class="etiquette"><input type="checkbox" name="jours" value="jeudi" /><span>Jeudi</span></label>
-              <label class="etiquette"><input type="checkbox" name="jours" value="vendredi" /><span>Vendredi</span></label>
-            </div>
-          </fieldset>
+          <div class="lettre-corps">
+            <p>Bonjour Maxime,</p>
+            <p>Je voudrais <span class="insecable"><span class="blanc"><select name="objet" aria-label="Ce que vous souhaitez" data-objet>
+                <option value="réserver le flash «&nbsp;Dague et roses&nbsp;»" data-flash="Dague et roses" data-cle="dague-et-roses">réserver le flash «&nbsp;Dague et roses&nbsp;»</option>
+                <option value="réserver le flash «&nbsp;Masse d'armes&nbsp;»" data-flash="Masse d'armes" data-cle="masse-d-armes">réserver le flash «&nbsp;Masse d'armes&nbsp;»</option>
+                <option value="vous proposer un projet personnel">vous proposer un projet personnel</option>
+              </select><span class="blanc-texte" aria-hidden="true"></span></span>,</span> sur <span class="insecable"><span class="blanc"><select name="ou" aria-label="Où, sur le corps" data-ou>
+                <option value="l'avant-bras">l'avant-bras</option>
+                <option value="le bras">le bras</option>
+                <option value="l'épaule">l'épaule</option>
+                <option value="la cuisse">la cuisse</option>
+                <option value="le mollet">le mollet</option>
+                <option value="le flanc">le flanc</option>
+                <option value="le dos">le dos</option>
+                <option value="ailleurs">ailleurs…</option>
+              </select><span class="blanc-texte" aria-hidden="true"></span></span><span class="blanc-precis" data-si-ailleurs hidden> <input class="lettre-champ lettre-champ--ligne" id="ailleurs" name="ailleurs" type="text" placeholder="précisez l'endroit" aria-label="Préciser l'endroit" autocomplete="off" /></span>,</span> <span class="insecable"><span class="blanc"><select name="taille" aria-label="Taille">
+                <option value="en petit, moins de 10 cm">en petit, moins de 10 cm</option>
+                <option value="entre 10 et 20 cm" selected>entre 10 et 20 cm</option>
+                <option value="en grand, plus de 20 cm">en grand, plus de 20 cm</option>
+              </select><span class="blanc-texte" aria-hidden="true"></span></span>.</span></p>
+            <p class="lettre-idee" data-si-projet hidden><label for="idee">L'idée&nbsp;:</label><textarea class="lettre-champ" id="idee" name="idee" rows="2" placeholder="une main qui tient une clé, avec des roses…"></textarea></p>
+            <fieldset class="lettre-jours">
+              <legend>Je suis disponible&nbsp;:</legend>
+              <span class="jours">
+                <label class="jour"><input type="checkbox" name="jours" value="lundi" /><span>lun.</span></label>
+                <label class="jour"><input type="checkbox" name="jours" value="mardi" /><span>mar.</span></label>
+                <label class="jour"><input type="checkbox" name="jours" value="mercredi" /><span>mer.</span></label>
+                <label class="jour"><input type="checkbox" name="jours" value="jeudi" /><span>jeu.</span></label>
+                <label class="jour"><input type="checkbox" name="jours" value="vendredi" /><span>ven.</span></label>
+              </span>
+            </fieldset>
+            <p>Merci, à bientôt.</p>
+          </div>
         </div>
-        <div class="composeur-carte">
-          <div class="lettre">
-            <p class="lettre-tete cap"><span>Votre message</span><span>À Maxime</span></p>
-            <p class="lettre-texte" data-lettre aria-live="polite"></p>
-          </div>
+        <div class="composeur-suite">
           <div class="composeur-actions">
             <a class="bouton bouton--plein bouton--large cap" href="#" data-envoyer><span>Envoyer par e-mail</span><span class="fleche" aria-hidden="true">→</span></a>
             <button class="bouton bouton--large cap" type="button" data-copier><span data-copier-libelle>Copier pour Instagram</span><span class="fleche" aria-hidden="true">→</span></button>

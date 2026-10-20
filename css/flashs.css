@@ -1,47 +1,9 @@
 /*
- * Flashs : le relevé de la saison, deux onglets (disponibles, déjà tatoués,
- * js/onglets.js), chaque dessin disponible en grand avec ses mesures, les
- * dessins tatoués qui se retournent pour montrer la peau (js/retourne.js).
- * Sans script, les deux parties se suivent, chacune sous son titre.
+ * Flashs : deux onglets (disponibles, déjà tatoués, js/onglets.js), chaque
+ * dessin disponible en grand avec ses mesures, les dessins tatoués qui se
+ * retournent pour montrer la peau (js/retourne.js). Sans script, les deux
+ * parties se suivent, chacune sous son titre.
  */
-
-/* Relevé de la saison : trois repères sous l'introduction. */
-.releve {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-top: 1px solid var(--filet);
-  border-bottom: 1px solid var(--filet);
-}
-
-.releve > div {
-  padding: 0.7rem 0.75rem 0.8rem 0;
-}
-
-.releve > div + div {
-  padding-left: 0.75rem;
-  border-left: 1px solid var(--filet);
-}
-
-.releve dt {
-  color: var(--sang-vif);
-}
-
-.releve dd {
-  margin-top: 0.3rem;
-  font-size: 1.1875rem;
-  line-height: 1.1;
-}
-
-@media (min-width: 1024px) {
-  .releve {
-    grid-column: 8 / -1;
-    align-self: end;
-  }
-
-  .releve dd {
-    font-size: 1.5rem;
-  }
-}
 
 /*
  * Onglets : deux mots, le choisi souligné à l'encre rouge. Collés tant

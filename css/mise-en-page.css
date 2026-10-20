@@ -223,7 +223,7 @@
     padding-top: calc(var(--entete-h) + 2rem);
   }
 
-  /* Tête courte : ce qui suit (cases, cadre) monte dans le premier écran. */
+  /* Tête courte : ce qui suit (thèmes, cadre) monte dans le premier écran. */
   .page-tete--courte {
     min-height: 0;
   }
