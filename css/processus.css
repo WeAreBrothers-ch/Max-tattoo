@@ -3,8 +3,8 @@
  * montre ce dessin à chacun des quatre temps (vidéo du carnet, encre, vidéo
  * de la séance, peau) ; on touche un temps ou on glisse l'image, et la
  * nouvelle se découvre de bas en haut (js/processus.js). Dessous, ou à côté
- * sur ordinateur, la documentation du temps choisi : fiche, films, croquis,
- * mots de Maxime. Sans script, les quatre temps se suivent.
+ * sur ordinateur, la documentation du temps choisi : films, croquis, mots de
+ * Maxime. Sans script, les quatre temps se suivent.
  */
 
 .processus {
@@ -182,10 +182,6 @@
   line-height: 1.36;
 }
 
-.etape-doc > .fiche {
-  margin-top: 1.75rem;
-}
-
 .etape-doc-pensee {
   margin-top: 2.5rem;
 }
@@ -203,7 +199,7 @@
   margin-top: 0.5rem;
 }
 
-/* Pages du carnet : trois feuilles posées de biais. */
+/* Pages du carnet : trois feuilles droites, côte à côte. */
 .pages {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -214,22 +210,6 @@
 
 .pages .cadre {
   aspect-ratio: 3 / 4;
-}
-
-.pages > :nth-child(1) .cadre {
-  --penche: -2deg;
-}
-
-.pages > :nth-child(2) {
-  margin-top: 1.25rem;
-}
-
-.pages > :nth-child(2) .cadre {
-  --penche: 0.8deg;
-}
-
-.pages > :nth-child(3) .cadre {
-  --penche: 1.8deg;
 }
 
 .pages .legende {
@@ -322,7 +302,10 @@
   }
 }
 
-/* Ordinateur : le cadre reste à gauche, la documentation défile à droite. */
+/*
+ * Ordinateur : le cadre à gauche sur quatre colonnes, la documentation à
+ * droite ; ses images vont par trois, à la taille des pièces de l'accueil.
+ */
 @media (min-width: 1024px) {
   .processus {
     display: grid;
@@ -333,19 +316,13 @@
   }
 
   .scene {
-    position: sticky;
-    top: calc(var(--entete-h) + 1.5rem);
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 4;
     max-width: none;
     margin-inline: 0;
   }
 
-  .scene-cadre {
-    max-height: calc(100svh - var(--entete-h) - 9rem);
-  }
-
   .doc {
-    grid-column: 7 / -1;
+    grid-column: 6 / -1;
     margin-top: 0;
   }
 
@@ -355,15 +332,26 @@
   }
 
   .etape-doc-titre {
-    font-size: clamp(3.5rem, 5.4vw, 6rem);
+    font-size: clamp(3.5rem, 5vw, 5.5rem);
   }
 
   .etape-doc-texte {
+    max-width: 34em;
     font-size: 1.3125rem;
+  }
+
+  .etape-doc-pensee {
+    max-width: 30em;
   }
 
   .etape-doc .bloc {
     margin-top: clamp(3.5rem, 6vw, 5rem);
+  }
+
+  .etape-doc .films,
+  .etape-doc .paire-grille,
+  .pieces--duo {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .deroule.deroule--etroit {

@@ -128,19 +128,23 @@
 /*
  * Un thème choisi : les quatre emblèmes en onglets, collés sous la barre du
  * haut sur téléphone et tablette, en ligne en tête de page sur ordinateur.
+ * Collés, ils remontent sous le fondu de la barre : noir plein d'un bord à
+ * l'autre, sans jour entre les deux.
  */
 .themes-vue {
-  padding-top: var(--haut);
+  --sous-barre: 0.8rem;
+  padding-top: calc(var(--haut) - var(--sous-barre));
 }
 
 .onglets-themes {
   position: sticky;
-  top: var(--haut);
+  top: calc(var(--haut) - var(--sous-barre));
   z-index: 5;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  padding-top: 0.25rem;
-  background: linear-gradient(var(--noir) 80%, rgb(0 0 0 / 0));
+  padding-top: calc(var(--sous-barre) + 0.25rem);
+  border-bottom: 1px solid var(--filet);
+  background: var(--noir);
 }
 
 .onglet-theme {
@@ -193,6 +197,7 @@
     display: flex;
     gap: clamp(1.5rem, 3vw, 3rem);
     padding-top: 0;
+    border-bottom: 0;
     background: none;
   }
 
@@ -223,7 +228,7 @@
 /*
  * Un chapitre. Téléphone : le dessin de Maxime en frontispice, centré, puis
  * le texte, la pensée, le croquis et la peau, les films, les autres pièces.
- * Ordinateur : le frontispice reste à gauche pendant qu'on parcourt le reste.
+ * Ordinateur : le frontispice et le titre à gauche, le texte à droite.
  */
 .chapitre {
   padding-top: 2rem;
@@ -368,59 +373,92 @@
   }
 }
 
+/*
+ * Ordinateur, comme avant la refonte : le dessin de Maxime et le grand titre
+ * à gauche, le texte à droite ; dessous, les images vont par quatre (croquis
+ * et peau, puis les deux films), et les autres pièces sur une rangée.
+ */
 @media (min-width: 1024px) {
   .chapitre {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--gap);
-    align-items: start;
-    padding-top: clamp(2.5rem, 5vw, 4.5rem);
+    padding-top: clamp(2.5rem, 5vw, 4rem);
     padding-bottom: 0;
   }
 
   .chapitre-tete {
-    position: sticky;
-    top: calc(var(--entete-h) + 1.5rem);
-    grid-column: 1 / span 5;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gap);
+    align-items: start;
     text-align: left;
   }
 
   .chapitre-embleme {
-    height: clamp(14rem, 21vw, 20rem);
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 4;
+    justify-self: start;
+    height: clamp(10rem, 12vw, 13rem);
+  }
+
+  .chapitre-num,
+  .chapitre-titre,
+  .chapitre-compte {
+    grid-column: 3 / span 5;
   }
 
   .chapitre-num {
-    margin-top: 2rem;
+    grid-row: 1;
+    margin-top: 0.4rem;
   }
 
   .chapitre-titre {
-    font-size: clamp(3.5rem, 5.6vw, 6.5rem);
+    grid-row: 2;
+    font-size: clamp(3.5rem, 5.6vw, 6rem);
+  }
+
+  .chapitre-compte {
+    grid-row: 3;
   }
 
   .chapitre-texte,
   .chapitre-pensee {
-    align-self: stretch;
-    max-width: 26em;
+    grid-column: 8 / -1;
+    align-self: start;
+    max-width: none;
   }
 
   .chapitre-texte {
-    margin-top: 2.25rem;
+    grid-row: 1 / span 3;
+    margin-top: 0.4rem;
     font-size: 1.3125rem;
   }
 
+  .chapitre-pensee {
+    grid-row: 4;
+    margin-top: 1.75rem;
+  }
+
   .chapitre-corps {
-    grid-column: 7 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(4rem, 6vw, 5.5rem) var(--gap);
+    align-items: start;
+    margin-top: clamp(3.5rem, 6vw, 5rem);
+  }
+
+  .chapitre-corps > * + * {
     margin-top: 0;
   }
 
-  .pieces--chapitre {
-    --colonnes: 2;
+  .chapitre-corps > .bloc-pieces,
+  .chapitre-corps > .chapitre-suite {
+    grid-column: 1 / -1;
   }
-}
 
-@media (min-width: 1600px) {
-  .pieces--chapitre {
-    --colonnes: 3;
+  .chapitre-suite {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .chapitre-suite > :first-child {
+    grid-column: span 2;
   }
 }

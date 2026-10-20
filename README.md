@@ -7,9 +7,9 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 | Fichier | Contenu |
 | --- | --- |
 | `index.html` | Accueil : le nom qui sort du flou sur le fond animé, manifeste, quatre pièces portées, les flashs de la saison, du carnet à la peau en quatre temps, le studio |
-| `flashs.html` | Relevé de la saison, onglets « Disponibles » (chaque dessin en grand avec sa fiche, ordre tiré au sort) et « Déjà tatoués » (le dessin se retourne sur la peau), saisons passées, réserver |
+| `flashs.html` | Relevé de la saison, onglets « Disponibles » (chaque dessin en grand avec ses mesures, ordre tiré au sort) et « Déjà tatoués » (le dessin se retourne sur la peau), saisons passées, réserver |
 | `tatouages.html` | Quatre cases portant chacune un dessin de Maxime ; on en choisit une et seul ce thème s'affiche : croquis et peau, films, autres pièces, visionneuse plein écran |
-| `processus.html` | Le chemin d'un seul dessin : un cadre montre les quatre temps (carnet, encre, séance, après) et, pour chacun, une fiche, des films, des croquis et les mots de Maxime |
+| `processus.html` | Le chemin d'un seul dessin : un cadre montre les quatre temps (carnet, encre, séance, après) et, pour chacun, des films, des croquis et les mots de Maxime |
 | `rendez-vous.html` | Écrire, préparer le message en quelques choix (il s'écrit sur une carte, prêt pour l'e-mail ou Instagram), déroulement, studio, soins, questions |
 | `404.html` | Page introuvable (chemins depuis la racine : `<base href="/">`) |
 
@@ -17,9 +17,9 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 
 - **Fond** : brume et gravure rouge sang en WebGL (`js/fond*.js`), derrière toutes les pages. La gravure affleure en permanence dans la brume et s'avive sous la lumière : elle suit la souris ; sur téléphone, rien ne suit le doigt, une lanterne se promène seule lentement (`js/fond-pointeur.js`) et reprend son trajet d'une page à l'autre. Pas de rayons. Quand le menu s'ouvre, la gravure remonte pleinement. D'une page à l'autre, la brume continue son chemin au lieu de repartir du noir.
 - **Voile** : sur téléphone et tablette, un noir dense passe sous le texte et les images de chaque section (classe `voile`), fondu en haut et en bas ; la gravure reste entière entre les blocs, sur la couverture et dans le menu. Sur ordinateur, le fond reste libre.
-- **Dessins** : les emblèmes blancs de Maxime (`em-*.webp`) ouvrent les thèmes de Tatouages, le menu et la page Rendez-vous ; les croquis au crayon rouge sont posés de biais comme des feuilles sur une table (`cadre papier`).
-- **Typographie** : IM Fell English (romain, italique) et IM Fell English SC (petites capitales), licence OFL. Grands titres qui prennent toute la largeur, chiffres romains, filets fins, lettrine rouge, losange d'encre pour ce qui est choisi.
-- **Menu** : table des matières plein écran (`<dialog>`). Un rideau noir descend et couvre la page avant que rien n'apparaisse (la page ne se voit jamais sous les chapitres), puis s'éclaircit sur la gravure ; les chapitres montent un à un, l'emblème blanc du chapitre apparaît (en haut sur téléphone, à droite sur ordinateur). La page en cours est marquée en rouge, d'un losange. Le son est rangé dans le pied du menu, avec son nom (« Son coupé » / « Son allumé »).
+- **Dessins** : les emblèmes blancs de Maxime (`em-*.webp`) ouvrent les thèmes de Tatouages, le menu et la page Rendez-vous ; les croquis au crayon rouge sont tirés sur papier crème (`cadre papier`). Aucune image n'est penchée ni décalée, sur téléphone comme sur ordinateur : les images d'une même rangée sont droites et alignées.
+- **Typographie** : IM Fell English (romain, italique) et IM Fell English SC (petites capitales), licence OFL. Grands titres qui prennent toute la largeur, chiffres romains, filets fins, lettrine rouge. Les choix du formulaire sont des carrés au filet fin, blancs pleins une fois choisis.
+- **Menu** : table des matières plein écran (`<dialog>`). Un rideau noir descend et couvre la page avant que rien n'apparaisse (la page ne se voit jamais sous les chapitres), puis s'éclaircit sur la gravure ; les chapitres montent un à un, l'emblème blanc du chapitre apparaît (en haut sur téléphone, à droite sur ordinateur). La page en cours est marquée en rouge, d'un losange. À l'ouverture, le focus va au menu lui-même : aucun lien n'est encadré comme s'il était choisi. Le son est rangé dans le pied du menu, avec son nom (« Son coupé » / « Son allumé »).
 - **Boutons** : à angles droits, cernés ; plein (fond clair) pour l'action principale.
 
 ## Téléphone d'abord
@@ -27,16 +27,16 @@ Site de Maxime, tatoueur en Suisse romande. Pages statiques, sans framework ni �
 Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est une version d'ordinateur rétrécie. Calibré de 320 à 430 px de large, debout et à l'horizontale.
 
 - **Barre du haut** (téléphone et tablette) : le nom à gauche, Menu à droite, rien d'autre. Dans le menu, « Fermer » prend la place exacte de « Menu ».
-- **Accueil** : la couverture tient dans l'écran, le nom posé en bas de l'écran, chaque lettre sort du flou. Pièces et flashs en grille de deux colonnes (quatre dès la tablette) ; le chemin du carnet à la peau en frise de quatre images.
+- **Accueil** : la couverture tient dans l'écran, le nom posé en bas de l'écran, chaque lettre sort du flou. Pièces et flashs en grille de deux colonnes (quatre dès la tablette) ; le chemin du carnet à la peau en quatre images avec leur phrase, deux par deux au téléphone, en frise dès la tablette.
 - **Grilles de pièces** (`pieces`) : deux colonnes au pouce, trois sur tablette, quatre sur ordinateur (ou `--colonnes`), toutes au format 3 / 4, la légende dessous. Plus de rangées à glisser.
-- **Tatouages** : un thème à la fois (`js/themes.js`) ; l'adresse garde le thème (`tatouages.html#cranes`), le « retour » ramène au précédent puis aux quatre cases. Les quatre emblèmes restent en onglets collés sous la barre.
+- **Tatouages** : un thème à la fois (`js/themes.js`) ; l'adresse garde le thème (`tatouages.html#cranes`), le « retour » ramène au précédent puis aux quatre cases. Les quatre emblèmes restent en onglets collés sous la barre, sur un noir plein qui passe sous son fondu : aucun jour entre les deux. Même chose pour les onglets des Flashs, collés seulement le temps du catalogue.
 - **Processus** : un cadre unique (`js/processus.js`) ; on touche un temps ou on glisse l'image, la nouvelle se découvre de bas en haut ; seule la documentation de ce temps s'affiche (`processus.html#encre`).
 - **Flashs** : onglets « Disponibles » / « Déjà tatoués » (`js/onglets.js`) ; un dessin tatoué se retourne sur la pièce portée (`js/retourne.js`). « Réserver ce dessin » ouvre le formulaire avec ce flash déjà choisi (`rendez-vous.html?flash=dague-et-roses#ecrire`).
 - **Rendez-vous** : le message se prépare en quelques choix (`js/composeur.js`) — flash ou projet, l'endroit (« Ailleurs » ouvre un champ pour le préciser), la taille, les jours — et s'écrit à mesure sur une carte de papier ; il part par e-mail (sujet et texte déjà remplis) ou se copie pour Instagram.
 - **Visionneuse** : l'œuvre grandit depuis sa vignette ; on glisse de l'une à l'autre, on la tire vers le bas pour la reposer, et elle retourne à sa place.
 - **Retour du téléphone** : le bouton ou le geste « retour » referme le menu ou la visionneuse au lieu de quitter la page.
 - **Animations** : courtes sur téléphone (on y fait défiler vite), aucune ne fait attendre le pouce. D'une page à l'autre, la barre du haut ne bouge pas. Zones tactiles de 44 px, marges de sécurité (encoche).
-- **Tablette et ordinateur** : grille de 12 colonnes dès 768 px ; dès 1024 px, en-tête fixe à la place de la barre. Tatouages et Processus passent en deux colonnes : le dessin (ou le cadre) reste à gauche pendant qu'on parcourt le reste ; sur Rendez-vous, la carte du message reste à droite des choix.
+- **Tablette et ordinateur** : grille de 12 colonnes dès 768 px ; dès 1024 px, en-tête fixe à la place de la barre. Rien ne reste collé pendant qu'on fait défiler, et les images gardent la taille des pièces de l'accueil (un quart de la largeur) : sur Tatouages, le dessin et le titre à gauche, le texte à droite, puis croquis, peau et films par quatre ; sur Processus, le cadre sur quatre colonnes à gauche et la documentation à droite, ses images par trois ; sur Flashs, une planche par rangée ; sur Rendez-vous, la carte du message à droite des choix.
 
 ## Structure
 
@@ -53,8 +53,8 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 │   ├── menu.css          menu plein écran et ses animations
 │   ├── mise-en-page.css  grille, sections, têtes de page, sommaires, révélations
 │   ├── oeuvres.css       cadres, légendes, planches, tampon, pensées
-│   ├── blocs.css         titre de bloc, croquis sur papier, du croquis à la peau, films, fiche, grilles de pièces
-│   ├── accueil.css       ouverture, manifeste, grilles de pièces et de flashs, frise des étapes, studio
+│   ├── blocs.css         titre de bloc, croquis sur papier, du croquis à la peau, films, grilles de pièces
+│   ├── accueil.css       ouverture, manifeste, grilles de pièces et de flashs, étapes du carnet à la peau, studio
 │   ├── pages.css         registre des saisons, déroulé, canaux, soins, questions, 404
 │   ├── tatouages.css     quatre cases, onglets d'emblèmes, chapitres
 │   ├── processus.css     cadre des quatre temps, documentation
@@ -108,7 +108,7 @@ Dans une grille de pièces, une œuvre n'a pas de placement à choisir : la gril
 </figure>
 ```
 
-- `cadre papier` : un croquis posé de biais, avec son ombre (`--penche` pour l'angle).
+- `cadre papier` : un croquis sur sa feuille crème, droit, avec son ombre.
 - Hors galerie (manifeste, studio, flashs), `--c` / `--h` placent un bloc sur 6 colonnes au téléphone, `--cd` / `--hd` sur 12 colonnes dès 768 px.
 - `--r` sur le cadre : format hors galerie (`3 / 4` par défaut, `9 / 16`, `2 / 3`, `1 / 1`).
 - `oeuvre--plein` : l'image touche les deux bords sur téléphone. `cadre--arche` : plein cintre.

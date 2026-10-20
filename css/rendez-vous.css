@@ -65,10 +65,10 @@
 }
 
 /*
- * Étiquettes à choisir : un cadre droit et un losange vide ; choisie, le
- * cadre passe au rouge, le losange se remplit d'encre et un voile rouge
- * teinte le fond. Le vrai bouton (radio ou case) reste dessous, invisible :
- * clavier et lecteurs d'écran s'en servent comme d'habitude.
+ * Étiquettes à choisir : un carré droit au filet fin ; choisie, elle passe
+ * au blanc plein, le mot en noir. Le vrai bouton (radio ou case) reste
+ * dessous, invisible : clavier et lecteurs d'écran s'en servent comme
+ * d'habitude.
  */
 .etiquettes {
   display: flex;
@@ -94,35 +94,21 @@
 .etiquette span {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
   min-height: 2.875rem;
   padding: 0 1rem;
   border: 1px solid var(--filet);
-  color: var(--blanc-doux);
+  background: rgb(0 0 0 / 0.55);
+  color: var(--blanc);
   font-size: 1.0625rem;
   line-height: 1.1;
   transition: border-color 300ms var(--ease), color 300ms var(--ease), background-color 300ms var(--ease);
 }
 
-.etiquette span::before {
-  content: "";
-  flex: none;
-  width: 0.45rem;
-  height: 0.45rem;
-  border: 1px solid currentColor;
-  rotate: 45deg;
-  transition: background-color 300ms var(--ease), border-color 300ms var(--ease);
-}
-
 .etiquette input:checked + span {
-  border-color: var(--sang-vif);
-  background: rgb(168 22 27 / 0.18);
-  color: var(--blanc);
-}
-
-.etiquette input:checked + span::before {
-  border-color: var(--sang-vif);
-  background: var(--sang-vif);
+  border-color: var(--blanc);
+  background: var(--blanc);
+  color: var(--noir);
+  text-shadow: none;
 }
 
 .etiquette input:focus-visible + span {
@@ -136,8 +122,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .etiquette:hover input:not(:checked) + span {
-    border-color: rgb(244 241 235 / 0.5);
-    color: var(--blanc);
+    border-color: rgb(244 241 235 / 0.6);
   }
 }
 
@@ -175,13 +160,12 @@ textarea.champ {
   margin-top: 0.75rem;
 }
 
-/* La carte : le message sur papier, posée de travers sur la table. */
+/* La carte : le message sur papier crème, posée droite. */
 .lettre {
   padding: 1.4rem 1.25rem 1.5rem;
   background: #e9e2d4;
   color: #1a1714;
   box-shadow: 0 1.1rem 2.25rem rgb(0 0 0 / 0.6);
-  rotate: -0.6deg;
   text-shadow: none;
 }
 
@@ -226,7 +210,7 @@ textarea.champ {
   }
 }
 
-/* Ordinateur : les choix à gauche, la carte reste à droite pendant qu'on coche. */
+/* Ordinateur : les choix à gauche, la carte à droite. */
 @media (min-width: 1024px) {
   .composeur {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -239,8 +223,6 @@ textarea.champ {
   }
 
   .composeur-carte {
-    position: sticky;
-    top: calc(var(--entete-h) + 2rem);
     grid-column: 8 / -1;
   }
 

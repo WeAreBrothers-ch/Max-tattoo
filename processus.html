@@ -83,7 +83,7 @@
       </div>
     </header>
 
-    <div class="processus contenu" data-processus>
+    <div class="processus contenu voile" data-processus>
       <div class="scene">
         <div class="scene-cadre" data-scene>
           <video class="scene-media est-active" data-media="carnet" muted loop playsinline preload="metadata" poster="assets/video/v-carnet-main.jpg" aria-label="Le carnet : Maxime dessine une main au crayon rouge, en vidéo"><source src="assets/video/v-carnet-main.mp4" type="video/mp4" /></video>
@@ -102,19 +102,13 @@
       </div>
 
       <div class="doc">
-        <article class="etape-doc voile" id="carnet" aria-labelledby="titre-carnet" data-etape>
+        <article class="etape-doc" id="carnet" aria-labelledby="titre-carnet" data-etape>
           <p class="etape-doc-haut cap"><span class="etape-doc-num">I</span><span>Au crayon rouge, le soir</span></p>
           <h2 class="etape-doc-titre" id="titre-carnet">Le carnet</h2>
           <p class="etape-doc-texte">Tout commence au crayon rouge, une couleur qui ne se prend pas pour du définitif. Les pages sont montrées telles quelles, avec leurs hésitations. Les croquis deviennent des flashs ou la base d'un projet personnalisé.</p>
-          <dl class="fiche">
-            <div><dt class="cap">Outil</dt><dd>Le crayon rouge</dd></div>
-            <div><dt class="cap">Moment</dt><dd>Le soir, souvent à la bougie</dd></div>
-            <div><dt class="cap">Règle</dt><dd>Sans gomme</dd></div>
-            <div><dt class="cap">Devient</dt><dd>Un flash ou un projet</dd></div>
-          </dl>
           <blockquote class="pensee pensee--filet etape-doc-pensee">«&nbsp;La main est le premier sujet que j'ai dessiné et celui que je n'ai jamais lâché. Elle tient, elle offre, elle menace.&nbsp;»<span class="pensee-signature cap">Maxime</span></blockquote>
           <div class="bloc">
-            <p class="bloc-titre cap"><span>Au carnet</span><span>Deux films, muets</span></p>
+            <p class="bloc-titre cap"><span>Au carnet</span></p>
             <div class="films">
               <figure class="film">
                 <div class="cadre"><video id="film-bougie" data-autoplay muted loop playsinline preload="none" poster="assets/video/v-carnet-bougie.jpg" aria-label="Maxime dessine le soir, à la lueur d'une bougie"><source src="assets/video/v-carnet-bougie.mp4" type="video/mp4" /></video></div>
@@ -128,7 +122,7 @@
             <p class="pensee bloc-pensee">«&nbsp;Je dessine le soir, souvent à la bougie. La flamme bouge, les ombres aussi, et le trait suit. Le jour, je corrige.&nbsp;»</p>
           </div>
           <div class="bloc" data-visionneuse>
-            <p class="bloc-titre cap"><span>Pages du carnet</span><span>Telles quelles</span></p>
+            <p class="bloc-titre cap"><span>Pages du carnet</span></p>
             <div class="pages">
               <figure class="oeuvre" data-revele="image">
                 <div class="cadre papier"><img src="assets/img/cn-6.jpg" alt="Page de carnet, croquis rouge d'un nain à chapeau pointu" loading="lazy" decoding="async" width="675" height="900" /></div>
@@ -150,16 +144,10 @@
           </nav>
         </article>
 
-        <article class="etape-doc voile" id="encre" aria-labelledby="titre-encre" data-etape>
+        <article class="etape-doc" id="encre" aria-labelledby="titre-encre" data-etape>
           <p class="etape-doc-haut cap"><span class="etape-doc-num">II</span><span>À la taille réelle</span></p>
           <h2 class="etape-doc-titre" id="titre-encre">L'encre</h2>
           <p class="etape-doc-texte">Quand le croquis tient, il est repris à l'encre noire, sur papier, à la taille réelle du tatouage. C'est le dessin du catalogue, et celui qui sera décalqué sur la peau.</p>
-          <dl class="fiche">
-            <div><dt class="cap">Encre</dt><dd>Noire, sur papier</dd></div>
-            <div><dt class="cap">Taille</dt><dd>Celle du tatouage</dd></div>
-            <div><dt class="cap">Rôle</dt><dd>Le dessin du catalogue</dd></div>
-            <div><dt class="cap">Ensuite</dt><dd>Décalqué sur la peau</dd></div>
-          </dl>
           <blockquote class="pensee pensee--filet etape-doc-pensee">«&nbsp;Le crayon rouge cherche. Il a le droit de se tromper&nbsp;; l'encre, elle, décide.&nbsp;»<span class="pensee-signature cap">Maxime</span></blockquote>
           <div class="bloc paire" data-visionneuse>
             <p class="bloc-titre cap"><span>Du crayon à l'encre</span><span>Serpent et main</span></p>
@@ -169,7 +157,7 @@
                 <figcaption class="legende"><span class="legende-titre" data-num="I">Le crayon</span><span class="legende-lieu cap">Croquis</span></figcaption>
               </figure>
               <figure class="oeuvre" data-revele="image">
-                <div class="cadre papier" style="--penche: 1.4deg"><img src="assets/img/fl-serpent.jpg" alt="Le même dessin repris à l'encre noire, avec bagues et bracelet" loading="lazy" decoding="async" width="660" height="880" /></div>
+                <div class="cadre papier"><img src="assets/img/fl-serpent.jpg" alt="Le même dessin repris à l'encre noire, avec bagues et bracelet" loading="lazy" decoding="async" width="660" height="880" /></div>
                 <figcaption class="legende"><span class="legende-titre" data-num="II">L'encre</span><span class="legende-lieu cap">Taille réelle</span></figcaption>
               </figure>
             </div>
@@ -183,7 +171,7 @@
                 <figcaption class="legende"><span class="legende-titre" data-num="I">Le crayon</span><span class="legende-lieu cap">Croquis</span></figcaption>
               </figure>
               <figure class="oeuvre" data-revele="image">
-                <div class="cadre papier" style="--penche: 1.4deg"><img src="assets/img/fl-dague-roses.jpg" alt="Le même dessin repris à l'encre noire" loading="lazy" decoding="async" width="660" height="880" /></div>
+                <div class="cadre papier"><img src="assets/img/fl-dague-roses.jpg" alt="Le même dessin repris à l'encre noire" loading="lazy" decoding="async" width="660" height="880" /></div>
                 <figcaption class="legende"><span class="legende-titre" data-num="II">L'encre</span><span class="legende-lieu cap">Taille réelle</span></figcaption>
               </figure>
             </div>
@@ -195,18 +183,12 @@
           </nav>
         </article>
 
-        <article class="etape-doc voile" id="seance" aria-labelledby="titre-seance" data-etape>
+        <article class="etape-doc" id="seance" aria-labelledby="titre-seance" data-etape>
           <p class="etape-doc-haut cap"><span class="etape-doc-num">III</span><span>Une à trois heures</span></p>
           <h2 class="etape-doc-titre" id="titre-seance">La séance</h2>
           <p class="etape-doc-texte">Le dessin est décalqué, positionné, validé ensemble dans le miroir. Puis on commence. Une personne à la fois, dans le calme, avec des pauses quand il le faut.</p>
-          <dl class="fiche">
-            <div><dt class="cap">Durée</dt><dd>Une à trois heures pour un flash</dd></div>
-            <div><dt class="cap">Studio</dt><dd>Une personne à la fois</dd></div>
-            <div><dt class="cap">Placement</dt><dd>Validé dans le miroir</dd></div>
-            <div><dt class="cap">Rythme</dt><dd>Des pauses quand il faut</dd></div>
-          </dl>
           <div class="bloc">
-            <p class="bloc-titre cap"><span>Le déroulé</span><span>Dans l'ordre</span></p>
+            <p class="bloc-titre cap"><span>Le déroulé</span></p>
             <ol class="deroule deroule--etroit">
               <li><span class="deroule-num cap">I</span><h3 class="deroule-titre">Le décalque</h3><p>Le dessin à l'encre est reporté sur la peau, à taille réelle.</p></li>
               <li><span class="deroule-num cap">II</span><h3 class="deroule-titre">Le placement</h3><p>Positionné, puis validé ensemble dans le miroir.</p></li>
@@ -216,7 +198,7 @@
           </div>
           <blockquote class="pensee pensee--filet etape-doc-pensee">«&nbsp;En séance, je parle peu. Le dessin est déjà décidé&nbsp;; il ne reste qu'à le poser proprement. C'est le moment le plus calme.&nbsp;»<span class="pensee-signature cap">Maxime</span></blockquote>
           <div class="bloc">
-            <p class="bloc-titre cap"><span>En séance</span><span>Deux films, muets</span></p>
+            <p class="bloc-titre cap"><span>En séance</span></p>
             <div class="films">
               <figure class="film">
                 <div class="cadre"><video id="film-trait" data-autoplay muted loop playsinline preload="none" poster="assets/video/v-seance-1.jpg" aria-label="Maxime en séance, penché sur le tatouage"><source src="assets/video/v-seance-1.mp4" type="video/mp4" /></video></div>
@@ -235,18 +217,12 @@
           </nav>
         </article>
 
-        <article class="etape-doc voile" id="apres" aria-labelledby="titre-apres" data-etape>
+        <article class="etape-doc" id="apres" aria-labelledby="titre-apres" data-etape>
           <p class="etape-doc-haut cap"><span class="etape-doc-num">IV</span><span>Six mois de suivi</span></p>
           <h2 class="etape-doc-titre" id="titre-apres">Après</h2>
           <p class="etape-doc-texte">Une pièce n'est finie qu'une fois cicatrisée&nbsp;: c'est à ce moment qu'on la photographie. Une fiche de soins est remise après chaque séance, et les retouches sont comprises dans les six mois.</p>
-          <dl class="fiche">
-            <div><dt class="cap">Photo</dt><dd>Une fois cicatrisée</dd></div>
-            <div><dt class="cap">Soins</dt><dd>Une fiche remise après la séance</dd></div>
-            <div><dt class="cap">Retouches</dt><dd>Comprises six mois</dd></div>
-            <div><dt class="cap">Soleil</dt><dd>Pas pendant trois semaines</dd></div>
-          </dl>
           <div class="bloc">
-            <p class="bloc-titre cap"><span>Les soins</span><span>L'essentiel</span></p>
+            <p class="bloc-titre cap"><span>Les soins</span></p>
             <ul class="soins soins--trait">
               <li>Pas de soleil pendant trois semaines.</li>
               <li>Ni bain ni piscine pendant trois semaines.</li>
@@ -257,7 +233,7 @@
           </div>
           <blockquote class="pensee pensee--filet etape-doc-pensee">«&nbsp;Cicatrisé, le trait s'assoit un peu dans la peau. C'est là qu'on voit s'il tient.&nbsp;»<span class="pensee-signature cap">Maxime</span></blockquote>
           <div class="bloc">
-            <p class="bloc-titre cap"><span>Cicatrisées</span><span>Photographiées après</span></p>
+            <p class="bloc-titre cap"><span>Cicatrisées</span></p>
             <div class="pieces pieces--duo" data-visionneuse>
               <figure class="oeuvre" data-revele="image">
                 <div class="cadre"><img class="photo" src="assets/img/tt-oeil.jpg" alt="Œil rayonnant tatoué à l'arrière du coude, cicatrisé" loading="lazy" decoding="async" width="675" height="900" /></div>

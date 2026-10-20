@@ -1,6 +1,6 @@
 /*
  * Flashs : le relevé de la saison, deux onglets (disponibles, déjà tatoués,
- * js/onglets.js), chaque dessin disponible en grand avec sa fiche, les
+ * js/onglets.js), chaque dessin disponible en grand avec ses mesures, les
  * dessins tatoués qui se retournent pour montrer la peau (js/retourne.js).
  * Sans script, les deux parties se suivent, chacune sous son titre.
  */
@@ -43,15 +43,21 @@
   }
 }
 
-/* Onglets : deux mots, le choisi souligné à l'encre rouge. */
+/*
+ * Onglets : deux mots, le choisi souligné à l'encre rouge. Collés tant
+ * qu'on parcourt le catalogue (.flashs-catalogue), ils remontent sous le
+ * fondu de la barre du haut : noir plein, sans jour.
+ */
 .onglets-flashs {
+  --sous-barre: 0.8rem;
   position: sticky;
-  top: var(--haut);
+  top: calc(var(--haut) - var(--sous-barre));
   z-index: 5;
   display: flex;
   gap: 1.75rem;
-  padding-top: 0.75rem;
-  background: linear-gradient(var(--noir) 78%, rgb(0 0 0 / 0));
+  padding-top: calc(var(--sous-barre) + 0.25rem);
+  border-bottom: 1px solid var(--filet);
+  background: var(--noir);
 }
 
 .onglet-flashs {
@@ -99,6 +105,7 @@
     position: static;
     gap: 3rem;
     padding-top: clamp(1.5rem, 4vw, 3rem);
+    border-bottom: 0;
     background: none;
   }
 
@@ -152,7 +159,7 @@
   }
 }
 
-/* Chaque dessin disponible en grand : la planche, son nom, sa fiche. */
+/* Chaque dessin disponible en grand : la planche, son nom, ses mesures. */
 .planches-grandes {
   display: grid;
   gap: 4.5rem;
@@ -191,12 +198,12 @@
   letter-spacing: -0.01em;
 }
 
-.planche-grande-pensee {
+.planche-grande .planche-infos {
   margin-top: 0.75rem;
 }
 
-.planche-grande .fiche {
-  margin-top: 1.5rem;
+.planche-grande-pensee {
+  margin-top: 1.25rem;
 }
 
 .planche-grande .bouton {
@@ -211,6 +218,45 @@
 
   .planche-grande .cadre {
     width: 92%;
+  }
+}
+
+/*
+ * Ordinateur : une planche par rangée, le dessin sur trois colonnes à
+ * gauche (la taille des pièces de l'accueil), son nom et le reste à droite.
+ */
+@media (min-width: 1024px) {
+  .planches-grandes {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: clamp(3.5rem, 6vw, 5rem);
+  }
+
+  .planche-grande {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(5, auto) 1fr;
+    column-gap: var(--gap);
+    align-items: start;
+  }
+
+  .planche-grande > * {
+    grid-column: 5 / span 6;
+  }
+
+  .planche-grande .cadre {
+    grid-column: 1 / span 3;
+    grid-row: 1 / -1;
+    width: 100%;
+    margin: 0;
+  }
+
+  .planche-grande .planche-titre {
+    margin-top: 1.5rem;
+    font-size: clamp(2.5rem, 3.6vw, 3.5rem);
+  }
+
+  .planche-grande .bouton {
+    max-width: 24rem;
   }
 }
 
@@ -320,8 +366,8 @@
 
 @media (min-width: 768px) {
   .retournes {
-    max-width: 58rem;
-    gap: 3rem clamp(1.5rem, 5vw, 4.5rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 3rem var(--gap);
   }
 
   .retourne-carte .planche-titre {
@@ -336,5 +382,11 @@
     left: 0.75rem;
     bottom: 0.75rem;
     font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .retournes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }

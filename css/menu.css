@@ -33,6 +33,11 @@
   flex-direction: column;
 }
 
+/* Le menu reçoit le focus à l'ouverture (js/menu.js) : pas de cadre autour. */
+.menu:focus {
+  outline: none;
+}
+
 /* Sans script, le menu s'ouvre quand même (commandes HTML) sur fond noir. */
 .menu::backdrop {
   background: #000;

@@ -158,13 +158,13 @@
 }
 
 /*
- * Du carnet à la peau : les quatre temps côte à côte, comme une frise. Au
- * téléphone, le chiffre et le mot ; dès la tablette, la phrase aussi.
+ * Du carnet à la peau : les quatre temps, deux par deux au téléphone, côte
+ * à côte comme une frise dès la tablette ; chacun avec son mot et sa phrase.
  */
 .etapes {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.25rem var(--gap);
 }
 
 .etape .cadre {
@@ -173,13 +173,14 @@
 
 .etape-tete {
   display: flex;
-  flex-direction: column-reverse;
-  gap: 0.15rem;
-  padding-top: 0.6rem;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
 }
 
 .etape-titre {
-  font-size: 1rem;
+  font-size: 1.375rem;
   line-height: 1.1;
 }
 
@@ -188,20 +189,16 @@
 }
 
 .etape p {
-  display: none;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--blanc-doux);
 }
 
 @media (min-width: 768px) {
   .etapes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--gap);
-  }
-
-  .etape-tete {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 0.5rem;
-    padding-top: 0.75rem;
   }
 
   .etape-titre {
@@ -209,11 +206,8 @@
   }
 
   .etape p {
-    display: block;
     margin-top: 0.35rem;
     font-size: 1.0625rem;
-    line-height: 1.3;
-    color: var(--blanc-doux);
   }
 }
 

@@ -33,6 +33,9 @@ export function initMenu() {
   let minuteurPage = 0;
 
   dialog.classList.add("anime");
+  // Le focus va au menu lui-même, pas à son premier lien : sinon le téléphone
+  // encadre ce lien et le croit choisi.
+  dialog.tabIndex = -1;
   montrerEmbleme(indexCourant);
 
   /** @param {Event} [event] */
@@ -43,6 +46,7 @@ export function initMenu() {
     dialog.classList.remove("se-ferme");
     if (!dialog.open) {
       dialog.showModal();
+      dialog.focus({ preventScroll: true });
       couche.ouverte();
     }
     html.classList.add("menu-ouvert");
