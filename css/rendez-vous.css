@@ -1,268 +1,107 @@
 /*
- * Rendez-vous : les deux canaux, puis le
- * message, déjà écrit sur une carte de papier (js/composeur.js) : on touche
- * les mots soulignés pour les changer (le sélecteur du téléphone s'ouvre),
- * on coche ses jours sur la carte même, et elle part par e-mail ou se copie
- * pour Instagram. Sans script, la liste de ce qu'il faut écrire reste à sa
- * place.
+ * Rendez-vous : les canaux, puis le formulaire (js/composeur.js) : champs à
+ * filet sur fond noir, un seul bouton qui ouvre WhatsApp avec le message déjà
+ * écrit. Sans script, la liste de ce qu'il faut écrire reste à sa place.
  */
 
-/* Le message : la carte, puis ce qu'on en fait. */
-.composeur {
+.formulaire {
   display: grid;
-  gap: 2rem;
+  gap: 1.5rem;
+  max-width: 40rem;
 }
 
-/*
- * La carte : papier crème au grain léger, double filet rouge comme une carte
- * gravée, l'œil de Maxime imprimé en tête. Posée droite.
- */
-.lettre {
-  --encre: #1a1714;
-  position: relative;
-  padding: 2rem 1.5rem 2.25rem;
-  background-color: #e9e2d4;
-  background-image:
-    radial-gradient(ellipse at 50% 35%, rgb(255 255 255 / 0.28), rgb(255 255 255 / 0) 60%),
-    radial-gradient(ellipse at 50% 50%, rgb(120 90 50 / 0) 55%, rgb(120 90 50 / 0.16) 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.36 0 0 0 0 0.27 0 0 0 0 0.17 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  color: var(--encre);
-  box-shadow: 0 1.1rem 2.25rem rgb(0 0 0 / 0.6);
-  text-shadow: none;
+.champ {
+  display: grid;
+  gap: 0.5rem;
+  align-content: start;
+  min-width: 0;
 }
 
-.lettre::before,
-.lettre::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-
-.lettre::before {
-  inset: 0.5rem;
-  border: 1px solid rgb(168 22 27 / 0.55);
-}
-
-.lettre::after {
-  inset: 0.75rem;
-  border: 1px solid rgb(168 22 27 / 0.22);
-}
-
-.lettre-tete {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* L'emblème blanc de Maxime, passé à l'encre sur le papier. */
-.lettre-embleme {
-  width: auto;
-  height: 5.25rem;
-  filter: invert(0.9) sepia(0.35);
-  opacity: 0.88;
-}
-
-.lettre-a {
-  margin-top: 0.75rem;
-  color: var(--sang);
-}
-
-.lettre-a::after {
-  content: "";
-  display: block;
-  width: 1.75rem;
-  margin: 0.75rem auto 0;
-  border-top: 1px solid var(--sang);
-}
-
-.lettre-corps {
-  margin-top: 1.25rem;
-  font-style: italic;
-  font-size: 1.1875rem;
-  line-height: 2.1;
-  -webkit-hyphens: manual;
-  hyphens: manual;
-}
-
-.lettre-idee label {
-  display: block;
-}
-
-.lettre-facultatif {
-  margin-left: 0.4em;
-  color: rgb(26 23 20 / 0.55);
-  font-style: normal;
-  font-size: 0.7em;
-}
-
-/* La signature : le prénom, écrit à la main sous le remerciement. */
-.lettre-signature {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.lettre-champ--signature {
-  width: min(16rem, 100%);
-  margin-top: 0.4rem;
-  font-size: 1.35em;
-}
-
-.lettre-corps > * + * {
-  margin-top: 0.9em;
-}
-
-/*
- * Les mots à choisir : soulignés à l'encre rouge, un petit triangle après.
- * Le vrai sélecteur est posé dessus, invisible : le toucher ouvre la liste
- * du téléphone, le clavier et les lecteurs d'écran s'en servent tel quel.
- */
-/* Dans .insecable, le mot garde sa ponctuation ; seul le mot lui-même peut passer à la ligne. */
-.blanc {
-  position: relative;
-  display: inline-block;
-  max-width: 100%;
-  white-space: normal;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Le sélecteur déborde un peu du mot : une zone assez haute pour le pouce. */
-.blanc select {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  opacity: 0;
+.champ label,
+.champ legend {
+  font-family: var(--font-capitales);
   font-size: 1rem;
-  cursor: pointer;
+  letter-spacing: 0.08em;
+  color: var(--blanc-doux);
+}
+
+.champ-facultatif {
+  margin-left: 0.4em;
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.champs-paire {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.formulaire :is(input[type="text"], select, textarea) {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--filet);
+  border-radius: 0;
+  background-color: rgb(0 0 0 / 0.55);
+  color: var(--blanc);
+  font: inherit;
+  font-size: 1.125rem;
+  transition: border-color 300ms var(--ease), background-color 300ms var(--ease);
+}
+
+.formulaire textarea {
+  display: block;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.formulaire select {
+  padding-right: 2.5rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 1.2rem) 50%, calc(100% - 0.9rem) 50%;
+  background-size: 0.3rem 0.3rem;
+  background-repeat: no-repeat;
   -webkit-appearance: none;
   appearance: none;
+  cursor: pointer;
 }
 
-/* Chaque choix est un vrai champ : encadré, teinté de rouge, avec sa flèche. */
-.blanc-texte {
-  display: inline-block;
-  padding: 0.05em 0.45em 0.1em;
-  border: 1px solid rgb(168 22 27 / 0.75);
-  background: rgb(168 22 27 / 0.1);
-  color: var(--sang);
-  font-style: normal;
-  line-height: 1.3;
-  transition: background-color 300ms var(--ease);
+.formulaire option {
+  background: #111;
+  color: var(--blanc);
 }
 
-.blanc-texte::after {
-  content: "";
-  display: inline-block;
-  width: 0.38em;
-  height: 0.38em;
-  margin: 0 0.1em 0.2em 0.5em;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  rotate: 45deg;
+.formulaire ::placeholder {
+  color: var(--blanc-doux);
+  opacity: 0.6;
 }
 
-.blanc select:focus-visible + .blanc-texte {
-  outline: 1px solid var(--sang);
-  outline-offset: 2px;
-}
-
-.blanc:active .blanc-texte {
-  background: rgb(168 22 27 / 0.22);
-}
-
-/* Ce qu'on écrit soi-même : l'endroit « ailleurs », l'idée du projet. */
-.lettre-champ {
-  padding: 0.1rem 0;
-  border: 0;
-  border-bottom: 1px dashed rgb(168 22 27 / 0.7);
-  border-radius: 0;
-  background: transparent;
-  color: var(--sang);
-  font: inherit;
-  font-style: italic;
-  transition: border-color 300ms var(--ease);
-}
-
-.lettre-champ::placeholder {
-  color: rgb(26 23 20 / 0.45);
-}
-
-.lettre-champ:focus {
-  border-bottom-style: solid;
-  border-bottom-color: var(--sang);
+.formulaire :is(input, select, textarea):focus {
+  border-color: var(--sang-vif);
   outline: none;
 }
 
-/* La ligne « ailleurs » prend la longueur de ce qu'on écrit (js/composeur.js). */
-.lettre-champ--ligne {
-  width: 10em;
-  max-width: 100%;
+.formulaire :is(input, select, textarea):user-invalid {
+  border-color: var(--sang-vif);
 }
 
-/* Quand on écrit soi-même l'endroit ou la taille : la ligne remplace le champ rouge. */
-.champ-libre {
-  display: inline-flex;
-  align-items: baseline;
-  max-width: 100%;
-}
-
-.champ-libre .lettre-champ--ligne {
-  min-width: 6em;
-  max-width: calc(100vw - 7rem);
-}
-
-.champ-retour {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 1.75rem;
-  height: 1.75rem;
-  margin-left: 0.3rem;
-  border: 1px solid rgb(168 22 27 / 0.55);
-  color: var(--sang);
-  font-style: normal;
-  font-size: 0.9rem;
-  line-height: 1;
-}
-
-.champ-retour:active {
-  background: rgb(168 22 27 / 0.2);
-}
-
-/* L'idée s'écrit sur des lignes fines, comme sur une feuille réglée. */
-textarea.lettre-champ {
-  display: block;
-  width: 100%;
-  min-height: 3.1em;
-  margin-top: 0.25rem;
+.champ-jours {
+  min-width: 0;
   padding: 0;
-  border-bottom: 0;
-  background-image: linear-gradient(to bottom, rgb(168 22 27 / 0) calc(100% - 1px), rgb(168 22 27 / 0.45) calc(100% - 1px));
-  background-size: 100% 1.55em;
-  background-attachment: local;
-  line-height: 1.55;
-  overflow: hidden;
-  resize: none;
+  border: 0;
 }
 
-textarea.lettre-champ:focus {
-  background-image: linear-gradient(to bottom, rgb(168 22 27 / 0) calc(100% - 1px), rgb(168 22 27 / 0.8) calc(100% - 1px));
-}
-
-/* Les jours : cinq carrés à cocher sur la carte, pleins d'encre une fois cochés. */
-.lettre-jours legend {
+.champ-jours legend {
   margin-bottom: 0.5rem;
+  padding: 0;
 }
 
 .jours {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.35rem;
-  max-width: 21rem;
-  font-style: normal;
 }
 
 .jour {
@@ -286,8 +125,8 @@ textarea.lettre-champ:focus {
   flex: 1;
   justify-content: center;
   align-items: center;
-  min-height: 2.75rem;
-  border: 1px solid rgb(26 23 20 / 0.45);
+  min-height: 3rem;
+  border: 1px solid var(--filet);
   font-family: var(--font-capitales);
   font-size: 1rem;
   letter-spacing: 0.04em;
@@ -295,32 +134,23 @@ textarea.lettre-champ:focus {
 }
 
 .jour input:checked + span {
-  border-color: var(--encre);
-  background: var(--encre);
-  color: #e9e2d4;
+  border-color: var(--blanc);
+  background: var(--blanc);
+  color: var(--noir);
 }
 
 .jour input:focus-visible + span {
-  outline: 1px solid var(--sang);
+  outline: 1px solid var(--sang-vif);
   outline-offset: 2px;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .jour:hover input:not(:checked) + span {
-    border-color: var(--encre);
-  }
-
-  .blanc:hover .blanc-texte {
-    background: rgb(168 22 27 / 0.2);
+    border-color: var(--blanc);
   }
 }
 
-.composeur-actions {
-  display: grid;
-  gap: 0.6rem;
-}
-
-.composeur-note {
+.formulaire-note {
   margin-top: 1rem;
   font-size: 1rem;
   line-height: 1.35;
@@ -328,55 +158,15 @@ textarea.lettre-champ:focus {
 }
 
 @media (min-width: 768px) {
-  .lettre {
-    padding: 2.5rem 2.5rem 2.75rem;
-  }
-
-  .lettre-embleme {
-    height: 6rem;
-  }
-
-  .lettre-corps {
-    font-size: 1.3125rem;
-  }
-
-  .composeur-actions {
+  .champs-paire {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--gap);
   }
 }
 
-/*
- * Ordinateur : la carte, posée au milieu comme une lettre sur la table, avec
- * les deux façons de l'envoyer juste dessous, sur la même largeur.
- */
+/* Ordinateur : le formulaire reste étroit, posé à gauche sous son titre. */
 @media (min-width: 1024px) {
-  .composeur {
-    max-width: 52rem;
-    margin-inline: auto;
-    gap: 2.5rem;
-  }
-
-  .lettre {
-    padding: 3.5rem 4.5rem 4rem;
-  }
-
-  .lettre-embleme {
-    height: 6.5rem;
-  }
-
-  .lettre-corps {
-    margin-top: 2rem;
-    font-size: 1.5rem;
-    line-height: 2;
-  }
-
-  .jours {
-    max-width: 30rem;
-  }
-
-  .composeur-actions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--gap);
+  .formulaire {
+    gap: 1.75rem;
   }
 }

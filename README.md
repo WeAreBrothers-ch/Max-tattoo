@@ -32,7 +32,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 - **Tatouages** : un thème à la fois (`js/themes.js`) ; l'adresse garde le thème (`tatouages.html#cranes`), le « retour » ramène au précédent puis aux quatre dessins. Les quatre emblèmes restent en onglets collés sous la barre, sur un noir plein qui passe sous son fondu : aucun jour entre les deux. Les deux parties des Flashs se choisissent dans une liste fine façon table des matières (chiffre rouge, nom, nombre de dessins, losange rouge sur celle qui est ouverte), sans rien de collé ni d'encadré.
 - **Processus** : un cadre unique (`js/processus.js`) ; on touche un temps, on glisse l'image, on touche les flèches posées sur l'image ou les touches ← →, la nouvelle se découvre de bas en haut ; seule la documentation de ce temps s'affiche (`processus.html#encre`).
 - **Flashs** : onglets « Disponibles » / « Déjà tatoués » (`js/onglets.js`) ; un dessin tatoué se retourne sur la pièce portée (`js/retourne.js`). « Réserver ce dessin » ouvre le formulaire avec ce flash déjà choisi (`rendez-vous.html?flash=dague-et-roses#ecrire`).
-- **Rendez-vous** (en-tête sobre comme les autres pages, sans dessin sur le côté ) : le message est déjà écrit sur une carte de papier (`js/composeur.js`) : papier crème au grain léger, double filet rouge, l'œil de Maxime imprimé à l'encre en tête. Les choix (flash ou projet, l'endroit, la taille, l'horaire) sont des champs encadrés de rouge, avec leur flèche, posés dans la phrase ; chacun cache un vrai sélecteur. « Un autre endroit… » ou « une autre taille… » remplace le champ par une ligne où l'on écrit soi-même : ce qu'on écrit prend la place du mot dans la phrase (↺ ramène à la liste). On peut aussi ajouter un mot libre, cocher ses jours et signer de son prénom. Sur ordinateur, la carte est posée au milieu, les deux boutons d'envoi dessous. Le message part par e-mail (sujet et texte déjà remplis) ou se copie pour Instagram.
+- **Rendez-vous** (en-tête sobre comme les autres pages, sans dessin sur le côté) : un formulaire classique (`js/composeur.js`) — prénom, demande (flash ou projet personnel), idée, emplacement, taille, jours de disponibilité, message libre. « Envoyer sur WhatsApp » rédige le message et ouvre WhatsApp avec le texte déjà écrit. Le studio : portrait sous plein cintre, réduit (trois colonnes sur ordinateur, deux tiers de la largeur au téléphone).
 - **Visionneuse** : l'œuvre grandit depuis sa vignette ; on glisse de l'une à l'autre, on la tire vers le bas pour la reposer, et elle retourne à sa place.
 - **Retour du téléphone** : le bouton ou le geste « retour » referme le menu ou la visionneuse au lieu de quitter la page.
 - **Animations** : courtes sur téléphone (on y fait défiler vite), aucune ne fait attendre le pouce. D'une page à l'autre, la barre du haut ne bouge pas. Zones tactiles de 44 px, marges de sécurité (encoche).
@@ -59,7 +59,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 │   ├── tatouages.css     quatre dessins à choisir, onglets d'emblèmes, chapitres
 │   ├── processus.css     cadre des quatre temps, documentation
 │   ├── flashs.css        onglets, planches en grand, cartes qui se retournent
-│   ├── rendez-vous.css   carte du message à compléter
+│   ├── rendez-vous.css   formulaire de demande
 │   ├── visionneuse.css   œuvres en grand
 │   └── pied.css
 ├── js/
@@ -72,7 +72,7 @@ Chaque disposition est d'abord pensée pour le pouce, puis élargie ; rien n'est
 │   ├── processus.js      Processus : le cadre des quatre temps
 │   ├── onglets.js        Flashs : disponibles, déjà tatoués
 │   ├── retourne.js       Flashs : le dessin tatoué se retourne sur la peau
-│   ├── composeur.js      Rendez-vous : le message préparé, e-mail ou copie pour Instagram
+│   ├── composeur.js      Rendez-vous : le formulaire, message préparé et envoyé sur WhatsApp
 │   ├── revele.js         apparition des images et des textes au défilement
 │   ├── visionneuse.js    œuvres en grand : envol depuis la vignette, glisser, tirer vers le bas, flèches, Échap
 │   ├── melange.js        ordre aléatoire des flashs disponibles
@@ -132,6 +132,7 @@ puis ouvrir `http://localhost:8000/`.
 
 ## À compléter avant la mise en ligne
 
+- **WhatsApp de Maxime** : le lien « WhatsApp » de la page Rendez-vous est marqué `data-a-completer="whatsapp"`. Remplacer son `href="#"` par `https://wa.me/41791234567` (indicatif et numéro, sans « + » ni espaces). Le formulaire reprend ce numéro tout seul ; tant qu'il manque, WhatsApp s'ouvre sans destinataire.
 - **Instagram et e-mail de Maxime** : les liens sont marqués `data-a-completer="instagram"` et `data-a-completer="e-mail"` (menu, pied de page, page Rendez-vous). Remplacer leur `href="#"` par l'adresse du compte et par `mailto:…`. Le bouton « Envoyer par e-mail » du message préparé reprend cette adresse tout seul ; tant qu'elle manque, la messagerie s'ouvre sans destinataire.
 - **Adresse du site** : une fois le domaine connu, passer `og:image` en adresse absolue (`https://…/assets/img/partage.jpg`) pour les aperçus de partage.
 - Contenus à relire avec Maxime : notes de la page Processus (écrites dans sa voix), tailles et emplacements des flashs, saisons passées, date de mise à jour du catalogue.

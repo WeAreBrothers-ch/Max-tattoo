@@ -87,16 +87,17 @@
       <div class="section-filet cap"><span>I</span><span>Écrire</span></div>
       <h2 class="masque" id="titre-ecrire">Écrire à Maxime</h2>
       <ul class="canaux">
+        <li data-revele="texte"><a class="canal" href="#" data-a-completer="whatsapp"><span>WhatsApp<span class="canal-detail cap">Message direct</span></span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
         <li data-revele="texte"><a class="canal" href="#" data-a-completer="instagram"><span>Instagram<span class="canal-detail cap">Message privé</span></span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
         <li data-revele="texte"><a class="canal" href="#" data-a-completer="e-mail"><span>E-mail<span class="canal-detail cap">Réponse sous 48 heures</span></span><span class="canal-fleche" aria-hidden="true">→</span></a></li>
       </ul>
     </section>
 
     <section class="section contenu voile" id="message" aria-labelledby="titre-message">
-      <div class="section-filet cap"><span>II</span><span>Le message</span></div>
+      <div class="section-filet cap"><span>II</span><span>Formulaire</span></div>
       <div class="section-tete">
-        <h2 class="section-titre" id="titre-message" data-revele="titre">Préparer le message</h2>
-        <p class="section-chapeau" data-revele="texte">Le message est déjà sur la carte&nbsp;: il reste à choisir les champs rouges et à écrire ce qui vous est propre. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
+        <h2 class="section-titre" id="titre-message" data-revele="titre">Votre demande</h2>
+        <p class="section-chapeau" data-revele="texte">Remplissez le formulaire&nbsp;: votre demande part sur WhatsApp, déjà rédigée. Une photo de l'emplacement aide, une référence d'image aussi pour un projet personnalisé.</p>
       </div>
       <ol class="message-liste" data-message-liste>
         <li data-revele="texte">Le nom du flash choisi, ou l'idée du projet</li>
@@ -104,65 +105,71 @@
         <li data-revele="texte">La taille approximative</li>
         <li data-revele="texte">Vos disponibilités en semaine</li>
       </ol>
-      <form class="composeur" data-composeur hidden>
-        <div class="lettre">
-          <div class="lettre-tete">
-            <img class="lettre-embleme" src="assets/img/em-oeil.webp" alt="" loading="lazy" decoding="async" width="598" height="900" />
-            <p class="lettre-a cap">À Maxime, tatoueur</p>
+      <form class="formulaire" data-formulaire hidden>
+        <div class="champ">
+          <label for="prenom">Prénom</label>
+          <input id="prenom" name="prenom" type="text" autocomplete="given-name" required />
+        </div>
+        <div class="champ">
+          <label for="objet">Votre demande</label>
+          <select id="objet" name="objet" data-objet>
+            <option value="réserver le flash «&nbsp;Dague et roses&nbsp;»" data-flash="Dague et roses" data-cle="dague-et-roses">Réserver le flash «&nbsp;Dague et roses&nbsp;»</option>
+            <option value="réserver le flash «&nbsp;Masse d'armes&nbsp;»" data-flash="Masse d'armes" data-cle="masse-d-armes">Réserver le flash «&nbsp;Masse d'armes&nbsp;»</option>
+            <option value="vous proposer un projet personnel">Proposer un projet personnel</option>
+          </select>
+        </div>
+        <div class="champ" data-si-projet hidden>
+          <label for="idee">Votre idée</label>
+          <textarea id="idee" name="idee" rows="3" placeholder="Une main qui tient une clé, avec des roses…"></textarea>
+        </div>
+        <div class="champs-paire">
+          <div class="champ">
+            <label for="ou">Emplacement</label>
+            <select id="ou" name="ou">
+              <option value="l'avant-bras">Avant-bras</option>
+              <option value="le bras">Bras</option>
+              <option value="l'épaule">Épaule</option>
+              <option value="les côtes">Côtes</option>
+              <option value="le flanc">Flanc</option>
+              <option value="le dos">Dos</option>
+              <option value="la nuque">Nuque</option>
+              <option value="la poitrine">Poitrine</option>
+              <option value="la cuisse">Cuisse</option>
+              <option value="le mollet">Mollet</option>
+              <option value="le pied">Pied</option>
+              <option value="la main">Main</option>
+              <option value="__autre">Autre endroit…</option>
+            </select>
+            <input class="champ-libre" name="ou_libre" type="text" placeholder="Précisez l'endroit" aria-label="Préciser l'emplacement" autocomplete="off" hidden />
           </div>
-          <div class="lettre-corps">
-            <p>Bonjour Maxime,</p>
-            <p>Je voudrais <span class="insecable"><span class="blanc" data-choix="objet"><select name="objet" aria-label="Ce que vous souhaitez" data-objet>
-                  <option value="réserver le flash «&nbsp;Dague et roses&nbsp;»" data-flash="Dague et roses" data-cle="dague-et-roses">réserver le flash «&nbsp;Dague et roses&nbsp;»</option>
-                  <option value="réserver le flash «&nbsp;Masse d'armes&nbsp;»" data-flash="Masse d'armes" data-cle="masse-d-armes">réserver le flash «&nbsp;Masse d'armes&nbsp;»</option>
-                  <option value="vous proposer un projet personnel">vous proposer un projet personnel</option>
-                </select><span class="blanc-texte" aria-hidden="true"></span></span>,</span> sur <span class="insecable"><span class="blanc" data-choix="ou"><select name="ou" aria-label="Où, sur le corps">
-                  <option value="l'avant-bras">l'avant-bras</option>
-                  <option value="le bras">le bras</option>
-                  <option value="l'épaule">l'épaule</option>
-                  <option value="les côtes">les côtes</option>
-                  <option value="le flanc">le flanc</option>
-                  <option value="le dos">le dos</option>
-                  <option value="la nuque">la nuque</option>
-                  <option value="la poitrine">la poitrine</option>
-                  <option value="la cuisse">la cuisse</option>
-                  <option value="le mollet">le mollet</option>
-                  <option value="le pied">le pied</option>
-                  <option value="la main">la main</option>
-                  <option value="__autre">un autre endroit…</option>
-                </select><span class="blanc-texte" aria-hidden="true"></span></span><span class="champ-libre" data-libre="ou" hidden><input class="lettre-champ lettre-champ--ligne" name="ou_libre" type="text" placeholder="l'endroit, comme vous le dites" aria-label="Préciser l'endroit" autocomplete="off" /><button class="champ-retour" type="button" data-retour aria-label="Revenir à la liste"><span aria-hidden="true">↺</span></button></span>,</span> <span class="insecable"><span class="blanc" data-choix="taille"><select name="taille" aria-label="Taille">
-                  <option value="en petit, moins de 10 cm">en petit, moins de 10 cm</option>
-                  <option value="entre 10 et 20 cm" selected>entre 10 et 20 cm</option>
-                  <option value="en grand, plus de 20 cm">en grand, plus de 20 cm</option>
-                  <option value="__autre">une autre taille…</option>
-                </select><span class="blanc-texte" aria-hidden="true"></span></span><span class="champ-libre" data-libre="taille" hidden><input class="lettre-champ lettre-champ--ligne" name="taille_libre" type="text" placeholder="ex. : 15 cm de haut" aria-label="Préciser la taille" autocomplete="off" /><button class="champ-retour" type="button" data-retour aria-label="Revenir à la liste"><span aria-hidden="true">↺</span></button></span>.</span></p>
-            <p class="lettre-idee" data-si-projet hidden><label for="idee">L'idée&nbsp;:</label><textarea class="lettre-champ" id="idee" name="idee" rows="2" placeholder="une main qui tient une clé, avec des roses…"></textarea></p>
-            <p class="lettre-idee"><label for="mot">Ce que vous voulez que Maxime sache <span class="lettre-facultatif cap">facultatif</span></label><textarea class="lettre-champ" id="mot" name="mot" rows="2" placeholder="premier tatouage, peau sensible, recouvrement, une date qui compte…"></textarea></p>
-            <fieldset class="lettre-jours">
-              <legend>Je suis disponible&nbsp;:</legend>
-              <span class="jours">
-                <label class="jour"><input type="checkbox" name="jours" value="lundi" /><span>lun.</span></label>
-                <label class="jour"><input type="checkbox" name="jours" value="mardi" /><span>mar.</span></label>
-                <label class="jour"><input type="checkbox" name="jours" value="mercredi" /><span>mer.</span></label>
-                <label class="jour"><input type="checkbox" name="jours" value="jeudi" /><span>jeu.</span></label>
-                <label class="jour"><input type="checkbox" name="jours" value="vendredi" /><span>ven.</span></label>
-              </span>
-            </fieldset>
-            <p>Côté horaire&nbsp;: <span class="insecable"><span class="blanc" data-choix="horaire"><select name="horaire" aria-label="Côté horaire">
-                  <option value="" selected>peu importe</option>
-                  <option value="plutôt le matin">plutôt le matin</option>
-                  <option value="plutôt l'après-midi">plutôt l'après-midi</option>
-                  <option value="plutôt en fin de journée">plutôt en fin de journée</option>
-                </select><span class="blanc-texte" aria-hidden="true"></span></span>.</span></p>
-            <p class="lettre-signature">Merci, à bientôt.<input class="lettre-champ lettre-champ--signature" name="prenom" type="text" placeholder="votre prénom" aria-label="Votre prénom" autocomplete="given-name" /></p>
+          <div class="champ">
+            <label for="taille">Taille</label>
+            <select id="taille" name="taille">
+              <option value="en petit, moins de 10 cm">Moins de 10 cm</option>
+              <option value="entre 10 et 20 cm" selected>Entre 10 et 20 cm</option>
+              <option value="en grand, plus de 20 cm">Plus de 20 cm</option>
+              <option value="__autre">Autre taille…</option>
+            </select>
+            <input class="champ-libre" name="taille_libre" type="text" placeholder="Ex. : 15 cm de haut" aria-label="Préciser la taille" autocomplete="off" hidden />
           </div>
         </div>
-        <div class="composeur-suite">
-          <div class="composeur-actions">
-            <a class="bouton bouton--plein bouton--large cap" href="#" data-envoyer><span>Envoyer par e-mail</span><span class="fleche" aria-hidden="true">→</span></a>
-            <button class="bouton bouton--large cap" type="button" data-copier><span data-copier-libelle>Copier pour Instagram</span><span class="fleche" aria-hidden="true">→</span></button>
-          </div>
-          <p class="composeur-note">L'e-mail s'ouvre dans votre messagerie, le message déjà écrit. Pour Instagram, collez-le dans un message privé. Joignez une photo de l'emplacement si vous en avez une.</p>
+        <fieldset class="champ champ-jours">
+          <legend>Disponibilités en semaine</legend>
+          <span class="jours">
+            <label class="jour"><input type="checkbox" name="jours" value="lundi" /><span>lun.</span></label>
+            <label class="jour"><input type="checkbox" name="jours" value="mardi" /><span>mar.</span></label>
+            <label class="jour"><input type="checkbox" name="jours" value="mercredi" /><span>mer.</span></label>
+            <label class="jour"><input type="checkbox" name="jours" value="jeudi" /><span>jeu.</span></label>
+            <label class="jour"><input type="checkbox" name="jours" value="vendredi" /><span>ven.</span></label>
+          </span>
+        </fieldset>
+        <div class="champ">
+          <label for="mot">Message <span class="champ-facultatif">facultatif</span></label>
+          <textarea id="mot" name="mot" rows="3" placeholder="Premier tatouage, peau sensible, recouvrement…"></textarea>
+        </div>
+        <div class="formulaire-envoi">
+          <button class="bouton bouton--plein bouton--large cap" type="submit"><span>Envoyer sur WhatsApp</span><span class="fleche" aria-hidden="true">→</span></button>
+          <p class="formulaire-note">WhatsApp s'ouvre avec votre message déjà écrit&nbsp;: il ne reste qu'à l'envoyer. Joignez une photo de l'emplacement si vous en avez une.</p>
         </div>
       </form>
     </section>
@@ -184,10 +191,10 @@
     <section class="section contenu voile" id="studio" aria-labelledby="titre-studio">
       <div class="section-filet cap"><span>IV</span><span>Le studio</span></div>
       <div class="grille atelier">
-        <figure class="oeuvre" style="--c: 1 / -1; --h: 2.5rem; --cd: 1 / span 5; --hd: 4rem" data-revele="image">
+        <figure class="oeuvre" style="--c: 1 / span 4; --h: 2.5rem; --cd: 1 / span 3; --hd: 4rem" data-revele="image">
           <div class="cadre cadre--arche" style="--r: 2 / 3"><img class="photo" src="assets/img/st-1.jpg" alt="Maxime, les bras croisés sur le dossier d'un fauteuil" loading="lazy" decoding="async" width="600" height="900" /></div>
         </figure>
-        <div class="atelier-texte" style="--c: 1 / -1; --h: 2.5rem; --cd: 7 / -1; --hd: 4rem">
+        <div class="atelier-texte" style="--c: 1 / -1; --h: 2.5rem; --cd: 5 / -1; --hd: 4rem">
           <h2 class="atelier-phrase" id="titre-studio" data-revele="texte">Un studio privé, calme et sans passage.</h2>
           <p data-revele="texte">Maxime tatoue en Suisse romande, sur rendez-vous, en semaine. L'adresse exacte est communiquée à la confirmation du rendez-vous.</p>
         </div>
